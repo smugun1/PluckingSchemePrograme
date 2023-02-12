@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Plucking planner Save_data {% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<body>
+<html>
+<head>
+    <title>Plucking planner Save_data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+{% block body %}
+<body>
+<div class="container bg-info" >
+    <h1 class="text-center mt-5">Plucking Planner</h1>
+    <div class="text-center mt-3">
+        <a class="btn btn-warning bg-primary btn-info block-lg" href="{% url 'plucking_planner' %}">Results</a>
+        <form  action="" method="post">
+            {% csrf_token %}
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Division Area</label>
+                <input type="text" name="division_area" class="form-control" id="division_area">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">VP Percentage</label>
+                <input type="text" name="VP_percentage" class="form-control" id="VP_percentage">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">SD Percentage</label>
+                <input type="text" name="SD_percentage" class="form-control" id="SD_percentage">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Month</label>
+                <input type="text" name="month" class="form-control" id="month">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">VP Division Area</label>
+                <input type="text" name="VP_division_area" class="form-control" id="VP_division_area">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">SD Division Area</label>
+                <input type="text" name="SD_division_area" class="form-control" id="SD_division_area">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">VP Blocks Per Zone</label>
+                <input type="text" name="VP_blocks_per_zone" class="form-control" id="VP_blocks_per_zone">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">SD Blocks Per Zone</label>
+                <input type="text" name="SD_blocks_per_zone" class="form-control" id="SD_blocks_per_zone">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">VP Zone Size</label>
+                <input type="text" name="VP_zone_size" class="form-control" id="VP_zone_size">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">SD Zone Size</label>
+                <input type="text" name="SD_zone_size" class="form-control" id="SD_zone_size">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">VP Schemes Per Division</label>
+                <input type="text" name="VP_schemes_per_division" class="form-control" id="VP_schemes_per_division">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">SD Schemes Per Division</label>
+                <input type="text" name="SD_schemes_per_division" class="form-control" id="SD_schemes_per_division">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">VP Rounds Per Zone</label>
+                <input type="text" name="VP_rounds_per_zone" class="form-control" id="VP_rounds_per_zone">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">SD Rounds Per Zone</label>
+                <input type="text" name="SD_rounds_per_zone" class="form-control" id="SD_rounds_per_zone">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Total Pluckers Per Division</label>
+                <input type="text" name="total_pluckers_per_division" class="form-control"
+                       id="total_pluckers_per_division">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Total Supervisors Per Division</label>
+                <input type="text" name="total_supervisors_per_division" class="form-control"
+                       id="total_supervisors_per_division">
+            </div>
+            <div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Total Schemes Per Division</label>
+                <input type="text" name="total_schemes_per_division" class="form-control"
+                       id="total_schemes_per_division">
+            </div>
+            <input type="submit" value="Save Data">
+            <a class="btn btn-warning bg-primary btn-info block-lg" href="{% url 'plucking_planner' %}">Return</a>
+        </form>
+
+        {% if data %}
+        <h2>Plucking Planner Save_data</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Result</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row.0 }}</td>
+                <td>{{ row.1 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

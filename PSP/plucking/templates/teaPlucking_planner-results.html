@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Plucking Planner Results {% endblock %}
+
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plucking Planner Results</title>
+</head>
+<body>
+<table>
+    <form>
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>VP Division Area</td>
+            <td>{{ data[0][1] }}</td>
+        </tr>
+        <tr>
+            <td>Sd Division Area</td>
+            <td>{{ data[1][1] }}</td>
+        </tr>
+        <tr>
+            <td>VP Blocks per Zone</td>
+            <td>{{ data[2][1] }}</td>
+        </tr>
+        <tr>
+            <td>Sd Blocks per Zone</td>
+            <td>{{ data[3][1] }}</td>
+        </tr>
+        <tr>
+            <td>VP Zone Size</td>
+            <td>{{ data[4][1] }}</td>
+        </tr>
+        <tr>
+            <td>Sd Zone Size</td>
+            <td>{{ data[5][1] }}</td>
+        </tr>
+        <tr>
+            <td>VP Schemes per Division</td>
+            <td>{{ data[6][1] }}</td>
+        </tr>
+        <tr>
+            <td>Sd Schemes per Division</td>
+            <td>{{ data[7][1] }}</td>
+        </tr>
+        <tr>
+            <td>Total Working Days</td>
+            <td>{{ data[8][1] }}</td>
+        </tr>
+        <tr>
+            <td>VP Rounds per Zone</td>
+            <td>{{ data[9][1] }}</td>
+        </tr>
+        <tr>
+            <td>Sd Rounds per Zone</td>
+            <td>{{ data[10][1] }}</td>
+        </tr>
+        <tr>
+            <td>Total Pluckers per Division</td>
+            <td>{{ data[11][1] }}</td>
+        </tr>
+        <tr>
+            <td>Total Supervisors per Division</td>
+            <td>{{ data[12][1] }}</td>
+        </tr>
+        <tr>
+            <td>Total Schemes per Division</td>
+            <td>{{ data[13][1] }}</td>
+        </tr>
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    {% if data %}
+    <h2>Plucking Planner Results</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Data</th>
+            <th>Result</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in data %}
+        <tr>
+            <td>{{ row.0 }}</td>
+            <td>{{ row.1 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</table>
+</body>
+</html>
+{% endblock %}
