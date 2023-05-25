@@ -36,6 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'plucking',
+    'members',
+    'import_export',
+    'templatetags',
+    # 'chartjs',
+
 ]
 
 MIDDLEWARE = [

@@ -1,28 +1,46 @@
- h1 {
 
- color: purple;
+      h1 {
 
- }
+      color: navy blue;
 
- h2 {
+      }
 
- color: green;
+     h2 {
 
- }
+      color:  #0d0a80;
 
- h3 {
+      }
 
- color: red;
+     h3 {
 
- }
-  h4 {
+      color:  purple;
 
- color: orange;
+      }
 
- }
+      h4 {
 
- P { font-size: 12pt; }
+      color:  green;
 
- p { color: navy blue; }
+      }h5 {
 
- BODY { background-color: beige; }
+      color: gold;
+
+      }
+
+      P { font-size: 10pt; }
+
+      p { color: navy blue; }
+
+     body {
+     background-color: beige;
+     }
+
+   .my-card:hover {
+    transform: scale(1.1);
+    transition: 0.2s ease-in-out;
+}
+
+
+    .btn {
+    border-radius: 10px;
+    }

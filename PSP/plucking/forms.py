@@ -1,29 +1,27 @@
 from django import forms
-from .models import PluckingRequirements, PluckingRounds, TeaPluckingPlannerSaveData
+
+from .models import Resources, ProgrammedScheme, RoundsMonitor
 
 
-class PluckingForms(forms.ModelForm):
-    content = forms.CharField(label='SimKMN', widget=forms.TextInput(
-        attrs={'placeholder': 'Add task here...'}))
-
+class ResourcesForm(forms.ModelForm):
     class Meta:
-        model = PluckingRequirements
+        model = Resources
         fields = '__all__'
 
 
-class RoundsForms(forms.ModelForm):
-    content = forms.CharField(label='SimKMN', widget=forms.TextInput(
-        attrs={'placeholder': 'Add task here...'}))
-
+class PSPForms(forms.ModelForm):
     class Meta:
-        model = PluckingRounds
+        model = ProgrammedScheme
         fields = '__all__'
 
 
-class DataForm(forms.ModelForm):
-    content = forms.CharField(label='SimKMN', widget=forms.TextInput(
-        attrs={'placeholder': 'Add task here...'}))
-
+class ProgrammedSchemeForm(forms.ModelForm):
     class Meta:
-        model = TeaPluckingPlannerSaveData
+        model = ProgrammedScheme
+        fields = '__all__'
+
+
+class RoundsMonitorForm(forms.ModelForm):
+    class Meta:
+        model = RoundsMonitor
         fields = '__all__'

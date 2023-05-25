@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+<title>{% block title %}Plucking Rounds{% endblock %}</title>
+{% block body %}
+<div class="row g-4 d-flex align-items-center">
+    <div class="col-lg-12 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-4 px-4 my-4 py-4"
+             style="background-color: rgba(13, 70, 10, 1); border-radius: 20px">
+            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Plucking Rounds</h2>
+            <div class="border p-3" style="border-radius: 20px">
+                <a class="btn btn-Primary bg-primary btn-info block-lg"
+                   href="{% url 'plucking-rounds-update' %}">Add</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp' %}">Go To Dashboard</a>
+
+                <!-- plucking_rounds.html -->
+
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <table>
+                        {% for zone, data in table.items %}
+                        <tr>
+                            <th colspan="1">{{ zone }}</th>
+                        </tr>
+                        <tr>
+                            <th>Field</th>
+                            <th>Leaf Type</th>
+                            <th>Ha</th>
+                            <th>Days to Plk</th>
+                            <th>Prune Age</th>
+                            <th>Num of Schemes</th>
+                            <th>Growing Days C/f</th>
+                            <th></th>
+                        </tr>
+                        {% for index in data.Field %}
+                        <tr>
+                            <td><input type="text" name="Zone={{ zone }}&key=Field&index={{ forloop.counter0 }}"
+                                       value="{{ data.Field.forloop.counter0 }}"/></td>
+                            <td><input type="text" name="Zone={{ zone }}&key=Leaf_Type&index={{ forloop.counter0 }}"
+                                       value="{{ data.Leaf_Type.forloop.counter0 }}"/></td>
+                            <td><input type="text" name="Zone={{ zone }}&key=Ha&index={{ forloop.counter0 }}"
+                                       value="{{ data.Ha.forloop.counter0 }}"/></td>
+                            <td><input type="text" name="Zone={{ zone }}&key=Days_to_Plk&index={{ forloop.counter0 }}"
+                                       value="{{ data.Days_to_Plk.forloop.counter0 }}"/></td>
+                            <td><input type="text" name="Zone={{ zone }}&key=Prune_Age&index={{ forloop.counter0 }}"
+                                       value="{{ data.Prune_Age.forloop.counter0 }}"/></td>
+                            <td><input type="text"
+                                       name="Zone={{ zone }}&key=Num_of_Schemes&index={{ forloop.counter0 }}"
+                                       value="{{ data.Num_of_Schemes.forloop.counter0 }}"/></td>
+                            <td><input type="text"
+                                       name="Zone={{ zone }}&key=Growing_Days_C_f&index={{ forloop.counter0 }}"
+                                       value="{{ data.Growing_Days_C_f.forloop.counter0 }}"/></td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                        {% endfor %}
+                    </table>
+                    <button type="submit">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,394 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}dashboard{% endblock %}
+
+{% block body %}
+<!--top-->
+<div class="container">
+    <div class="container md-12">
+        <div class="container fluid bg-white text-secondary my-0 px-0 mb-0 mt-1" style="width: 200rem;">
+            <h1 class="text-center bg-dark text-primary">Dashboard</h1>
+        </div>
+        <div class="container fluid bg-white text-secondary my-0 px-0 mb-0 mt-1 mt-1" style="width: 250rem; border-radius: 20px;">
+            <div class="row my-5">
+                <div class="md-4">
+                    <div class="container my-0 mx-0 mt-1">
+                        <div class="row mt-1">
+                            <div class=" col-md-12">
+                                <div class="card">
+                                    <div class="card-header bg-light text-dark">
+                                        Plucking Planner
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class=" col-md-4">
+                                                <a class="text-decoration-none text-dark"
+                                                   href="{% url 'programmedscheme-record' %}">
+                                                    <div class="card my-card shadow text-center p-2">
+                                                        <h4>Plucking Record <i class="fa-solid fa-paperclip"></i></h4>
+                                                        <h3>4</h3>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class=" col-md-4">
+                                                <a class="text-decoration-none text-dark"
+                                                   href="">
+                                                    <div class="card my-card shadow text-center p-3">
+                                                        <h4>### <i class="fa fa-leaf" aria-hidden="true"></i>
+                                                        </h4>
+                                                        <h3>4</h3>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class=" col-md-2">
+                                                <a class="text-decoration-none text-dark" href="{% url 'psp-graphs' %}">
+                                                    <div class="card my-card shadow text-center p-3">
+                                                        <h4>Graphs <i class="fa fa-line-chart" aria-hidden="true"></i>
+                                                        </h4>
+                                                        <h3>4</h3>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class=" col-md-2">
+                                                <a class="text-decoration-none text-dark" href="{% url 'psp' %}">
+                                                    <div class="card my-card shadow text-center p-3">
+                                                        <h4>PSP <i class="fa fa-tachometer" aria-hidden="true"></i></h4>
+                                                        <h3>4</h3>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class=" col-md-4">
+                                                        <div class="card">
+                                                            <a class="text-decoration-none text-dark"
+                                                               href="{% url 'admin' %}">
+                                                                <div class="card my-card shadow text-center p-3">
+                                                                    <h4>Admin <i class="fa fa-university"
+                                                                                 aria-hidden="true"></i></h4>
+                                                                    <h3>4</h3>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <div class="card">
+                                                            <a class="text-decoration-none text-dark"
+                                                               href="{% url 'save_changes' %}">
+                                                                <div class="card my-card shadow text-center p-3">
+                                                                    <h4>Save <i class="fa fa-suitcase"
+                                                                                aria-hidden="true"></i></h4>
+                                                                    <h3>4</h3>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <div class="card">
+                                                            <a class="text-decoration-none text-dark"
+                                                               href="{% url 'plucking-rounds' %}">
+                                                                <div class="card my-card shadow text-center p-3">
+                                                                    <h4>Rounds <i class="fa fa-clock-o"
+                                                                                  aria-hidden="true"></i></h4>
+                                                                    <h3>4</h3>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class=" col-md-4">
+                                                        <div class="card">
+                                                            <a class="text-decoration-none text-dark"
+                                                               href="">
+                                                                <div class="card my-card shadow text-center p-3">
+                                                                    <h4>Update <i class="fa fa-level-up"
+                                                                                  aria-hidden="true"></i></h4>
+                                                                    <h3>4</h3>
+                                                                </div>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--mid-graphs-->
+                                            <div class="col-md-4">
+                                                <div class="bg-white">
+                                                    <canvas id="Chart" width="400" height="300"></canvas>
+                                                    <script>
+                                              const ctx = document.getElementById('Chart');
+
+                                              new Chart(ctx, {
+                                                type: 'pie',
+                                                data: {
+                                                  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                                  datasets: [{
+                                                    label: '# of Votes',
+                                                    data: [12, 19, 3, 5, 2, 3],
+                                                    borderWidth: 1
+                                                  }]
+                                                },
+                                                options: {
+                                                  scales: {
+                                                    y: {
+                                                      beginAtZero: true
+                                                    }
+                                                  }
+                                                }
+                                              });
+
+
+
+
+
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="bg-white">
+                                                    <canvas id="Chart0" width="400" height="300"></canvas>
+                                                    <script>
+                                              const ctx0 = document.getElementById('Chart0');
+
+                                              new Chart(ctx0, {
+                                                type: 'doughnut',
+                                                data: {
+                                                  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                                  datasets: [{
+                                                    label: '# of Votes',
+                                                    data: [12, 19, 3, 5, 2, 3],
+                                                    borderWidth: 1
+                                                  }]
+                                                },
+                                                options: {
+                                                  scales: {
+                                                    y: {
+                                                      beginAtZero: true
+                                                    }
+                                                  }
+                                                }
+                                              });
+
+
+
+
+
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="bg-white">
+                                                    <canvas id="Chart01" width="400" height="300"></canvas>
+                                                    <script>
+                                              const ctx01 = document.getElementById('Chart01');
+
+                                              new Chart(ctx01, {
+                                                type: 'bar',
+                                                data: {
+                                                  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                                  datasets: [{
+                                                    label: '# of Votes',
+                                                    data: [12, 19, 3, 5, 2, 3],
+                                                    borderWidth: 1
+                                                  }]
+                                                },
+                                                options: {
+                                                  scales: {
+                                                    y: {
+                                                      beginAtZero: true
+                                                    }
+                                                  }
+                                                }
+                                              });
+
+
+
+
+
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <div class="container bg-white text-secondary" style="width: 200rem; border-radius: 20px;">
+            <div class="row my-5">
+                <div class=" col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <div class="card-body">
+                                <div class="card-header bg-light text-dark">
+                                    Division Plucking Details
+                                </div>
+                                <marquee behaviour="" direction="">
+                                    <h4 class="my-3"><strong><em> Plucking details assessed from this dashboard.
+                                        plucking dashboard </em></strong></h4>
+                                </marquee>
+                                <a class="text-decoration-none text-dark" href="">
+                                    <div class="card my-card shadow text-center p-1">
+                                        <h5>Plucking figures <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                        </h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class=" col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <div class="card-body">
+                                <div class="card-header bg-light text-dark">
+                                    Plucking Rounds
+                                </div>
+                                <marquee behaviour="" direction="">
+                                    <h4 class="my-3"><strong><em> Graphs are displayed on the dashboard.
+                                        plucking dashboard </em></strong></h4>
+                                </marquee>
+                                <a class="text-decoration-none text-dark" href="">
+                                    <div class="card my-card shadow text-center p-1">
+                                        <h5>Plucking planner <i class="fa fa-calendar-check-o"
+                                                                aria-hidden="true"></i>
+                                        </h5>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!--end-top-->
+    <!--bottom-->
+    <!--lower_graphs>-->
+    <div class="container" style="border-radius: 20px;">
+        <div class="row my-5">
+            <div class="col-md-4">
+                <div class="bg-white">
+                    <canvas id="chart1" width="500" height="400"></canvas>
+                    <script>
+                        let ctx1 = document.getElementById("chart1").getContext("2d");
+                       new Chart(ctx1, {
+                          type: "doughnut",
+                          data: {
+                             labels: ["2022/Q1", "2022/Q2", "2022/Q3", "2022/Q4"],
+
+                             datasets: [
+                                {
+                                    label: "Gross volume ($)",
+                                    backgroundColor: [
+                                      'rgba(300, 22, 227, 1)',
+                                      'rgba(255, 99, 132, 1)',
+                                      'rgba(255, 159, 200, 1)',
+                                      'rgba(255, 205, 86, 1)',
+                                    ],
+                                   borderColor: [
+                                     'rgba(300, 22, 227)',
+                                      'rgb(255, 99, 132)',
+                                      'rgb(255, 159, 200)',
+                                      'rgb(255, 205, 86)',
+
+                                    ],
+                                  data: [26900, 28700, 27300, 29200],
+                                  borderWidth: 4
+                                }
+                             ]
+                          },
+                          options: {
+                             title: {
+
+                                text: "Gross Volume in 2022",
+                                display: true
+                             }
+                          }
+                        });
+
+
+
+
+
+                    </script>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-white">
+                    <div>
+                        <canvas id="Chart2" width="500" height="400"></canvas>
+                    </div>
+                    <script>
+                      const ctx2 = document.getElementById('Chart2');
+
+                      new Chart(ctx2, {
+                        type: 'bar',
+                        data: {
+                          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                          datasets: [{
+                            label: '# of Votes',
+                            data: [12, 19, 3, 5, 2, 3],
+                            borderWidth: 1
+                          }]
+                        },
+                        options: {
+                          scales: {
+                            y: {
+                              beginAtZero: true
+                            }
+                          }
+                        }
+                      });
+
+
+
+
+
+                    </script>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-white">
+                    <div>
+                        <canvas id="Chart3" width="500" height="400"></canvas>
+                    </div>
+                    <script>
+                      const ctx3 = document.getElementById('Chart3');
+
+                      new Chart(ctx3, {
+                        type: 'pie',
+                        data: {
+                          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                          datasets: [{
+                            label: '# of Votes',
+                            data: [12, 19, 3, 5, 2, 3],
+                            borderWidth: 1
+                          }]
+                        },
+                        options: {
+                          scales: {
+                            y: {
+                              beginAtZero: true
+                            }
+                          }
+                        }
+                      });
+
+
+
+
+
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        </div></div>
+<!--end-graphs>-->
+
+{% endblock %}

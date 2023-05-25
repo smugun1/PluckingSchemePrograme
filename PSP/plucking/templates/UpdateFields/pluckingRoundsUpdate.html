@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Plucking Rounds Update{% endblock %}
+
+{% block body %}
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 5px;
+    }
+</style>
+<a href="{% url 'plucking-rounds' %}" class="btn btn-info block-lg bg-success">Back</a>
+
+    <title>Plucking Rounds Update</title>
+
+<body>
+<h1>Plucking Rounds Update</h1>
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <th>Zone/Field</th>
+            <th>Type VP/SD</th>
+            <th>Ha</th>
+            <th>Days to plk</th>
+            <th>Prune Age</th>
+            <th>Number of Schemes</th>
+            <th>Growing Days B/F</th>
+            <!-- Add input fields for each day of the month -->
+            {% for day in growing_days
+            <th>{{ day }}</th>
+
+        </tr>
+        <!-- Loop through the data to display and input fields for each row -->
+        {% for item in data %}
+        <tr>
+            <td>{{ item.0 }}</td>
+            <td>{{ item.1 }}</td>
+            <td>{{ item.2 }}</td>
+            <td>{{ item.3 }}</td>
+            <td>{{ item.4 }}</td>
+            <td>{{ item.5 }}</td>
+            <td>{{ item.6 }}</td>
+            <td>{{ item.7 }}</td>
+            <td>{{ item.8 }}</td>
+            <td>{{ item.9 }}</td>
+            <td>{{ item.10 }}</td>
+            <td>{{ item.11 }}</td>
+            <td>{{ item.12 }}</td>
+            <td>{{ item.13 }}</td>
+            <td>{{ item.14 }}</td>
+            <td>{{ item.15 }}</td>
+            <td>{{ item.16 }}</td>
+            <td>{{ item.17 }}</td>
+            <td>{{ item.18 }}</td>
+            <td>{{ item.19 }}</td>
+            <td>{{ item.20 }}</td>
+            <td>{{ item.21 }}</td>
+            <td>{{ item.23 }}</td>
+            <td>{{ item.24 }}</td>
+            <td>{{ item.25 }}</td>
+            <td>{{ item.26 }}</td>
+            <td>{{ item.25 }}</td>
+            <td>{{ item.26 }}</td>
+            <td>{{ item.27 }}</td>
+            <td>{{ item.28 }}</td>
+            <td>{{ item.29 }}</td>
+            <td>{{ item.30 }}</td>
+            <!-- Add input fields for each day of the month -->
+            {% for day in growing_days %}
+           <td><input type="text" name="data{{ forloop.parentloop.counter }}_{{ forloop.counter0 }}" value="{{ item.7 }}"></td>
+            {% endfor %}
+        </tr>
+{% endfor %}
+    </table>
+    <button type="submit">Update</button>
+</form>
+
+{% endblock %}

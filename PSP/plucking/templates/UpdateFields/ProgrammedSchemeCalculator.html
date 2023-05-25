@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Programmed Scheme Plucking Calculator{% endblock %}
+
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Programmed Scheme Plucking Calculator</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="container fluid text-warning bg-dark">
+    <h1 class="text-center">Programmed Scheme Plucking Calculator</h1>
+    {% if obj %}
+    <h2>Plucking Calculation Results</h2>
+    <p>Plucking Productivity: {{ obj.plucking_productivity }} kg/ha/day</p>
+    <p>Scheme Size: {{ obj.scheme_size }} ha</p>
+    <p>VP Plucking Scheme: {{ obj.VP_plucking_scheme }}</p>
+    <p>SD Plucking Scheme: {{ obj.SD_plucking_scheme }}</p>
+    <p>Zone Size: {{ obj.zone_size }} ha</p>
+    <p>Division Size: {{ obj.division_size }} ha</p>
+    <p>Plucking Day Calculations: {{ obj.plucking_day_calculations }}</p>
+    {% endif %}
+    <form action="{% url 'psp-calc' %}" method="post">
+        {% csrf_token %}
+        <h2 class="text-center">Input Information</h2>
+        <div class="container-fluid row align-items-start">
+            <div>
+
+                <p>Leaf Quality: <input type=" text" name="leaf_quality"></p>
+                <p>VP Percentage: <input type="text" name="VP_percentage"></p>
+                <p>SD Percentage: <input type="text" name="SD_percentage"></p>
+                <p>Division Area: <input type="text" name="division_area"></p>
+                <p>Plucker Grade: <input type="text" name="plucker_grade"></p>
+                <p>Ha: <input type="text" name="ha"></p>
+                <p>Productivity: <input type="text" name="productivity"></p>
+                <p>VP Pluckers/ha: <input type="text" name="VP_pluckers_ha"></p>
+                <p>SD Pluckers/ha: <input type="text" name="SD_pluckers_ha"></p>
+                <p>Zone Number Pluckers: <input type="text" name="zone_number_pluckers"></p>
+                <p>VP Scheme: <input type="text" name="VP_scheme"></p>
+                <p>SD Scheme: <input type="text" name="SD_scheme"></p>
+                <input class="form-control me-2" type="submit" value="Calculate Plucking Productivity">
+            </div>
+
+        </div>
+    </form>
+</div>
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% include 'RoundsMonitor/update.html' %}
+
+{% include 'RoundsMonitor/delete.html' %}
+
+
+
+<title>{% block title %}Rounds Monitor Record{% endblock %}</title>
+
+{% block body %}
+<div class="row g-4 d-flex align-items-center">
+    <div class="col-lg-12 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-4 px-4 my-4 py-4" style="background-color: rgba(13, 70, 10, 0.9); border-radius: 20px">
+            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Rounds Monitor Record</h2>
+            <div class="border p-3" style="border-radius: 20px">
+               <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-update' %}">Add</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go To ProgramedScheme</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp' %}">Go To Reports</a>
+                <form action="" method="POST">
+                    {% csrf_token %}
+
+                </form>
+                <hr>
+                <h3 class="text-center bg-light text-Primary" style="border-radius: 10px">Record</h3>
+                <table class="table align-middle text-Primary bg-light" style="border-radius: 10px">
+                    <tr>
+                        <th>Date Today</th>
+                        <th>Field</th>
+                        <th>Plucking round</th>
+                        <th>Plucking day</th>
+                        <th>Next plucking</th>
+                        <th>Actual plucking_day</th>
+                        <th>Days behind</th>
+                        <th>Days ahead</th>
+                        <th>Total plucking_round</th>
+                        <th>Month end</th>
+                        <th>Round ba_days</th>
+                        <th>Days to_en_month</th>
+                        <th>Days bf</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+
+                    {% for data in roundsmonitor %}
+
+                    <tr>
+                        <td>{{data.today_date}}</td>
+                        <td>{{data.field}}</td>
+                        <td>{{data.plucking_round}}</td>
+                        <td>{{data.plucking_day}}</td>
+                        <td>{{data.next_plucking}}</td>
+                        <td>{{data.actual_plucking_day}}</td>
+                        <td>{{data.days_behind}}</td>
+                        <td>{{data.days_ahead}}</td>
+                        <td>{{data.total_plucking_round}}</td>
+                        <td>{{data.month_end}}</td>
+                        <td>{{data.round_bal_days}}</td>
+                        <td>{{data.days_to_end_month}}</td>
+                        <td>{{data.days_bf}}</td>
+                        <td><a class="btn btn btn-block text-primary btn btn-info" style="background-color: #22e39c;"
+                               href="{% url 'roundsmonitor-edit' data.id %}">Edit</a></td>
+                        <td><a class="btn btn-info btn-block btn btn-info text-light" style="background-color: #e32289;"
+                               href="{% url 'roundsmonitor-delete' data.id %}">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

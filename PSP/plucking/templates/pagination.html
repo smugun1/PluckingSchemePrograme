@@ -1,0 +1,26 @@
+{% load admin_list %}
+{% load i18n %}
+
+<div class="pagination">
+  {% if cl.page.has_previous %}
+    <a href="{{ cl.get_query_string 'p' cl.page.previous_page_number }}" class="button" title="{% trans 'Previous page' %}">
+      &laquo; {% trans 'Back' %}
+    </a>
+  {% endif %}
+
+  {% for i in cl.page_range %}
+    {% if cl.page.number == i %}
+      <span class="current-page">{{ i }}</span>
+    {% else %}
+      <a href="{{ cl.get_query_string 'p' i }}" class="button" title="{% trans 'Page' %} {{ i }}">
+        {{ i }}
+      </a>
+    {% endif %}
+  {% endfor %}
+
+  {% if cl.page.has_next %}
+    <a href="{{ cl.get_query_string 'p' cl.page.next_page_number }}" class="button" title="{% trans 'Next page' %}">
+      {% trans 'Forward' %} &raquo;
+    </a>
+  {% endif %}
+</div>

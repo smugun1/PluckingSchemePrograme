@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Update Roundsmonitor Form{% endblock %}
+
+{% block body %}
+
+    <div class="col-lg-12 d-none my-2 d-lg-flex">
+        <div class="container-fluid text-primary h-100 d-flex align-items-center justify-content-center"
+             style="background-color: indigo; width: 90rem; border-radius: 20px;">
+            <div class="card card bg-light text-right h-100 d-flex align-items-center justify-content-center m-3 p-3"
+                 style="width: 100rem; border-radius: 20px;">
+                <h2 class="text-center text-primary">Update Roundsmonitor Form</h2>
+                <form action="{% url 'roundsmonitor-create' %}" method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+
+                    <div class="container">
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>Date Today</strong></label>
+                            <input style="height:40px;width:700px" type="datetime-local" class="form-control"
+                                   id="formGroupExampleInput"
+                                   placeholder="Date Today date" name="today_date">
+                        </div>
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput"
+                                   class="form-label"><strong>Field</strong></label>
+                            <input style="height:40px;width:700px" class="form-control"
+                                   id="formGroupExampleInput1" placeholder="field"
+                                   name="field" value="{{field}}">
+                        </div>
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput"
+                                   class="form-label"><strong>Plucking round</strong></label>
+                            <input style="height:40px;width:700px" class="form-control"
+                                   id="formGroupExampleInput2" placeholder="Plucking round"
+                                   name="plucking_round" value="{{plucking_round}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>Plucking day</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput3"
+                                   placeholder="Plucking day" name="plucking_day" value="{{plucking_day}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>Next plucking</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput4"
+                                   placeholder="Next plucking" name="next_plucking"
+                                   value="{{next_plucking}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>Actual plucking_day</strong></label>
+                             <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput5"
+                                   placeholder="Actual plucking_day" name="actual_plucking_day"
+                                   value="{{actual_plucking_day}}">
+                        </div>
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>Days behind</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput6"
+                                   placeholder="Days behind" name="days_behind" value="{{days_behind}}">
+                        </div>
+                    </div>
+                    <div class="container align-items-center">
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>Days ahead</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput7"
+                                   placeholder="Days ahead" name="days_ahead" value="{{days_ahead}}">
+                        </div>
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>Total plucking_round</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput8"
+                                   placeholder="Total plucking_round" name="total_plucking_round" value="{{total_plucking_round}}">
+                        </div>
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>Month end</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput9"
+                                   placeholder="Month end" name="month_end" value="{{month_end}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>Round ba_days</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput10"
+                                   placeholder="Round bal_days" name="round_bal_days" value="{{round_bal_days}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>Days to_en_month</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput11"
+                                   placeholder="Days to_end_month" name="days_to_end_month" value="{{days_to_end_month}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>Days bf</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput12"
+                                   placeholder="Days bf" name="days_bf" value="{{days_bf}}">
+                        </div>
+
+                        <div class="container my-3">
+                            <button class="btn btn-primary" type="submit" value="Update" name="update"
+                                    typeof="hover">Submit
+                            </button>
+
+                            <a class="btn btn-warning bg-success btn-info block-lg"
+                               href="{% url 'roundsmonitor-record' %}">Return</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}

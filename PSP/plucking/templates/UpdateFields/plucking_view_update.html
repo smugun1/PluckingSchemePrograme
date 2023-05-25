@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Plucking View Update{% endblock %}
+
+{% block body %}
+<div class="container fluid">
+    <div class="card border-primary mt-3">
+        <div class="card-header">
+            <div class="col grid text-left">
+                <div class="col grid text-left">
+                    <h1 class="text-left mt-5">Plucking View Update</h1>
+                    <a class="btn btn-warning bg-primary btn-info block-lg" href="{% url 'plucking-planner' %}">Go
+                        Back</a>
+                    <a class="btn btn-warning bg-primary btn-info block-lg" href="{% url 'plucking-planner-view' %}">Go
+                        To Plucking Planner Record</a>
+                    <a class="btn btn-warning bg-primary btn-info block-lg" href="{% url 'psp' %}">Go To Plucking Scheme
+                        Program</a>
+                    <form method="POST" action="{% url 'plucking-view-update' %}">
+                        {% csrf_token %}
+
+                        <table>
+                            <tr>
+                                <th>Field</th>
+                                <th>Value</th>
+                            </tr>
+                            <tr>
+                                <td>Division Area</td>
+                                <td><input type="text" name="division_area" value="{{ plucking.division_area }}"></td>
+                            </tr>
+                            <tr>
+                                <td>VP Percentage</td>
+                                <td><input type="text" name="VP_percentage" value="{{ plucking.vp_percentage }}"></td>
+                            </tr>
+                            <tr>
+                                <td>SD Percentage</td>
+                                <td><input type="text" name="SD_percentage" value="{{ plucking.sd_percentage }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Month</td>
+                                <td><input type="text" name="month" value="{{ plucking.month }}"></td>
+                            </tr>
+                            <tr>
+                                <td>VP Division Area</td>
+                                <td><input type="text" name="VP_division_area" value="{{ plucking.vp_division_area }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SD Division Area</td>
+                                <td><input type="text" name="SD_division_area" value="{{ plucking.sd_division_area }}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>VP Blocks per Zone</td>
+                                <td><input type="text" name="VP_blocks_per_zone"
+                                           value="{{ plucking.vp_blocks_per_zone }}"></td>
+                            </tr>
+                            <tr>
+                                <td>SD Blocks per Zone</td>
+                                <td><input type="text" name="SD_blocks_per_zone"
+                                           value="{{ plucking.sd_blocks_per_zone }}"></td>
+                            </tr>
+                            <tr>
+                                <td>VP Zone Size</td>
+                                <td><input type="text" name="VP_zone_size" value="{{ plucking.vp_zone_size }}"></td>
+                            </tr>
+                            <tr>
+                                <td>SD Zone Size</td>
+                                <td><input type="text" name="SD_zone_size" value="{{ plucking.sd_zone_size }}"></td>
+                            </tr>
+                            <tr>
+                                <td>VP Schemes per Division</td>
+                                <td><input type="text" name="VP_schemes_per_division"
+                                           value="{{ plucking.vp_schemes_per_division }}"></td>
+                            </tr>
+                            <tr>
+                                <td>SD Schemes per Division</td>
+                                <td><input type="text" name="SD_schemes_per_division"
+                                           value="{{ plucking.sd_schemes_per_division }}"></td>
+                            </tr>
+                            <tr>
+                                <td>VP Rounds per Zone</td>
+                                <td><input type="text" name="VP_rounds_per_zone"
+                                           value="{{ plucking.vp_rounds_per_zone }}"></td>
+                            </tr>
+                            <tr>
+                                <td>SD Rounds per Zone</td>
+                                <td><input type="text" name="SD_rounds_per_zone"
+                                           value="{{ plucking.sd_rounds_per_zone }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Total Pluckers per Division</td>
+                                <td><input type="text" name="total_pluckers_per_division"
+                                           value="{{ plucking.total_pluckers_per_division }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Total Supervisors per Division</td>
+                                <td><input type="text" name="total_supervisors_per_division"
+                                           value="{{ plucking.total_supervisors_per_division }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Total Schemes per Division</td>
+                                <td><input type="text" name="total_schemes_per_division"
+                                           value="{{ plucking.total_schemes_per_division }}"></td>
+                            </tr>
+                        </table>
+
+                        <button type="submit">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                    {% endblock %}

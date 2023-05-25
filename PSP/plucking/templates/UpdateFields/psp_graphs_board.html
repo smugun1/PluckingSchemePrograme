@@ -1,0 +1,330 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}PSP Graphs{% endblock %}
+
+{% block body %}
+<!--top-->
+<div class="container md-12">
+    <div class="container fluid bg-white text-secondary my-0 px-0 m-0 mt-3">
+        <h1 class="text-center bg-secondary text-dark">PSP Graphs</h1>
+        <div class="container my-0 px-0 mb-0 mt-1">
+            <div class="row mt-1">
+                <div class="card-header bg-light">
+                    <div class="card-body">
+                        <div class="card-header bg-light text-dark">
+                            Plucking Rounds
+                        </div>
+                        <marquee behaviour="" direction="">
+                            <h3 class="my-3"><strong><em> Graphs are displayed on the plucking dashboard </em></strong>
+                            </h3>
+                        </marquee>
+                        <a class="text-decoration-none text-dark" href="">
+                            <div class="card my-card shadow text-center p-1">
+                                <h5>Plucking planner <i class="fa fa-calendar-check-o"
+                                                        aria-hidden="true"></i>
+                                </h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header bg-light text-dark">
+                            Plucking Planner
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class=" col-md-4">
+                                    <a class="text-decoration-none text-dark" href="">
+                                        <div class="card my-card shadow text-center p-3">
+                                            <h4>### <i class="fa fa-leaf" aria-hidden="true"></i></h4>
+                                            <h3>4</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class=" col-md-2">
+                                    <a class="text-decoration-none text-dark" href="{% url 'psp' %}">
+                                        <div class="card my-card shadow text-center p-3">
+                                            <h4>Dashboard <i class="fa fa-television" aria-hidden="true"></i>
+                                            </h4>
+                                            <h3>4</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class=" col-md-2">
+                                    <a class="text-decoration-none text-dark" href="{% url 'save_changes' %}">
+                                        <div class="card my-card shadow text-center p-3">
+                                            <h4>Save <i class="fa fa-binoculars" aria-hidden="true"></i></h4>
+                                            <h3>4</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class=" col-md-4">
+                                    <a class="text-decoration-none text-dark"
+                                       href="{% url 'programmedscheme-record' %}">
+                                        <div class="card my-card shadow text-center p-2">
+                                            <h4>Plucking Record <i class="fa-solid fa-paperclip"></i></h4>
+                                            <h3>4</h3>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end-top-->
+            <!--            graphs-->
+
+            <div class="container">
+                <div class="card">
+                    <div class="card-header bg-light text-dark">
+                        Division Graphs
+                    </div>
+                    <div class="row my-5">
+                        <div class="col-md-4">
+                            <div class="bg-white">
+                                    <canvas id="myChart" width="500" height="400"></canvas>
+                                        <script>
+                                            var chartData = {{ chart_data|safe }};
+                                            var labels = chartData.map(entry => entry.plucking_date);
+                                            var values = chartData.map(entry => entry.leaf_quality);
+
+                                            var ctx = document.getElementById('myChart').getContext('2d');
+                                            var myChart = new Chart(ctx, {
+                                                type: 'bar',
+                                                data: {
+                                                    labels: labels,
+                                                    datasets: [{
+                                                        label: 'Chart Data',
+                                                        data: values,
+                                                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                                        borderColor: 'rgba(75, 192, 192, 1)',
+                                                        borderWidth: 1
+                                                    }]
+                                                },
+                                                options: {
+                                                    scales: {
+                                                        y: {
+                                                            beginAtZero: true
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        </script>
+
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-white">
+                                <div>
+                                    <canvas id="Chart2" width="500" height="400"></canvas>
+                                </div>
+                                <script>
+
+
+
+
+
+                                  const ctx2 = document.getElementById('Chart2');
+
+                                  new Chart(ctx2, {
+                                    type: 'bar',
+                                    data: {
+                                      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                      datasets: [{
+                                        label: '# of Votes',
+                                        data: [12, 19, 3, 5, 2, 3],
+                                        borderWidth: 1
+                                      }]
+                                    },
+                                    options: {
+                                      scales: {
+                                        y: {
+                                          beginAtZero: true
+                                        }
+                                      }
+                                    }
+                                  });
+
+                                </script>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-white">
+                                <div>
+                                    <canvas id="Chart3" width="500" height="400"></canvas>
+                                </div>
+                                <script>
+
+
+
+
+
+                                  const ctx3 = document.getElementById('Chart3');
+
+                                  new Chart(ctx3, {
+                                    type: 'pie',
+                                    data: {
+                                      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                      datasets: [{
+                                        label: '# of Votes',
+                                        data: [12, 19, 3, 5, 2, 3],
+                                        borderWidth: 1
+                                      }]
+                                    },
+                                    options: {
+                                      scales: {
+                                        y: {
+                                          beginAtZero: true
+                                        }
+                                      }
+                                    }
+                                  });
+
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="card">
+                        <div class="card-header bg-light text-dark">
+                            Plucking Graphs
+                        </div>
+                        <div class="row my-5">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="bg-white">
+                                            <canvas id="Chart" width="400" height="300"></canvas>
+                                            <script>
+                                              const ctx = document.getElementById('Chart');
+
+                                              new Chart(ctx, {
+                                                type: 'pie',
+                                                data: {
+                                                  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                                  datasets: [{
+                                                    label: '# of Votes',
+                                                    data: [12, 19, 3, 5, 2, 3],
+                                                    borderWidth: 1
+                                                  }]
+                                                },
+                                                options: {
+                                                  scales: {
+                                                    y: {
+                                                      beginAtZero: true
+                                                    }
+                                                  }
+                                                }
+                                              });
+
+
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="bg-white">
+                                            <canvas id="Chart00" width="400" height="300"></canvas>
+                                            <script>
+                                              const ctx00 = document.getElementById('Chart00');
+
+                                              new Chart(ctx00, {
+                                                type: 'doughnut',
+                                                data: {
+                                                  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                                  datasets: [{
+                                                    label: '# of Votes',
+                                                    data: [12, 19, 3, 5, 2, 3],
+                                                    borderWidth: 1
+                                                  }]
+                                                },
+                                                options: {
+                                                  scales: {
+                                                    y: {
+                                                      beginAtZero: true
+                                                    }
+                                                  }
+                                                }
+                                              });
+
+
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="bg-white">
+                                            <canvas id="Chart01" width="400" height="300"></canvas>
+                                            <script>
+                                              const ctx01 = document.getElementById('Chart01');
+
+                                              new Chart(ctx01, {
+                                                type: 'pie',
+                                                data: {
+                                                  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                                  datasets: [{
+                                                    label: '# of Votes',
+                                                    data: [12, 19, 3, 5, 2, 3],
+                                                    borderWidth: 1
+                                                  }]
+                                                },
+                                                options: {
+                                                  scales: {
+                                                    y: {
+                                                      beginAtZero: true
+                                                    }
+                                                  }
+                                                }
+                                              });
+
+
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="bg-white">
+                                            <canvas id="Chart0" width="400" height="300"></canvas>
+                                            <script>
+                                              const ctx0 = document.getElementById('Chart0');
+
+                                              new Chart(ctx0, {
+                                                type: 'doughnut',
+                                                data: {
+                                                  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                                  datasets: [{
+                                                    label: '# of Votes',
+                                                    data: [12, 19, 3, 5, 2, 3],
+                                                    borderWidth: 1
+                                                  }]
+                                                },
+                                                options: {
+                                                  scales: {
+                                                    y: {
+                                                      beginAtZero: true
+                                                    }
+                                                  }
+                                                }
+                                              });
+
+
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--bottom-->
+
+<!--end-graphs>-->
+
+{% endblock %}

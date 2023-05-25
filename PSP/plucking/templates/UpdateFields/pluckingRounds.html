@@ -1,0 +1,1137 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Plucking Rounds{% endblock %}
+
+{% block body %}
+<!--    <style>-->
+<!--        table {-->
+<!--            border-collapse: collapse;-->
+<!--            width: 100%;-->
+<!--        }-->
+<!--    -->
+<!--        th, td {-->
+<!--            padding: 8px;-->
+<!--            text-align: left;-->
+<!--            border-bottom: 1px solid #ddd;-->
+<!--        }-->
+<!--    -->
+<!--        th {-->
+<!--            background-color: #f2f2f2;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+<!--    -->
+<!--        tbody tr:nth-child(even) {-->
+<!--            background-color: #f9f9f9;-->
+<!--        }-->
+<!--    </style>-->
+<style>
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 5px;
+            }
+
+</style>
+<title>Plucking Rounds</title>
+<div class="card border-primary mt-3">
+    <div class="card-header">
+        <div class="container-fluid">
+            <div class="card-body">
+                <a href="{% url 'plucking-rounds' %}" class="btn btn-warning block-lg bg-info">Go To Zone
+                    Fields</a>
+                <a class="btn btn-warning bg-primary btn-info block-lg" href="{% url 'psp'%}">Go
+                    To Plucking Scheme Program</a>
+            </div>
+        </div>
+        <h3>KAKUZI PLC - KABOSWA ESTATE</h3>
+        <h4>PROGRAM SCHEME PLUCKING</h4>
+        <form action="" method="POST">
+    {% csrf_token %}
+        <table id="myTable" border="1">
+            <tr>
+                <th contenteditable="true" oninput="saveChanges(this)" id="1">ESTATE</th>
+                <td contenteditable="true" oninput="saveChanges(this)" id="2"><input type="text" name="estate"
+                                                                                     value="KABOSWA">
+                </td>
+                <th contenteditable="true" oninput="saveChanges(this)" id="3">Pluck days</th>
+                <td contenteditable="true" oninput="saveChanges(this)" id="4"><input type="text" name="pluckdays"
+                                                                                     value="8">
+                </td>
+                <th contenteditable="true" oninput="saveChanges(this)" id="5">Grow days</th>
+                <td contenteditable="true" oninput="saveChanges(this)" id="6"><input type="text" name="growdays"
+                                                                                     value="9">
+                </td>
+            </tr>
+            <tr>
+                <th contenteditable="true" oninput="saveChanges(this)" id="7">VP</th>
+                <td contenteditable="true" oninput="saveChanges(this)" id="8"><input type="text" name="vp" value="700">
+                </td>
+                <th contenteditable="true" oninput="saveChanges(this)" id="9">SD</th>
+                <td contenteditable="true" oninput="saveChanges(this)" id="10"><input type="text" name="sd" value="900">
+                </td>
+                <th contenteditable="true" oninput="saveChanges(this)" id="11">Kg/Plk</th>
+                <td contenteditable="true" oninput="saveChanges(this)" id="12"><input type="text" name="kgplk"
+                                                                                      value="45"></td>
+                <th contenteditable="true" oninput="saveChanges(this)" id="13">Days/Month</th>
+                <td contenteditable="true" oninput="saveChanges(this)" id="14"><input type="text" name="daysmonth"
+                                                                                      value="26">
+                </td>
+            </tr>
+            <tr>
+                <th contenteditable="true" oninput="saveChanges(this)" id="15">DIVISION</th>
+                <td contenteditable="true" oninput="saveChanges(this)" id="16"><input type="text" name="division"
+                                                                                      value="SEPTON"></td>
+                <td colspan="6"></td>
+            </tr>
+            <tr>
+                <th colspan="8"><h5>Green Leaf Targets</h5></th>
+            </tr>
+            <tr>
+                <th contenteditable="true" oninput="saveChanges(this)" id="17">Annual GL Budget</th>
+                <td contenteditable="true" oninput="saveChanges(this)" id="18"><input type="text" name="annualglbudget"
+                                                                                      value="1,074,869"></td>
+                <th contenteditable="true" oninput="saveChanges(this)" id="19">Monthly GL Target</th>
+                <td contenteditable="true" oninput="saveChanges(this)" id="20"><input type="text" name="monthlygltarget"
+                                                                                      value="107,487"></td>
+                <th contenteditable="true" oninput="saveChanges(this)" id="21">Daily GL Target</th>
+                <td contenteditable="true" oninput="saveChanges(this)" id="22"><input type="text" name="dailygltarget"
+                                                                                      value="4,134"></td>
+                <th contenteditable="true" oninput="saveChanges(this)" id="23">MONTH</th>
+                <td contenteditable="true" oninput="saveChanges(this)" id="24"><input type="text" name="month"
+                                                                                      value="JANUARY 2023"></td>
+            </tr>
+        </table>
+        <br>
+        <table>
+            <form>
+                <table>
+                    <tr>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="25">Zone/Field</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="26">Type VP/SD</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="27">Ha</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="28">Days to plk</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="29">Prune Age</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="30">Number of Schemes</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="31">Growing Days B/F</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="32">01</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="33">02</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="34">03</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="35">04</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="36">05</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="37">06</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="38">07</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="39">08</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="40">09</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="41">10</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="42">11</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="43">12</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="44">13</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="45">14</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="46">15</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="47">16</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="48">17</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="49">18</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="50">19</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="51">20</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="52">21</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="53">22</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="54">23</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="55">24</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="56">25</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="57">26</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="58">27</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="59">28</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="60">29</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="61">30</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="62">31</th>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="63">Zone E</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="64"></td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="65"></td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="66"></td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="67"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="68"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="69"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="70"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="71"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="72"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="73"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="74"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="75"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="76"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="77"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="78"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="79"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="80"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="81"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="82"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="83"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="84"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="85"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="86"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="87"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="88"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="89"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="90"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="91"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="92"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="93"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="94"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="95"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="96"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="97"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="98"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="99"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="100"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="101"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="102">Field 5</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="103">SD</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="104">13.02</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="105">2</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="106">2</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="107">145</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="108">2</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="109"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="110"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="111"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="112"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="113"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="114"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="115"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="116"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="117"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="118"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="119"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="120"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="121"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="122"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="123"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="124"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="125"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="126"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="127"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="128"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="129"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="130"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="131"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="132"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="133"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="134"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="135"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="136"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="137"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="138"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="139"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="140"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="141">Field 3</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="142">SD</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="143">8.27</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="144">1</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="145">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="146">92</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="147">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="148"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="149"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="150"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="151"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="152"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="153"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="154"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="155"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="156"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="157"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="158"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="159"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="160"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="161"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="162"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="163"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="164"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="165"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="166"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="167"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="168"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="169"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="170"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="171"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="172"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="173"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="174"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="175"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="176"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="177"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="178"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="179"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="180">Field 15</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="181">VP</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="182">10.65</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="183">2</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="184">0</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="185">152</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="186">2</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="187"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="188"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="189"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="190"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="191"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="192"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="193"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="194"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="195"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="196"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="197"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="198"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="199"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="200"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="201"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="202"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="203"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="204"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="205"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="206"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="207"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="208"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="209"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="210"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="211"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="212"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="213"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="214"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="215"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="216"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="217"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="218"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="219">Field 7</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="220">SD</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="221">14.99</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="222">1</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="223">4</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="224">167</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="225">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="226"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="227"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="228"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="229"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="230"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="231"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="232"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="233"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="234"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="235"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="236"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="237"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="238"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="239"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="240"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="241"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="242"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="243"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="244"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="245"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="246"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="247"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="248"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="249"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="250"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="251"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="252"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="253"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="254"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="255"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="256"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="257"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="258">Field 12</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="259">VP</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="260">12.93</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="261">1</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="262">2</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="263">185</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="264">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="265"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="266"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="267"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="268"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="269"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="270"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="271"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="272"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="273"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="274"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="275"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="276"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="277"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="278"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="279"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="280"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="281"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="282"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="283"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="284"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="285"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="286"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="287"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="288"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="289"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="290"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="291"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="292"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="293"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="294"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="295"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="296"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="297">Field 14</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="298">VP</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="299">22.60</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="300">2</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="301">0</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="302">323</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="303">0</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="304"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="305"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="306"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="307"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="308"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="309"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="310"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="311"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="312"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="313"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="314"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="315"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="316"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="317"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="318"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="319"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="320"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="321"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="322"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="323"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="324"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="325"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="326"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="327"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="328"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="329"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="330"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="331"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="332"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="333"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="334"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="335"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="336">Zone F</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="337"></td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="338"></td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="339"></td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="340"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="341"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="342"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="343"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="344"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="345"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="346"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="347"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="348"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="349"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="350"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="351"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="352"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="353"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="354"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="355"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="356"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="357"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="358"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="359"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="360"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="361"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="362"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="363"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="364"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="365"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="366"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="367"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="368"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="369"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="370"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="371"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="372"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="373"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="374"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="375">Field 11</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="376">SD</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="377">16.01</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="378">2</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="379">2</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="380">178</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="381">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="382"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="383"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="384"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="385"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="386"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="387"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="388"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="389"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="390"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="391"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="392"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="393"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="394"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="395"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="396"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="397"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="398"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="399"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="400"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="401"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="402"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="403"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="404"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="405"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="406"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="407"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="408"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="409"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="410"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="411"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="412"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="413"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="414">Field 10</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="415">SD</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="416">22.55</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="417">3</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="418">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="419">251</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="420">2</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="421"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="422"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="423"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="424"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="425"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="426"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="427"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="428"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="429"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="430"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="431"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="432"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="433"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="434"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="435"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="436"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="437"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="438"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="439"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="440"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="441"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="442"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="443"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="444"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="445"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="446"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="447"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="448"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="449"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="450"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="451"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="452"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="453">Field 2</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="454">VP</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="455">7.41</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="456">1</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="457">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="458">106</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="459">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="460"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="461"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="462"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="463"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="464"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="465"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="466"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="467"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="468"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="469"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="470"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="471"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="472"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="473"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="474"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="475"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="476"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="477"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="478"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="479"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="480"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="481"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="482"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="483"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="484"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="485"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="486"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="487"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="488"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="489"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="490"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="491"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="492">Field 42</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="493">VP</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="494">7.51</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="495">2</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="496">2</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="497">107</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="498">2</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="499"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="500"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="501"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="502"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="503"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="504"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="505"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="506"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="507"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="508"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="509"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="510"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="511"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="512"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="513"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="514"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="515"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="516"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="517"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="518"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="519"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="520"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="521"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="522"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="523"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="524"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="525"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="526"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="527"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="528"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="529"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="530"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="531">Field 6</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="532">SD</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="533">17.00</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="534">2</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="535">189</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="536">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="537"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="538"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="539"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="540"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="541"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="542"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="543"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="544"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="545"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="546"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="547"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="548"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="549"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="550"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="551"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="552"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="553"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="554"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="555"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="556"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="557"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="558"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="559"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="560"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="561"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="562"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="563"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="564"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="565"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="566"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="567"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="568"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="569"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="570">Field 43</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="571">VP</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="572">4.60</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="573">1</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="574">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="575">66</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="576">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="577"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="578"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="579"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="580"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="581"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="582"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="583"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="584"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="585"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="586"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="587"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="588"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="589"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="590"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="591"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="592"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="593"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="594"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="595"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="596"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="597"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="598"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="599"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="600"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="601"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="602"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="603"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="604"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="605"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="606"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="607"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="608"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="609">Zone G</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="610"></td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="611"></td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="612"></td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="613"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="614"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="615"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="616"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="617"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="618"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="619"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="620"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="621"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="622"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="623"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="624"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="625"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="626"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="627"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="628"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="629"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="630"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="631"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="632"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="633"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="634"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="635"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="636"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="637"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="638"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="639"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="640"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="641"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="642"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="643"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="644"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="645"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="646"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="647"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="648">Field 8</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="649">VP</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="650">9.07</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="651">1</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="652">3</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="653">130</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="654">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="655"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="656"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="657"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="658"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="659"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="660"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="661"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="662"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="663"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="664"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="665"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="666"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="667"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="668"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="669"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="670"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="671"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="672"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="673"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="674"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="675"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="676"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="677"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="678"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="679"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="680"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="681"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="682"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="683"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="684"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="685"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="686"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="687">Field 1</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="688">SD</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="689">17.06</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="690">2</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="691">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="692">190</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="693">2</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="694"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="695"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="696"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="697"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="698"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="699"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="700"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="701"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="702"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="703"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="704"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="705"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="706"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="707"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="708"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="709"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="710"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="711"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="712"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="713"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="714"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="715"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="716"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="717"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="718"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="719"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="720"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="721"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="722"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="723"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="724"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="725"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="726">Field 44</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="727">VP</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="728">7.19</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="729">1</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="730">2</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="731">103</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="732">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="733"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="734"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="735"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="736"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="737"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="738"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="739"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="740"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="741"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="742"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="743"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="744"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="745"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="746"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="747"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="748"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="749"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="750"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="751"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="752"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="753"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="754"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="755"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="756"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="757"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="758"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="759"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="760"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="761"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="762"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="763"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="764"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="765">Field 13</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="766">VP</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="767">14.34</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="768">2</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="769">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="770">205</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="771">2</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="772"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="773"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="774"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="775"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="776"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="777"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="778"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="779"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="780"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="781"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="782"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="783"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="784"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="785"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="786"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="787"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="788"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="789"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="790"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="791"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="792"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="793"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="794"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="795"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="796"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="797"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="798"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="799"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="800"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="801"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="802"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="803"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="804">Field 9</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="805">SD</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="806">20.43</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="807">227</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="808">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="809"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="810"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="811"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="812"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="813"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="814"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="815"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="816"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="817"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="818"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="819"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="820"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="821"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="822"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="823"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="824"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="825"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="826"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="827"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="828"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="829"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="830"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="831"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="832"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="833"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="834"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="835"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="836"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="837"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="838"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="839"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="840"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="841"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="842"></th>
+
+                    </tr>
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="843">Field 4</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="844">VP</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="845">16.36</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="846">2</td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="847">3</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="848">234</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="849">1</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="850"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="851"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="852"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="853"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="854"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="855"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="856"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="857"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="858"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="859"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="860"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="861"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="862"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="863"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="864"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="865"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="866"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="867"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="868"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="869"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="870"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="871"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="872"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="873"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="874"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="875"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="876"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="877"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="878"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="879"></th>
+                    <tr>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="880"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="881"></th>
+                    </tr>
+                    <tr>
+                        {% for day in growing_days %}
+                        <th contenteditable="true" oninput="saveChanges(this)" id="{{ forloop.counter0|add:31 }}">{{ day
+                            }}
+                        </th>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="882">{{ stored_content }}#</td>
+                    </tr>
+                </table>
+            <button type="submit">Update</button>
+            </form>
+        </table>
+<!--      script  2-->
+          <script>
+            document.addEventListener("DOMContentLoaded", function() {
+              // Retrieve the stored content from localStorage
+              var storedContent = localStorage.getItem('editableCellContent');
+
+              // If there is stored content, populate the cell with it
+              if (storedContent) {
+                var editableCell = document.getElementById('editable-cell');
+                editableCell.innerText = storedContent;
+              }
+            });
+
+
+
+        </script>
+<!--using script 2-->
+<!--        //*The scripts you provided serve different purposes and can be useful depending on your specific requirements.-->
+<!--        Let's go through each script and explain their functionalities:-->
+
+<!--        Script 1: saveChanges-->
+
+<!--        This script defines a saveChanges function that is called when an editable cell's content is modified.-->
+<!--        It retrieves the ID and value of the cell and performs any necessary actions. In the example provided,-->
+<!--        it logs the ID and value to the console. You can customize this function to update the corresponding data in-->
+<!--        your code or perform other actions.-->
+<!--        Script 2: DOMContentLoaded-->
+
+<!--        This script is triggered when the DOM content has finished loading. It retrieves the stored content from the-->
+<!--        localStorage and populates the cell with the id "editable-cell" with the stored content. This script-->
+<!--        is useful if you want to persist the content of an editable cell across page reloads.-->
+<!--        Script 3: saveChanges (with fetch)-->
+
+<!--        This script defines another saveChanges function that is called when an editable cell's content is modified.-->
+<!--        It retrieves the row index, cell index, and cell value of the modified cell. It then creates a FormData-->
+<!--        object and appends the relevant data to it. After that, it sends a POST request to the /save/ endpoint-->
+<!--        with the form data. The response is logged to the console. This script is useful if you want to send the-->
+<!--        modified cell data to a server for further processing or storage.-->
+<!--        Based on your specific needs, you can choose the script that aligns with your requirements. If you want to log-->
+<!--        the ID and value of the modified cell locally, you can use Script 1. If you want to persist the content-->
+<!--        of an editable cell across page reloads, you can use Script 2. If you want to send the modified cell data-->
+<!--        to a server for further processing or storage, you can use Script 3.*//-->
+<!--script 1-->
+        <!--        <script>-->
+        <!--            function saveChanges(element) {-->
+        <!--                // Get the ID of the cell-->
+        <!--                var id = element.id;-->
+
+        <!--                // Get the updated value-->
+        <!--                var value = element.textContent || element.innerText;-->
+
+        <!--                // Update the corresponding data in your code or perform any necessary actions-->
+
+        <!--                // Example: Log the ID and value to the console-->
+        <!--                console.log("Cell ID:", id);-->
+        <!--                console.log("Cell Value:", value);-->
+        <!--            }-->
+
+
+        <!--        </script>-->
+
+<!--script3      -->
+
+        <!--        <script>-->
+        <!--                    function saveChanges(cell) {-->
+        <!--                      var rowIndex = cell.parentNode.rowIndex;-->
+        <!--                      var cellIndex = cell.cellIndex;-->
+        <!--                      var cellValue = cell.innerText;-->
+
+        <!--                      var formData = new FormData();-->
+        <!--                      formData.append('rowIndex', rowIndex);-->
+        <!--                      formData.append('cellIndex', cellIndex);-->
+        <!--                      formData.append('cellValue', cellValue);-->
+
+        <!--                      fetch('/save/', {-->
+        <!--                        method: 'POST',-->
+        <!--                        body: formData-->
+        <!--                      })-->
+        <!--                      .then(response => response.json())-->
+        <!--                      .then(data => console.log(data))-->
+        <!--                      .catch(error => console.error(error));-->
+        <!--                    }-->
+        <!--        </script>-->
+
+    </div>
+
+</div>
+{% endblock %}

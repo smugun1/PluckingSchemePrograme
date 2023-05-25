@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Update ProgrammedScheme Form{% endblock %}
+
+{% block body %}
+
+    <div class="col-lg-12 d-none my-2 d-lg-flex">
+        <div class="container-fluid text-primary h-100 d-flex align-items-center justify-content-center"
+             style="background-color: indigo; width: 90rem; border-radius: 20px;">
+            <div class="card card bg-light text-right h-100 d-flex align-items-center justify-content-center m-3 p-3"
+                 style="width: 100rem; border-radius: 20px;">
+                <h2 class="text-center text-primary">Update ProgrammedScheme Form</h2>
+                <form action="{% url 'programmedscheme-create' %}" method="POST">
+                    {% csrf_token %}
+                    {{ form }}
+
+                    <div class="container">
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>plucking_date</strong></label>
+                            <input style="height:40px;width:700px" type="datetime-local" class="form-control"
+                                   id="formGroupExampleInput2"
+                                   placeholder="plucking date" name="plucking_date">
+                        </div>
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput"
+                                   class="form-label"><strong>leaf_quality</strong></label>
+                            <input style="height:40px;width:700px" class="form-control"
+                                   id="formGroupExampleInput" placeholder="leaf_quality"
+                                   name="leaf_quality" value="{{leaf_quality}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>VP_percentage</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput3"
+                                   placeholder="VP_percentage" name="VP_percentage" value="{{VP_percentage}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>SD_percentage</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput4"
+                                   placeholder="SD_percentage" name="SD_percentage"
+                                   value="{{SD_percentage}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>division_area</strong></label>
+                             <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput5"
+                                   placeholder="division_area" name="division_area"
+                                   value="{{division_area}}">
+                        </div>
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>VP_division_area</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput6"
+                                   placeholder="VP_division_area" name="VP_division_area" value="{{VP_division_area}}">
+                        </div>
+                    </div>
+                    <div class="container align-items-center">
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>SD_division_area</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput7"
+                                   placeholder="SD_division_area" name="SD_division_area" value="{{SD_division_area}}">
+                        </div>
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>block_size</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput8"
+                                   placeholder="block_size" name="block_size" value="{{block_size}}">
+                        </div>
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>VP_scheme</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput9"
+                                   placeholder="VP_scheme" name="VP_scheme" value="{{VP_scheme}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>SD_scheme</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput10"
+                                   placeholder="SD_scheme" name="SD_scheme" value="{{SD_scheme}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>VP_pluckers_ha</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput11"
+                                   placeholder="VP_pluckers_ha" name="VP_pluckers_ha" value="{{VP_pluckers_ha}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>SD_pluckers_ha</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput12"
+                                   placeholder="SD_pluckers_ha" name="SD_pluckers_ha" value="{{SD_pluckers_ha}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>VP_plucked_area_day</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput13" placeholder="VP_plucked_area_day" name="VP_plucked_area_day"
+                                   value="{{VP_plucked_area_day}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>SD_plucked_area_day</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput14" placeholder="SD_plucked_area_day" name="SD_plucked_area_day"
+                                   value="{{SD_plucked_area_day}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>VP_rounds</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput15" placeholder="VP_rounds" name="VP_rounds"
+                                   value="{{VP_rounds}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>SD_rounds</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput16"
+                                   placeholder="SD_rounds" name="SD_rounds" value="{{SD_rounds}}">
+                        </div>
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>VP_zone_size</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput17"
+                                   placeholder="VP_zone_size" name="VP_zone_size" value="{{VP_zone_size}}">
+                        </div>
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>SD_zone_size</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput18"
+                                   placeholder="SD_zone_size" name="SD_zone_size" value="{{SD_zone_size}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>VP_zone_number_pluckers</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput19"
+                                   placeholder="VP_zone_number_pluckers" name="VP_zone_number_pluckers"
+                                   value="{{VP_zone_number_pluckers}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>SD_zone_number_pluckers</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput20" placeholder="SD_zone_number_pluckers" name="SD_zone_number_pluckers"
+                                   value="{{SD_zone_number_pluckers}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>zone_number_supervisor</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput21" placeholder="zone_number_supervisor" name="zone_number_supervisor"
+                                   value="{{zone_number_supervisor}}">
+                        </div>
+
+                        <div class="col-sm col-sm">
+                            <label for="formGroupExampleInput2"
+                                   class="form-label"><strong>total_number_pluckers</strong></label>
+                            <input style="height:40px;width:700px" type="text" class="form-control"
+                                   id="formGroupExampleInput22"
+                                   placeholder="total_number_pluckers" name="total_number_pluckers" value="{{total_number_pluckers}}">
+                        </div>
+
+                        <div class="container my-3">
+                            <button class="btn btn-primary" type="submit" value="Update" name="update"
+                                    typeof="hover">Submit
+                            </button>
+
+                            <a class="btn btn-warning bg-success btn-info block-lg"
+                               href="{% url 'programmedscheme-record' %}">Return</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {% endblock %}

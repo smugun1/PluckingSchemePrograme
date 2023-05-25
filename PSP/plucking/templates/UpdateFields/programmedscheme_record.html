@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% include 'ProgrammedScheme/update.html' %}
+
+{% include 'ProgrammedScheme/delete.html' %}
+
+{% load static %}
+
+
+<title>{% block title %}Programmed Scheme Record{% endblock %}</title>
+
+
+
+{% block body %}
+<div class="row g-4 d-flex align-items-center">
+    <div class="col-lg-12 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-4 px-4 my-4 py-4" style="background-color: rgba(13, 70, 10, 0.9); border-radius: 20px">
+            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Programmed Scheme Record</h2>
+            <div class="border p-3" style="border-radius: 20px">
+                <a class="btn btn-Primary bg-primary btn-info block-lg"
+                   href="{% url 'programmedscheme-update'%}">Add</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-record' %}">Go To RoundsMonitor</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp' %}">Go To Reports</a>
+                <form action="" method="POST">
+                    {% csrf_token %}
+
+                </form>
+
+                <hr>
+
+                <h3 class="text-center bg-light text-warning" style="border-radius: 10px">Record</h3>
+                <table class="table align-middle text-danger bg-light" style="border-radius: 10px">
+                    <tr>
+                        <th>Plucking date</th>
+                        <th>Leaf quality</th>
+                        <th>VP percentage.</th>
+                        <th>SD percentage</th>
+                        <th>division area</th>
+                        <th>VP division area</th>
+                        <th>SD division area</th>
+                        <th>block size</th>
+                        <th>VP scheme</th>
+                        <th>SD scheme</th>
+                        <th>VP pluckers ha</th>
+                        <th>SD pluckers ha.</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+
+                    {% for data in programmedScheme %}
+
+                    <tr>
+                        <td>{{data.plucking_date}}</td>
+                        <td>{{data.leaf_quality}}</td>
+                        <td>{{data.VP_percentage}}</td>
+                        <td>{{data.SD_percentage}}</td>
+                        <td>{{data.division_area}}</td>
+                        <td>{{data.VP_division_area}}</td>
+                        <td>{{data.SD_division_area}}</td>
+                        <td>{{data.block_size}}</td>
+                        <td>{{data.VP_scheme}}</td>
+                        <td>{{data.SD_scheme}}</td>
+                        <td>{{data.VP_pluckers_ha}}</td>
+                        <td>{{data.SD_pluckers_ha}}</td>
+                        <td><a class="btn btn btn-block text-primary btn btn-info" style="background-color: #22e39c;"
+                               href="{% url 'programmedscheme-update' data.id %}">Edit</a></td>
+                        <td><a class="btn btn-info btn-block btn btn-info text-light" style="background-color: #e32289;"
+                               href="{% url 'programmedscheme-delete' data.id %}">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <table class="table align-middle text-danger bg-light" style="border-radius: 10px">
+                    <tr>
+                        <th>VP plucked area day</th>
+                        <th>SD plucked area day</th>
+                        <th>VP rounds</th>
+                        <th>SD rounds</th>
+                        <th>VP zone size</th>
+                        <th>SD zone size</th>
+                        <th>VP zone number pluckers</th>
+                        <th>SD zone number pluckers</th>
+                        <th>zone number supervisor</th>
+                        <th>total number pluckers</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+
+                    {% for data in programmedScheme %}
+
+                    <tr>
+                        <td>{{data.VP_plucked_area_day}}</td>
+                        <td>{{data.SD_plucked_area_day}}</td>
+                        <td>{{data.VP_rounds}}</td>
+                        <td>{{data.SD_rounds}}</td>
+                        <td>{{data.VP_zone_size}}</td>
+                        <td>{{data.SD_zone_size}}</td>
+                        <td>{{data.VP_zone_number_pluckers}}</td>
+                        <td>{{data.SD_zone_number_pluckers}}</td>
+                        <td>{{data.zone_number_supervisor}}</td>
+                        <td>{{data.total_number_pluckers}}</td>
+                        <td><a class="btn btn btn-block text-primary btn btn-info" style="background-color: #22e39c;"
+                               href="{% url 'programmedscheme-update' data.id %}">Edit</a></td>
+                        <td><a class="btn btn-info btn-block btn btn-info text-light" style="background-color: #e32289;"
+                               href="{% url 'programmedscheme-delete' data.id %}">Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
