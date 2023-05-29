@@ -40,7 +40,7 @@ def user_login(request):
             fm = AuthenticationForm()
         return render(request, 'authenticate/userlogin.html', {'form': fm})
     else:
-        return render(request, 'UpdateFields/dashboard.html')
+        return render(request, 'UpdateFields/first_page.html')
         # return HttpResponseRedirect('/profile/')
 
 

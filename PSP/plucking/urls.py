@@ -5,6 +5,7 @@ from .views import PSP, chart_view
 
 urlpatterns = [
     path('', PSP, name='psp'),
+    path('first-page', views.FirstPage, name='first-page'),
     path('psp-graphs', views.PSPGraphs, name='psp-graphs'),
     path('psp-calc', views.PSPCalculator, name='psp-calc'),
 

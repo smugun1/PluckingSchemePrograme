@@ -31,6 +31,14 @@ def AdminResources(request):
     return HttpResponse('This is the plucking reports Page')
 
 
+def FirstPage(request):
+    context = {
+        'name': {'welcome to the first Page'},
+        'form': PSPForms
+    }
+    return render(request, 'UpdateFields/first_page.html', context)
+
+
 def PSP(request):
     context = {
         'name': {'This is the plucking reports Page'},
@@ -890,7 +898,7 @@ def FieldsViewUpdate(request):
 
     zone_data = Division_data.get(zone, {})
     Division_data = {
-        'Field_No': zone_data.get('Field_No', []),
+        'Zone': zone_data.get('Zone', []),
         'Leaf_Type': zone_data.get('Leaf_Type', []),
         'Ha': zone_data.get('Ha', []),
         'Days_to_plk': zone_data.get('Days_to_plk', []),
@@ -916,6 +924,7 @@ def FieldsViewUpdate(request):
 
 def FieldsViewCreate(request):
     if request.method == "POST":
+        Zone = request.POST.get('Zone')
         Field_No = request.POST.get('Field_No')
         Leaf_Type = request.POST.get('Leaf_Type')
         Ha = request.POST.get('Ha')
@@ -955,7 +964,7 @@ def FieldsViewCreate(request):
         Month_day_30 = request.POST.get('Month_day_30')
         Month_day_31 = request.POST.get('Month_day_31')
 
-        insert = FieldsToPluck(Field_No=Field_No, Leaf_Type=Leaf_Type, Ha=Ha, Days_to_plk=Days_to_plk,
+        insert = FieldsToPluck(Zone=Zone, Field_No=Field_No, Leaf_Type=Leaf_Type, Ha=Ha, Days_to_plk=Days_to_plk,
                                Prune_age=Prune_age, Number_of_schemes=Number_of_schemes,
                                Growing_days_CF=Growing_days_CF, Month_day_01=Month_day_01,
                                Month_day_02=Month_day_02, Month_day_03=Month_day_03, Month_day_04=Month_day_04,

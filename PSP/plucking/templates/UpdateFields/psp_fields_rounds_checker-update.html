@@ -28,6 +28,12 @@
                         {% csrf_token %}
 
                         <div class="form-group">
+                            <label for="Zone">Zone:</label>
+                            <input type="text" class="form-control" id="Zone" name="Zone"
+                                   value="{{ Zone|default_if_none:'' }}" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="Field_No">Field_No:</label>
                             <input type="text" class="form-control" id="Field_No" name="Field_No"
                                    value="{{ Field_No|default_if_none:'' }}" required>
