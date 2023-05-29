@@ -15,16 +15,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'roundsmonitor-record' %}">Roundsmonitor</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'plucking-rounds-update' %}">Plucking-Rounds</a></li>
+                    <a class="nav-link" href="{% url 'fields-record' %}">Fields Record</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href=""></a></li>
-                <li class="nav-item">
-                    <a class="nav-link" href=""></a></li>
+                <a class="nav-link" href=""></a></li>
+                <li class="nav-item"><a class="nav-link" href=""></a></li>
                 {% endif %}
                 {% if request.user.is_superuser %}
-                <li class="nav-item">
+                <li class="nav-item"><a class="nav-link" href=""></a></li>
                     {% else %}
-                    <a class="nav-link" href=""></a></li>
+
 
                 {% endif %}
 
@@ -32,10 +31,8 @@
             </ul>
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'resources-admin' %}">Resources Admin</a></li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin' %}">Admin</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'resources-admin' %}">Resources Admin</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'admin' %}">Admin</a></li>
                 <li class="nav-item"><a class="nav-link active" href="{% url 'password_reset' %}">ResetPassword</a></li>
                 <li class="nav-item"><a class="nav-link active" href="{% url 'profile' %}">Profile</a></li>
                 <li class="nav-item"><a class="nav-link active" href="{% url 'logout' %}">Logout</a></li>

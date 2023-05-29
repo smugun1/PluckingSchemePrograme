@@ -7,39 +7,41 @@
 {% include 'RoundsMonitor/delete.html' %}
 
 
-
 <title>{% block title %}Rounds Monitor Record{% endblock %}</title>
 
 {% block body %}
 <div class="row g-4 d-flex align-items-center">
     <div class="col-lg-12 d-none d-lg-flex">
-        <div class="container-fluid text-right card card-light mx-4 px-4 my-4 py-4" style="background-color: rgba(13, 70, 10, 0.9); border-radius: 20px">
+        <div class="container-fluid text-right card card-light mx-4 px-4 my-4 py-4"
+             style="background-color: rgba(13, 70, 10, 0.9); border-radius: 20px">
             <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Rounds Monitor Record</h2>
             <div class="border p-3" style="border-radius: 20px">
-               <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-update' %}">Add</a>
-                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go To ProgramedScheme</a>
-                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp' %}">Go To Reports</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-update' %}">Add</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go To
+                    ProgramedScheme</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp' %}">Go To Dashboard</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-graphs' %}">Go To Graphs</a>
                 <form action="" method="POST">
                     {% csrf_token %}
 
                 </form>
                 <hr>
-                <h3 class="text-center bg-light text-Primary" style="border-radius: 10px">Record</h3>
+                <h3 class="text-center bg-light text-Primary" style="border-radius: 10px">Plucking Rounds Checker</h3>
                 <table class="table align-middle text-Primary bg-light" style="border-radius: 10px">
                     <tr>
-                        <th>Date Today</th>
-                        <th>Field</th>
-                        <th>Plucking round</th>
-                        <th>Plucking day</th>
-                        <th>Next plucking</th>
-                        <th>Actual plucking_day</th>
-                        <th>Days behind</th>
-                        <th>Days ahead</th>
-                        <th>Total plucking_round</th>
-                        <th>Month end</th>
-                        <th>Round ba_days</th>
-                        <th>Days to_en_month</th>
-                        <th>Days bf</th>
+                        <th>Date</th>
+                        <th>Field Plucked</th>
+                        <th>Rounds</th>
+                        <th>Plucked on</th>
+                        <th>Estimate plucking on</th>
+                        <th>Actual plucking on</th>
+                        <th>Late by</th>
+                        <th>Ahead by</th>
+                        <th>Total rounds</th>
+                        <th>Days in month</th>
+                        <th>Days remaining</th>
+                        <th>Month balance days</th>
+                        <th>Days to curry forward</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -60,17 +62,21 @@
                         <td>{{data.round_bal_days}}</td>
                         <td>{{data.days_to_end_month}}</td>
                         <td>{{data.days_bf}}</td>
-                        <td><a class="btn btn btn-block text-primary btn btn-info" style="background-color: #22e39c;"
+                        <td><a class="btn btn btn-block text-primary btn btn-info"
+                               style="background-color: #22e39c;"
                                href="{% url 'roundsmonitor-edit' data.id %}">Edit</a></td>
-                        <td><a class="btn btn-info btn-block btn btn-info text-light" style="background-color: #e32289;"
+                        <td><a class="btn btn-info btn-block btn btn-info text-light"
+                               style="background-color: #e32289;"
                                href="{% url 'roundsmonitor-delete' data.id %}">Delete</a></td>
                     </tr>
                     {% endfor %}
                 </table>
             </div>
+
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 

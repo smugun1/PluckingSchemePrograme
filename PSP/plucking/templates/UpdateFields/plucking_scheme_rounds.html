@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Plucking Rounds{% endblock %}
+{% block title %}Plucking Scheme Rounds{% endblock %}
 
 {% block body %}
 <!--    <style>-->
@@ -26,7 +26,7 @@
 <!--            background-color: #f9f9f9;-->
 <!--        }-->
 <!--    </style>-->
-<style>
+<style xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
             table, th, td {
                 border: 1px solid black;
                 border-collapse: collapse;
@@ -36,19 +36,18 @@
             }
 
 </style>
-<title>Plucking Rounds</title>
+<title>Plucking Scheme Rounds</title>
 <div class="card border-primary mt-3">
     <div class="card-header">
         <div class="container-fluid">
             <div class="card-body">
-                <a href="{% url 'plucking-rounds' %}" class="btn btn-warning block-lg bg-info">Go To Zone
-                    Fields</a>
-                <a class="btn btn-warning bg-primary btn-info block-lg" href="{% url 'psp'%}">Go
-                    To Plucking Scheme Program</a>
+                <a href="{% url 'fields-record' %}" class="btn btn-warning block-lg bg-primary text-light">Go To PSP Field Rounds</a>
+                <a class="btn btn-warning bg-primary text-light btn-info block-lg" href="{% url 'psp'%}">Go
+                    Dashboard</a>
             </div>
         </div>
-        <h3>KAKUZI PLC - KABOSWA ESTATE</h3>
-        <h4>PROGRAM SCHEME PLUCKING</h4>
+        <h3>{{company}}</h3>
+        <h4>Plucking Scheme Rounds</h4>
         <form action="" method="POST">
     {% csrf_token %}
         <table id="myTable" border="1">
@@ -105,6 +104,7 @@
                                                                                       value="JANUARY 2023"></td>
             </tr>
         </table>
+        </form>
         <br>
         <table>
             <form>
@@ -117,37 +117,37 @@
                         <th contenteditable="true" oninput="saveChanges(this)" id="29">Prune Age</th>
                         <th contenteditable="true" oninput="saveChanges(this)" id="30">Number of Schemes</th>
                         <th contenteditable="true" oninput="saveChanges(this)" id="31">Growing Days B/F</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="32">01</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="33">02</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="34">03</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="35">04</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="36">05</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="37">06</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="38">07</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="39">08</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="40">09</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="41">10</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="42">11</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="43">12</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="44">13</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="45">14</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="46">15</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="47">16</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="48">17</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="49">18</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="50">19</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="51">20</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="52">21</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="53">22</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="54">23</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="55">24</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="56">25</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="57">26</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="58">27</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="59">28</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="60">29</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="61">30</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="62">31</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="32">Month_day_01</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="33">Month_day_02</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="34">Month_day_03</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="35">Month_day_04</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="36">Month_day_05</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="37">Month_day_06</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="38">Month_day_07</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="39">Month_day_08</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="40">Month_day_09</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="41">Month_day_10</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="42">Month_day_11</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="43">Month_day_12</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="44">Month_day_13</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="45">Month_day_14</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="46">Month_day_15</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="47">Month_day_16</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="48">Month_day_17</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="49">Month_day_18</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="50">Month_day_19</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="51">Month_day_20</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="52">Month_day_21</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="53">Month_day_22</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="54">Month_day_23</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="55">Month_day_24</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="56">Month_day_25</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="57">Month_day_26</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="58">Month_day_27</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="59">Month_day_28</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="60">Month_day_29</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="61">Month_day_30</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="62">Month_day_31</th>
                     </tr>
                     <tr>
                     <tr>
@@ -659,9 +659,9 @@
                         <td contenteditable="true" oninput="saveChanges(this)" id="532">SD</td>
                         <td contenteditable="true" oninput="saveChanges(this)" id="533">17.00</td>
                         <td contenteditable="true" oninput="saveChanges(this)" id="534">2</td>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="535">189</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="536">1</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="537"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="535">2</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="536">189</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="537">1</th>
                         <th contenteditable="true" oninput="saveChanges(this)" id="538"></th>
                         <th contenteditable="true" oninput="saveChanges(this)" id="539"></th>
                         <th contenteditable="true" oninput="saveChanges(this)" id="540"></th>
@@ -952,10 +952,10 @@
                         <td contenteditable="true" oninput="saveChanges(this)" id="804">Field 9</td>
                         <td contenteditable="true" oninput="saveChanges(this)" id="805">SD</td>
                         <td contenteditable="true" oninput="saveChanges(this)" id="806">20.43</td>
-                        <td contenteditable="true" oninput="saveChanges(this)" id="807">227</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="807">3</td>
                         <th contenteditable="true" oninput="saveChanges(this)" id="808">1</th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="809"></th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="810"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="809">227</th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="810">1</th>
                         <th contenteditable="true" oninput="saveChanges(this)" id="811"></th>
                         <th contenteditable="true" oninput="saveChanges(this)" id="812"></th>
                         <th contenteditable="true" oninput="saveChanges(this)" id="813"></th>
@@ -1028,9 +1028,10 @@
                         <th contenteditable="true" oninput="saveChanges(this)" id="877"></th>
                         <th contenteditable="true" oninput="saveChanges(this)" id="878"></th>
                         <th contenteditable="true" oninput="saveChanges(this)" id="879"></th>
-                    <tr>
                         <th contenteditable="true" oninput="saveChanges(this)" id="880"></th>
+                    <tr>
                         <th contenteditable="true" oninput="saveChanges(this)" id="881"></th>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="882"></th>
                     </tr>
                     <tr>
                         {% for day in growing_days %}
@@ -1041,7 +1042,7 @@
                     </tr>
 
                     <tr>
-                        <td contenteditable="true" oninput="saveChanges(this)" id="882">{{ stored_content }}#</td>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="883">{{ stored_content }}#</td>
                     </tr>
                 </table>
             <button type="submit">Update</button>
@@ -1132,6 +1133,5 @@
         <!--        </script>-->
 
     </div>
-
 </div>
 {% endblock %}

@@ -70,3 +70,48 @@ class RoundsMonitor(models.Model):
 
     def __str__(self):
         return str(self.field)
+
+
+class FieldsToPluck(models.Model):
+    Zone = models.CharField(max_length=100)
+    Field_No = models.IntegerField()
+    Leaf_Type = models.CharField(max_length=100, default=None)
+    Ha = models.IntegerField(default=0.00)
+    Days_to_plk = models.IntegerField()
+    Prune_age = models.IntegerField()
+    Number_of_schemes = models.IntegerField()
+    Growing_days_CF = models.IntegerField()
+    Month_day_01 = models.IntegerField()
+    Month_day_02 = models.IntegerField()
+    Month_day_03 = models.IntegerField()
+    Month_day_04 = models.IntegerField()
+    Month_day_05 = models.IntegerField()
+    Month_day_06 = models.IntegerField()
+    Month_day_07 = models.IntegerField()
+    Month_day_08 = models.IntegerField()
+    Month_day_09 = models.IntegerField()
+    Month_day_10 = models.IntegerField()
+    Month_day_11 = models.IntegerField()
+    Month_day_12 = models.IntegerField()
+    Month_day_13 = models.IntegerField()
+    Month_day_14 = models.IntegerField()
+    Month_day_15 = models.IntegerField()
+    Month_day_16 = models.IntegerField()
+    Month_day_17 = models.IntegerField()
+    Month_day_18 = models.IntegerField()
+    Month_day_19 = models.IntegerField()
+    Month_day_20 = models.IntegerField()
+    Month_day_21 = models.IntegerField()
+    Month_day_22 = models.IntegerField()
+    Month_day_23 = models.IntegerField()
+    Month_day_24 = models.IntegerField()
+    Month_day_25 = models.IntegerField()
+    Month_day_26 = models.IntegerField()
+    Month_day_27 = models.IntegerField()
+    Month_day_28 = models.IntegerField()
+    Month_day_29 = models.IntegerField()
+    Month_day_30 = models.IntegerField()
+    Month_day_31 = models.IntegerField()
+
+    def __str__(self):
+        return self.Field_No

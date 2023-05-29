@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.core.paginator import Paginator, Page
 from import_export.admin import ImportExportModelAdmin
 
-from .models import ProgrammedScheme, Resources, Resourcesexcell, RoundsMonitor
+from .models import ProgrammedScheme, Resources, Resourcesexcell, RoundsMonitor, FieldsToPluck
 
 from django.contrib import admin
 
@@ -33,6 +33,7 @@ admin.site.register(Resources)
 admin.site.register(Resourcesexcell)
 admin.site.register(ProgrammedScheme)
 admin.site.register(RoundsMonitor)
+admin.site.register(FieldsToPluck)
 
 
 #

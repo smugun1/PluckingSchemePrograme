@@ -13,23 +13,7 @@
 
             <p class="h2 text-center"></p>
             <div class="row my-1">
-                <div class="card-header bg-light">
-                    <div class="card-body">
-                        <div class="card-header bg-light text-dark">
-                            <h1 class="text-center text-primary">Graphs</h1></div>
-                        <marquee behaviour="" direction="">
-                            <h3 class="my-1"><strong><em> Graphs are displayed on the plucking dashboard </em></strong>
-                            </h3>
-                        </marquee>
-                        <a class="text-decoration-none text-dark" href="">
-                            <div class="card my-card shadow text-center p-1">
-                                <h5>Plucking Schemes <i class="fa fa-calendar-check-o"
-                                                        aria-hidden="true"></i>
-                                </h5>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+
                 <div class="container">
                     <div class="card">
                         <div class="card-header bg-light text-dark">
@@ -37,72 +21,93 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class=" col-md-4">
-                                    <a class="text-decoration-none text-dark" href="{% url 'chart_view' %}">
-                                        <div class="card my-card shadow text-center p-3">
-                                            <h4>Chart View <i class="fa fa-leaf" aria-hidden="true"></i></h4>
-                                            <h3>4</h3>
+                                <div class=" col-md-2">
+                                    <a class="text-decoration-none text-dark" href="{% url 'resourcesexcell-admin' %}">
+                                        <div class="card my-card shadow text-center p-2">
+                                            <h5>Recsources <i class="fa fa-leaf" aria-hidden="true"></i></h5>
+                                            <h4>4</h4>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class=" col-md-2">
+                                    <a class="text-decoration-none text-dark" href="{% url 'django-admin' %}">
+                                        <div class="card my-card shadow text-center p-2">
+                                            <h5>Admins <i class="fa fa-bar-chart" aria-hidden="true"></i></h5>
+                                            <h4>4</h4>
                                         </div>
                                     </a>
                                 </div>
                                 <div class=" col-md-2">
                                     <a class="text-decoration-none text-dark" href="{% url 'psp' %}">
-                                        <div class="card my-card shadow text-center p-3">
-                                            <h4>Dashboard <i class="fa fa-television" aria-hidden="true"></i>
-                                            </h4>
-                                            <h3>4</h3>
+                                        <div class="card my-card shadow text-center p-2">
+                                            <h5>Dashboard <i class="fa fa-television" aria-hidden="true"></i>
+                                            </h5>
+                                            <h4>4</h4>
                                         </div>
                                     </a>
                                 </div>
                                 <div class=" col-md-2">
                                     <a class="text-decoration-none text-dark" href="{% url 'save_changes' %}">
-                                        <div class="card my-card shadow text-center p-3">
-                                            <h4>Save <i class="fa fa-binoculars" aria-hidden="true"></i></h4>
-                                            <h3>4</h3>
+                                        <div class="card my-card shadow text-center p-2">
+                                            <h5>Save <i class="fa fa-binoculars" aria-hidden="true"></i></h5>
+                                            <h4>4</h4>
                                         </div>
                                     </a>
                                 </div>
-                                <div class=" col-md-4">
+                                <div class=" col-md-2">
                                     <a class="text-decoration-none text-dark"
                                        href="{% url 'programmedscheme-update' %}">
                                         <div class="card my-card shadow text-center p-2">
-                                            <h4>Plucking Record <i class="fa-solid fa-paperclip"></i></h4>
-                                            <h3>4</h3>
+                                            <h5>Plucking Record <i class="fa-solid fa-paperclip"></i></h5>
+                                            <h4>4</h4>
                                         </div>
                                     </a>
+                                </div>
+                                <div class=" col-md-2">
+                                    <a class="text-decoration-none text-dark"
+                                       href="{% url 'programmedscheme-record' %}">
+                                        <div class="card my-card shadow text-center p-2">
+                                            <h5>Plucking Record <i class="fa fa-calendar-check-o"
+                                                                   aria-hidden="true"></i></h5>
+                                            <h4>4</h4>
+                                        </div>
+                                    </a>
+
+                                </div>
+                                <div class="card">
+                                    <div class="card-header bg-light text-dark">
+                                        Division Graphs
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="container fluid bg-white text-secondary my-0 px-0 mb-0 mt-1 mt-1"
-                 style="width: 250rem; border-radius: 20px;">
-                <div class="row my-5">
-                    <div class="md-4">
-                        <div class="container my-0 mx-0 mt-1">
-                            <div class="row mt-1">
-                                <div class=" col-md-12">
-                                    <div class="card">
-
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class=" col-md-4">
+                <div class="container fluid bg-white text-secondary my-0 px-0 mb-0 mt-0"
+                     style="width: 250rem; border-radius: 20px;">
+                    <div class="row my-5">
+                        <div class="md-4">
+                            <div class="container my-0 mx-0 mt-1">
+                                <div class="row mt-1">
+                                    <div class=" col-md-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class=" col-md-4">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!--mid-graphs-->
-                                                <div class="col-md-4">
-                                                    <div class="bg-white">
-                                                        <canvas id="Chart" width="400" height="300"></canvas>
-                                                        <script>
+                                                    <!--mid-graphs-->
+                                                    <div class="col-md-4">
+                                                        <div class="bg-white">
+                                                            <canvas id="Chart" width="400" height="300"></canvas>
+                                                            <script>
                                               const ctx = document.getElementById('Chart');
 
                                               new Chart(ctx, {
-                                                type: 'pie',
+                                                type: 'line',
                                                 data: {
                                                   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                                                   datasets: [{
@@ -129,13 +134,14 @@
 
 
 
-                                                        </script>
+
+                                                            </script>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="bg-white">
-                                                        <canvas id="Chart0" width="400" height="300"></canvas>
-                                                        <script>
+                                                    <div class="col-md-4">
+                                                        <div class="bg-white">
+                                                            <canvas id="Chart0" width="400" height="300"></canvas>
+                                                            <script>
                                               const ctx0 = document.getElementById('Chart0');
 
                                               new Chart(ctx0, {
@@ -166,17 +172,18 @@
 
 
 
-                                                        </script>
+
+                                                            </script>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="bg-white">
-                                                        <canvas id="Chart01" width="400" height="300"></canvas>
-                                                        <script>
+                                                    <div class="col-md-4">
+                                                        <div class="bg-white">
+                                                            <canvas id="Chart01" width="400" height="300"></canvas>
+                                                            <script>
                                               const ctx01 = document.getElementById('Chart01');
 
                                               new Chart(ctx01, {
-                                                type: 'bar',
+                                                type: 'pie',
                                                 data: {
                                                   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                                                   datasets: [{
@@ -195,15 +202,8 @@
                                               });
 
 
-
-
-
-
-
-
-
-
-                                                        </script>
+                                                            </script>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -212,18 +212,17 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    <!--end-top-->
-                    <!--bottom-->
-                    <!--lower_graphs>-->
-                    <div class="container" style="border-radius: 20px; width: 255rem;">
-                        <div class="row my-5">
-                            <div class="col-md-4">
-                                <div class="bg-white">
-                                    <canvas id="chart1" width="500" height="400"></canvas>
-                                    <script>
+                        <!--end-top-->
+                        <!--bottom-->
+                        <!--lower_graphs>-->
+                        <div class="container" style="border-radius: 20px; width: 255rem;">
+                            <div class="row my-5">
+                                <div class="col-md-4">
+                                    <div class="bg-white">
+                                        <canvas id="chart1" width="500" height="400"></canvas>
+                                        <script>
                         let ctx1 = document.getElementById("chart1").getContext("2d");
                        new Chart(ctx1, {
                           type: "bar",
@@ -269,19 +268,20 @@
 
 
 
-                                    </script>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="bg-white">
-                                    <div>
-                                        <canvas id="Chart2" width="500" height="400"></canvas>
+
+                                        </script>
                                     </div>
-                                    <script>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="bg-white">
+                                        <div>
+                                            <canvas id="Chart2" width="500" height="400"></canvas>
+                                        </div>
+                                        <script>
                       const ctx2 = document.getElementById('Chart2');
 
                       new Chart(ctx2, {
-                        type: 'bar',
+                        type: 'doughnut',
                         data: {
                           labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                           datasets: [{
@@ -308,15 +308,16 @@
 
 
 
-                                    </script>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="bg-white">
-                                    <div>
-                                        <canvas id="Chart3" width="500" height="400"></canvas>
+
+                                        </script>
                                     </div>
-                                    <script>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="bg-white">
+                                        <div>
+                                            <canvas id="Chart3" width="500" height="400"></canvas>
+                                        </div>
+                                        <script>
                       const ctx3 = document.getElementById('Chart3');
 
                       new Chart(ctx3, {
@@ -347,27 +348,14 @@
 
 
 
-                                    </script>
+
+                                        </script>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="container md-12">
-                <div class="container fluid bg-white text-secondary my-0 px-0 m-0 mt-3"
-                     style="border-radius: 20px; width: 255rem;">
-                    <div class="container my-0 px-0 mb-0 mt-1" style="border-radius: 20px; width: 255rem;">
+                            <div class="container">
 
-                        <!--end-top-->
-                        <!--            graphs-->
-
-                        <div class="container">
-                            <div class="card">
-                                <div class="card-header bg-light text-dark">
-                                    Division Graphs
-                                </div>
                                 <div class="row my-5">
                                     <div class="col-md-4">
                                         <div class="bg-white">
@@ -412,6 +400,7 @@
 
 
 
+
                                             </script>
                                         </div>
                                     </div>
@@ -424,7 +413,7 @@
                                   const ctx002 = document.getElementById('Chart002');
 
                                   new Chart(ctx002, {
-                                    type: 'bar',
+                                    type: 'pie',
                                     data: {
                                       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                                       datasets: [{
@@ -441,6 +430,7 @@
                                       }
                                     }
                                   });
+
 
 
 
@@ -478,24 +468,16 @@
 
 
 
+
                                             </script>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <div class="container">
-                                <div class="card">
-                                    <div class="card-header bg-light text-dark">
-                                        Plucking Graphs
-                                    </div>
-                                    <div class="row my-5">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <div class="bg-white">
-                                                        <canvas id="Chart11" width="400" height="300"></canvas>
-                                                        <script>
+
+                                    <div class="col-md-3">
+                                        <div class="bg-white">
+                                            <canvas id="Chart11" width="400" height="300"></canvas>
+                                            <script>
                                               const ctx11 = document.getElementById('Chart11');
 
                                               new Chart(ctx11, {
@@ -521,13 +503,14 @@
 
 
 
-                                                        </script>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="bg-white">
-                                                        <canvas id="Chart00" width="400" height="300"></canvas>
-                                                        <script>
+
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="bg-white">
+                                            <canvas id="Chart00" width="400" height="300"></canvas>
+                                            <script>
                                               const ctx00 = document.getElementById('Chart00');
 
                                               new Chart(ctx00, {
@@ -553,13 +536,14 @@
 
 
 
-                                                        </script>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="bg-white">
-                                                        <canvas id="Chart001" width="400" height="300"></canvas>
-                                                        <script>
+
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="bg-white">
+                                            <canvas id="Chart001" width="400" height="300"></canvas>
+                                            <script>
                                               const ctx001 = document.getElementById('Chart001');
 
                                               new Chart(ctx001, {
@@ -585,13 +569,14 @@
 
 
 
-                                                        </script>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="bg-white">
-                                                        <canvas id="Chart011" width="400" height="300"></canvas>
-                                                        <script>
+
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="bg-white">
+                                            <canvas id="Chart011" width="400" height="300"></canvas>
+                                            <script>
                                               const ctx011 = document.getElementById('Chart011');
 
                                               new Chart(ctx011, {
@@ -617,10 +602,8 @@
 
 
 
-                                                        </script>
-                                                    </div>
-                                                </div>
-                                            </div>
+
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
@@ -631,6 +614,8 @@
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 </div>
 <!--end-graphs>-->

@@ -6,7 +6,6 @@ from .views import PSP, chart_view
 urlpatterns = [
     path('', PSP, name='psp'),
     path('psp-graphs', views.PSPGraphs, name='psp-graphs'),
-    path('first-page', views.FirstPage, name='first-page'),
     path('psp-calc', views.PSPCalculator, name='psp-calc'),
 
     path('admin/', views.Admin, name='admin'),
@@ -26,6 +25,9 @@ urlpatterns = [
     path('roundsmonitor-update/', views.RoundsMonitorViewUpdate, name='roundsmonitor-update'),
     path('roundsmonitor-create/', views.RoundsMonitoViewCreate, name='roundsmonitor-create'),
 
+    path('fields-record/', views.FieldsViewRetrieve, name='fields-record'),
+    path('fields-update/', views.FieldsViewUpdate, name='fields-update'),
+    path('fields-create/', views.FieldsViewCreate, name='fields-create'),
 
     path('plucking-rounds/', views.PluckingRoundsViewRetrieve, name='plucking-rounds'),
     path('plucking-rounds-update/', views.PluckingRoundsViewUpdate, name='plucking-rounds-update'),
@@ -35,6 +37,9 @@ urlpatterns = [
 
     path('roundsmonitor-edit/<int:pk>/', views.RoundsMonitorEdit, name='roundsmonitor-edit'),
     path('roundsmonitor-delete/<int:pk>/', views.RoundsMonitorDelete, name='roundsmonitor-delete'),
+
+    path('fields-edit/<int:pk>/', views.FieldsEdit, name='fields-edit'),
+    path('fields-delete/<int:pk>/', views.FieldsDelete, name='fields-delete'),
 
     path('plucking-rounds-update/<int:pk>/', views.PluckingRoundsViewUpdate, name='plucking-rounds-update'),
     path('plucking-rounds-create/<int:pk>/', views.PluckingRoundsViewCreate, name='plucking-rounds-create'),

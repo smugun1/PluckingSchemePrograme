@@ -18,52 +18,48 @@
 
                     <div class="container">
                         <div class="col-sm col-sm">
-                            <label for="formGroupExampleInput2" class="form-label"><strong>Date Today</strong></label>
+                            <label for="formGroupExampleInput2" class="form-label"><strong>Date</strong></label>
                             <input style="height:40px;width:700px" type="datetime-local" class="form-control"
-                                   id="formGroupExampleInput"
-                                   placeholder="Date Today date" name="today_date">
+                                   id="formGroupExampleInput" placeholder="Date Today date" name="Date">
                         </div>
                         <div class="col-sm col-sm">
                             <label for="formGroupExampleInput"
-                                   class="form-label"><strong>Field</strong></label>
+                                   class="form-label"><strong>Field Plucked</strong></label>
                             <input style="height:40px;width:700px" class="form-control"
-                                   id="formGroupExampleInput1" placeholder="field"
-                                   name="field" value="{{field}}">
+                                   id="formGroupExampleInput1" placeholder="field" name="field" value="{{field}}">
                         </div>
                         <div class="col-sm col-sm">
                             <label for="formGroupExampleInput"
-                                   class="form-label"><strong>Plucking round</strong></label>
+                                   class="form-label"><strong>Rounds</strong></label>
                             <input style="height:40px;width:700px" class="form-control"
-                                   id="formGroupExampleInput2" placeholder="Plucking round"
-                                   name="plucking_round" value="{{plucking_round}}">
+                                   id="formGroupExampleInput2"
+                                   placeholder="Plucking round" name="plucking_round" value="{{plucking_round}}">
                         </div>
 
                         <div class="col-sm col-sm">
                             <label for="formGroupExampleInput2"
-                                   class="form-label"><strong>Plucking day</strong></label>
-                            <input style="height:40px;width:700px" type="text" class="form-control"
-                                   id="formGroupExampleInput3"
-                                   placeholder="Plucking day" name="plucking_day" value="{{plucking_day}}">
+                                   class="form-label"><strong>Plucked on</strong></label>
+                            <input style="height:40px;width:700px" type="date" id="update-date-input"
+                                    name="plucking_day" value="{{plucking_day}}" class="form-control"
+                                   placeholder="plucking_day">
                         </div>
 
                         <div class="col-sm col-sm">
                             <label for="formGroupExampleInput2"
-                                   class="form-label"><strong>Next plucking</strong></label>
-                            <input style="height:40px;width:700px" type="text" class="form-control"
-                                   id="formGroupExampleInput4"
-                                   placeholder="Next plucking" name="next_plucking"
-                                   value="{{next_plucking}}">
+                                   class="form-label"><strong>Estimate plucking on</strong></label>
+                            <input style="height:40px;width:700px" type="date" id="update-date-input1"
+                                    name="next_plucking" value="{{next_plucking}}" class="form-control"
+                                   placeholder="next_plucking">
                         </div>
 
                         <div class="col-sm col-sm">
-                            <label for="formGroupExampleInput2" class="form-label"><strong>Actual plucking_day</strong></label>
-                             <input style="height:40px;width:700px" type="text" class="form-control"
-                                   id="formGroupExampleInput5"
-                                   placeholder="Actual plucking_day" name="actual_plucking_day"
-                                   value="{{actual_plucking_day}}">
+                            <label for="formGroupExampleInput2" class="form-label"><strong>Actual plucking on</strong></label>
+                             <input style="height:40px;width:700px" type="date" id="update-date-input2"
+                                    name="actual_plucking_day" value="{{actual_plucking_day}}" class="form-control"
+                                   placeholder="Actual plucking_day">
                         </div>
                         <div class="col-sm col-sm">
-                            <label for="formGroupExampleInput2" class="form-label"><strong>Days behind</strong></label>
+                            <label for="formGroupExampleInput2" class="form-label"><strong>Late by</strong></label>
                             <input style="height:40px;width:700px" type="text" class="form-control"
                                    id="formGroupExampleInput6"
                                    placeholder="Days behind" name="days_behind" value="{{days_behind}}">
@@ -72,28 +68,28 @@
                     <div class="container align-items-center">
 
                         <div class="col-sm col-sm">
-                            <label for="formGroupExampleInput2" class="form-label"><strong>Days ahead</strong></label>
+                            <label for="formGroupExampleInput2" class="form-label"><strong>Ahead by</strong></label>
                             <input style="height:40px;width:700px" type="text" class="form-control"
                                    id="formGroupExampleInput7"
                                    placeholder="Days ahead" name="days_ahead" value="{{days_ahead}}">
                         </div>
                         <div class="col-sm col-sm">
                             <label for="formGroupExampleInput2"
-                                   class="form-label"><strong>Total plucking_round</strong></label>
+                                   class="form-label"><strong>Total rounds</strong></label>
                             <input style="height:40px;width:700px" type="text" class="form-control"
                                    id="formGroupExampleInput8"
                                    placeholder="Total plucking_round" name="total_plucking_round" value="{{total_plucking_round}}">
                         </div>
                         <div class="col-sm col-sm">
                             <label for="formGroupExampleInput2"
-                                   class="form-label"><strong>Month end</strong></label>
+                                   class="form-label"><strong>Days in month</strong></label>
                             <input style="height:40px;width:700px" type="text" class="form-control"
                                    id="formGroupExampleInput9"
                                    placeholder="Month end" name="month_end" value="{{month_end}}">
                         </div>
 
                         <div class="col-sm col-sm">
-                            <label for="formGroupExampleInput2" class="form-label"><strong>Round ba_days</strong></label>
+                            <label for="formGroupExampleInput2" class="form-label"><strong>Days_remaining</strong></label>
                             <input style="height:40px;width:700px" type="text" class="form-control"
                                    id="formGroupExampleInput10"
                                    placeholder="Round bal_days" name="round_bal_days" value="{{round_bal_days}}">
@@ -101,7 +97,7 @@
 
                         <div class="col-sm col-sm">
                             <label for="formGroupExampleInput2"
-                                   class="form-label"><strong>Days to_en_month</strong></label>
+                                   class="form-label"><strong>Month balance days</strong></label>
                             <input style="height:40px;width:700px" type="text" class="form-control"
                                    id="formGroupExampleInput11"
                                    placeholder="Days to_end_month" name="days_to_end_month" value="{{days_to_end_month}}">
@@ -109,7 +105,7 @@
 
                         <div class="col-sm col-sm">
                             <label for="formGroupExampleInput2"
-                                   class="form-label"><strong>Days bf</strong></label>
+                                   class="form-label"><strong>Days to curry forward</strong></label>
                             <input style="height:40px;width:700px" type="text" class="form-control"
                                    id="formGroupExampleInput12"
                                    placeholder="Days bf" name="days_bf" value="{{days_bf}}">
@@ -128,6 +124,26 @@
             </div>
         </div>
     </div>
+     <script>
+          // Get the current date
+          var currentDate = new Date().toISOString().split('T')[0];
 
+          // Set the current date as the value of the date input field
+          document.getElementById("update-date-input").value = currentDate;
+     </script>
+    <script>
+          // Get the current date
+          var currentDate = new Date().toISOString().split('T')[0];
+
+          // Set the current date as the value of the date input field
+          document.getElementById("update-date-input1").value = currentDate;
+    </script>
+    <script>
+          // Get the current date
+          var currentDate = new Date().toISOString().split('T')[0];
+
+          // Set the current date as the value of the date input field
+          document.getElementById("update-date-input2").value = currentDate;
+    </script>
 
     {% endblock %}
