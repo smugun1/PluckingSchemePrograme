@@ -400,7 +400,8 @@ def ProgrammedSchemeUpdate(request, pk):
         form = ProgrammedSchemeForm(instance=programmedScheme)
 
     context = {
-        'form': form, 'UpdatePluckingForm': ProgrammedSchemeForm,
+        'form': form,
+        'UpdatePluckingForm': ProgrammedSchemeForm,
 
     }
     return render(request, 'ProgrammedScheme/update.html', context)
@@ -535,16 +536,27 @@ def PluckingRoundsViewRetrieve(request):
 
     html += "</table>"
 
-    context = {
-        'html': html,
-    }
+    Kakuzi_PLC = request.POST.get('kakuzi_plc')
+    Kaboswa = request.POST.get('kaboswa')
+    Septon = request.POST.get('septon')
+    current_month = request.POST.get('month')
+    current_year = request.POST.get('year')
 
+    context = {
+        "pluckingrounds": table,
+        'html': html,
+        "company": Kakuzi_PLC,
+        "estate": Kaboswa,
+        "division": Septon,
+        "month": current_month,
+        "year": current_year,
+    }
     return render(request, 'Plucking/plucking_scheme_rounds.html', context)
 
 
 def PluckingRoundsViewUpdate(request):
     if request.method == 'POST':
-        Field_No = request.POST.get('zone_field')
+        Field_No = request.POST.get('zone')
         leaf_type = request.POST.get('leaf_type')
         ha = request.POST.get('ha')
         days_to_pluck = request.POST.get('days_to_pluck')
@@ -634,13 +646,13 @@ def PluckingRoundsViewUpdate(request):
         id=1)  # Replace <field_id> with the actual ID of the field you want to update
 
     context = {
-        'zone_field': data.zone_field,
-        'leaf_type': data.leaf_type,
-        'ha': data.ha,
-        'days_to_pluck': data.days_to_pluck,
-        'prune_age': data.prune_age,
-        'number_of_schemes': data.number_of_schemes,
-        'growing_days_cf': data.growing_days_cf,
+        'Zone': data.Zone,
+        'Field_No': data.Field_No,
+        'Leaf_Type': data.Leaf_Type,
+        'Ha': data.Ha,
+        'Days_to_plk': data.Days_to_plk,
+        'Prune_age': data.Prune_age,
+        'Number_of_schemes': data.Number_of_schemes,
         'Month_day_01': data.Month_day_01,
         'Month_day_02': data.Month_day_02,
         'Month_day_03': data.Month_day_03,
@@ -674,7 +686,8 @@ def PluckingRoundsViewUpdate(request):
         'Month_day_31': data.Month_day_31,
 
     }
-    return render(request, 'Plucking/psp_fields_rounds_checker-update.html', context)
+    return render(request, 'Plucking/plucking_scheme_rounds_update.html', context)
+    # return render(request, 'Plucking/psp_fields_rounds_checker-update.html', context)
 
 
 def PluckingRoundsViewCreate(request):
@@ -1249,8 +1262,6 @@ def AutoFieldsViewUpdate(request):
         'Month_day_Nov': zone_data.get('Month_day_Nov', []),
         'Month_day_Dec': zone_data.get('Month_day_Dec', []),
     }
-
-   
 
     if data:
         zone = data[0].Zone

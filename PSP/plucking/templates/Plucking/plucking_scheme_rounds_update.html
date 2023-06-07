@@ -2,121 +2,151 @@
 
 {% load static %}
 
-{% block title %}Plucking Scheme Rounds{% endblock %}
+
+<title>{% block title %}Plucking Rounds Form{% endblock %}</title>
 
 {% block body %}
-<!--    <style>-->
-<!--        table {-->
-<!--            border-collapse: collapse;-->
-<!--            width: 100%;-->
-<!--        }-->
-<!--    -->
-<!--        th, td {-->
-<!--            padding: 8px;-->
-<!--            text-align: left;-->
-<!--            border-bottom: 1px solid #ddd;-->
-<!--        }-->
-<!--    -->
-<!--        th {-->
-<!--            background-color: #f2f2f2;-->
-<!--            font-weight: bold;-->
-<!--        }-->
-<!--    -->
-<!--        tbody tr:nth-child(even) {-->
-<!--            background-color: #f9f9f9;-->
-<!--        }-->
-<!--    </style>-->
-<style xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
-            table, th, td {
-                border: 1px solid black;
-                border-collapse: collapse;
-            }
-            th, td {
-                padding: 5px;
-            }
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-</style>
-<title>Plucking Scheme Rounds</title>
-<div class="card border-primary mt-3">
-    <div class="card-header">
-        <div class="container-fluid">
-            <div class="card-body">
-                <a href="{% url 'plucking-rounds-update' %}" class="btn btn-warning bg-primary block-lg text-light">Add</a>
-                <a href="{% url 'fields-record' %}" class="btn btn-warning block-lg bg-primary text-light">Go To PSP Field Rounds</a>
-                <a class="btn btn-warning bg-primary text-light btn-info block-lg" href="{% url 'psp-dashboard'%}">Go
-                    Dashboard</a>
-                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-record' %}">Go
-                    To RoundsMonitor</a>
-                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go
-                    To PS Record</a>
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+<!--<style>-->
+<!--            table, th, td {-->
+<!--                border: 1px solid black;-->
+<!--                border-collapse: collapse;-->
+<!--            }-->
+<!--            th, td {-->
+<!--                padding: 5px;-->
+<!--            }-->
+
+
+
+<!--</style>-->
+<div class="row g-0 d-flex align-items-center">
+    <div class="col-lg-12 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-0 px-0 my-0 py-0"
+             style="background-color: rgba(13, 70, 10, 1); border-radius: 20px">
+            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Plucking Rounds Form</h2>
+            <div class="border p-3" style="border-radius: 20px">
+                <a class="btn btn-Primary bg-primary btn-info block-lg"
+                   href="{% url 'plucking-rounds-record' %}">Back</a>
                 <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-dashboard' %}">Go To
                     Dashboard</a>
-                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-graphs' %}">Go To
-                    Graphs</a>
             </div>
-        </div>
-        <h3>{{company}}</h3>
-        <h4>Plucking Scheme Rounds</h4>
-        <form action="" method="POST">
-    {% csrf_token %}
-       <table id="myTable" border="1">
-            <tr>
-                <th contenteditable="true" oninput="saveChanges(this)" id="1">{{estate}}</th>
-                <td contenteditable="true" oninput="saveChanges(this)" id="2"><input type="text" name="estate"
-                                                                                     value="{{estate}}">
-                </td>
-                <th contenteditable="true" oninput="saveChanges(this)" id="3">Pluck days</th>
-                <td contenteditable="true" oninput="saveChanges(this)" id="4"><input type="text" name="pluckdays"
-                                                                                     value="8">
-                </td>
-                <th contenteditable="true" oninput="saveChanges(this)" id="5">Grow days</th>
-                <td contenteditable="true" oninput="saveChanges(this)" id="6"><input type="text" name="growdays"
-                                                                                     value="9">
-                </td>
-            </tr>
-            <tr>
-                <th contenteditable="true" oninput="saveChanges(this)" id="7">VP</th>
-                <td contenteditable="true" oninput="saveChanges(this)" id="8"><input type="text" name="vp" value="700">
-                </td>
-                <th contenteditable="true" oninput="saveChanges(this)" id="9">SD</th>
-                <td contenteditable="true" oninput="saveChanges(this)" id="10"><input type="text" name="sd" value="900">
-                </td>
-                <th contenteditable="true" oninput="saveChanges(this)" id="11">Kg/Plk</th>
-                <td contenteditable="true" oninput="saveChanges(this)" id="12"><input type="text" name="kgplk"
-                                                                                      value="45"></td>
-                <th contenteditable="true" oninput="saveChanges(this)" id="13">Days/Month</th>
-                <td contenteditable="true" oninput="saveChanges(this)" id="14"><input type="text" name="daysmonth"
-                                                                                      value="26">
-                </td>
-            </tr>
-            <tr>
-                <th contenteditable="true" oninput="saveChanges(this)" id="15">{{division}}N</th>
-                <td contenteditable="true" oninput="saveChanges(this)" id="16"><input type="text" name="division"
-                                                                                      value="{{division}}"></td>
-                <td colspan="6"></td>
-            </tr>
-            <tr>
-                <th colspan="8"><h5>Green Leaf Targets</h5></th>
-            </tr>
-            <tr>
-                <th contenteditable="true" oninput="saveChanges(this)" id="17">Annual GL Budget</th>
-                <td contenteditable="true" oninput="saveChanges(this)" id="18"><input type="text" name="annualglbudget"
-                                                                                      value="1,074,869"></td>
-                <th contenteditable="true" oninput="saveChanges(this)" id="19">Monthly GL Target</th>
-                <td contenteditable="true" oninput="saveChanges(this)" id="20"><input type="text" name="monthlygltarget"
-                                                                                      value="107,487"></td>
-                <th contenteditable="true" oninput="saveChanges(this)" id="21">Daily GL Target</th>
-                <td contenteditable="true" oninput="saveChanges(this)" id="22"><input type="text" name="dailygltarget"
-                                                                                      value="4,134"></td>
-                <th contenteditable="true" oninput="saveChanges(this)" id="23">MONTH</th>
-                <td contenteditable="true" oninput="saveChanges(this)" id="24"><input type="text" name="month"
-                                                                                      value="{{month }}{{ year }}"></td>
-            </tr>
-        </table>
-        </form>
-        <br>
-        <table id="plucking_scheme_rounds" border="1">
-            <form>
+
+            <h3>{{company}}</h3>
+            <h4>Plucking Scheme Rounds</h4>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <table id="myTable" border="1">
+                    <tr>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="1">{{estate}}</th>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="2"><input type="text" name="estate"
+                                                                                             value="{{estate}}">
+                        </td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="3">Pluck days</th>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="4"><input type="text"
+                                                                                             name="pluckdays"
+                                                                                             value="8">
+                        </td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="5">Grow days</th>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="6"><input type="text" name="growdays"
+                                                                                             value="9">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="7">VP</th>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="8"><input type="text" name="vp"
+                                                                                             value="700">
+                        </td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="9">SD</th>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="10"><input type="text" name="sd"
+                                                                                              value="900">
+                        </td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="11">Kg/Plk</th>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="12"><input type="text" name="kgplk"
+                                                                                              value="45"></td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="13">Days/Month</th>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="14"><input type="text"
+                                                                                              name="daysmonth"
+                                                                                              value="26">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="15">{{division}}N</th>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="16"><input type="text"
+                                                                                              name="division"
+                                                                                              value="{{division}}"></td>
+                        <td colspan="6"></td>
+                    </tr>
+                    <tr>
+                        <th colspan="8"><h5>Green Leaf Targets</h5></th>
+                    </tr>
+                    <tr>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="17">Annual GL Budget</th>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="18"><input type="text"
+                                                                                              name="annualglbudget"
+                                                                                              value="1,074,869"></td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="19">Monthly GL Target</th>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="20"><input type="text"
+                                                                                              name="monthlygltarget"
+                                                                                              value="107,487"></td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="21">Daily GL Target</th>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="22"><input type="text"
+                                                                                              name="dailygltarget"
+                                                                                              value="4,134"></td>
+                        <th contenteditable="true" oninput="saveChanges(this)" id="23">MONTH</th>
+                        <td contenteditable="true" oninput="saveChanges(this)" id="24"><input type="text" name="month"
+                                                                                              value="{{month }}{{ year }}">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+
+            <!-- Table iteration code -->
+            <script>
+                // Get the table element by its ID
+                var table = document.getElementById('plucking_scheme_rounds');
+
+                // Get all the rows in the table
+                var rows = table.getElementsByTagName('tr');
+
+                // Iterate over the rows
+                for (var i = 0; i < rows.length; i++) {
+                    var row = rows[i];
+                    var cells = row.getElementsByTagName('td');
+
+                    // Iterate over the cells in the current row
+                    for (var j = 0; j < cells.length; j++) {
+                        var cell = cells[j];
+
+                        // Access the cell content and perform your desired operations
+                        var cellContent = cell.innerText;
+                        console.log('Cell content:', cellContent);
+                        // Perform other operations on the cell content
+                    }
+                }
+
+            </script>
+            <!-- Table rows and cells -->
+            <table id="plucking_scheme_rounds" border="1">
                 <table>
                     <tr>
                         <th contenteditable="true" oninput="saveChanges(this)" id="25">Zone</th>
@@ -1039,109 +1069,11 @@
                         <th contenteditable="true" oninput="saveChanges(this)" id="879"></th>
                         <th contenteditable="true" oninput="saveChanges(this)" id="880"></th>
                         <th contenteditable="true" oninput="saveChanges(this)" id="881"></th>
-                    <tr>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="882"></th>
-                        <th contenteditable="true" oninput="saveChanges(this)" id="883"></th>
-                    </tr>
-                    <tr>
-                        {% for day in growing_days %}
-                        <th contenteditable="true" oninput="saveChanges(this)" id="{{ forloop.counter0|add:31 }}">{{ day
-                            }}
-                        </th>
-                        {% endfor %}
-                    </tr>
-
-                    <tr>
-                        <td contenteditable="true" oninput="saveChanges(this)" id="884">{{ stored_content }}#</td>
-                    </tr>
                 </table>
-            <button type="submit">Update</button>
-            </form>
-        </table>
-<!--      script  2-->
-          <script>
-            document.addEventListener("DOMContentLoaded", function() {
-              // Retrieve the stored content from localStorage
-              var storedContent = localStorage.getItem('editableCellContent');
-
-              // If there is stored content, populate the cell with it
-              if (storedContent) {
-                var editableCell = document.getElementById('editable-cell');
-                editableCell.innerText = storedContent;
-              }
-            });
-
-
-
-        </script>
-<!--using script 2-->
-<!--        //*The scripts you provided serve different purposes and can be useful depending on your specific requirements.-->
-<!--        Let's go through each script and explain their functionalities:-->
-
-<!--        Script 1: saveChanges-->
-
-<!--        This script defines a saveChanges function that is called when an editable cell's content is modified.-->
-<!--        It retrieves the ID and value of the cell and performs any necessary actions. In the example provided,-->
-<!--        it logs the ID and value to the console. You can customize this function to update the corresponding data in-->
-<!--        your code or perform other actions.-->
-<!--        Script 2: DOMContentLoaded-->
-
-<!--        This script is triggered when the DOM content has finished loading. It retrieves the stored content from the-->
-<!--        localStorage and populates the cell with the id "editable-cell" with the stored content. This script-->
-<!--        is useful if you want to persist the content of an editable cell across page reloads.-->
-<!--        Script 3: saveChanges (with fetch)-->
-
-<!--        This script defines another saveChanges function that is called when an editable cell's content is modified.-->
-<!--        It retrieves the row index, cell index, and cell value of the modified cell. It then creates a FormData-->
-<!--        object and appends the relevant data to it. After that, it sends a POST request to the /save/ endpoint-->
-<!--        with the form data. The response is logged to the console. This script is useful if you want to send the-->
-<!--        modified cell data to a server for further processing or storage.-->
-<!--        Based on your specific needs, you can choose the script that aligns with your requirements. If you want to log-->
-<!--        the ID and value of the modified cell locally, you can use Script 1. If you want to persist the content-->
-<!--        of an editable cell across page reloads, you can use Script 2. If you want to send the modified cell data-->
-<!--        to a server for further processing or storage, you can use Script 3.*//-->
-<!--script 1-->
-        <!--        <script>-->
-        <!--            function saveChanges(element) {-->
-        <!--                // Get the ID of the cell-->
-        <!--                var id = element.id;-->
-
-        <!--                // Get the updated value-->
-        <!--                var value = element.textContent || element.innerText;-->
-
-        <!--                // Update the corresponding data in your code or perform any necessary actions-->
-
-        <!--                // Example: Log the ID and value to the console-->
-        <!--                console.log("Cell ID:", id);-->
-        <!--                console.log("Cell Value:", value);-->
-        <!--            }-->
-
-
-        <!--        </script>-->
-
-<!--script3      -->
-
-        <!--        <script>-->
-        <!--                    function saveChanges(cell) {-->
-        <!--                      var rowIndex = cell.parentNode.rowIndex;-->
-        <!--                      var cellIndex = cell.cellIndex;-->
-        <!--                      var cellValue = cell.innerText;-->
-
-        <!--                      var formData = new FormData();-->
-        <!--                      formData.append('rowIndex', rowIndex);-->
-        <!--                      formData.append('cellIndex', cellIndex);-->
-        <!--                      formData.append('cellValue', cellValue);-->
-
-        <!--                      fetch('/save/', {-->
-        <!--                        method: 'POST',-->
-        <!--                        body: formData-->
-        <!--                      })-->
-        <!--                      .then(response => response.json())-->
-        <!--                      .then(data => console.log(data))-->
-        <!--                      .catch(error => console.error(error));-->
-        <!--                    }-->
-        <!--        </script>-->
-
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+
 {% endblock %}

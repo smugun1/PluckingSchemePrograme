@@ -22,7 +22,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'autofields-record' %}">Autofields</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'plucking-rounds-record' %}">Rounds</a></li>
+                    <a class="nav-link" href="{% url 'plucking-rounds-create' %}">Rounds</a></li>
                 {% endif %}
                 {% if request.user.is_superuser %}
                 <li class="nav-item"><a class="nav-link" href="{{'http://127.0.0.1:8000/admin/' }}">Admin</a></li>

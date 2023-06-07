@@ -37,7 +37,7 @@ urlpatterns = [
     path('plucking-rounds-create/', views.PluckingRoundsViewCreate, name='plucking-rounds-create'),
 
     path('plucking-rounds/', views.PluckingRoundsViewRetrieve, name='plucking-rounds'),
-    path('plucking-rounds-update/', views.PluckingRoundsViewUpdate, name='plucking-rounds-update'),
+
 
     path('programmedscheme-update/<int:pk>/', views.ProgrammedSchemeUpdate, name='programmedscheme-update'),
     path('programmedscheme-delete/<int:pk>/', views.ProgrammedSchemeDelete, name='programmedscheme-delete'),
