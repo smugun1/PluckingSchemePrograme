@@ -9,11 +9,10 @@
 
 <div class="container">
     <div class="container md-12">
-        <div class="container fluid bg-white text-secondary my-0 px-0 mb-0 mt-1" style="width: 300rem;">
-
+        <div class="container bg-white text-secondary my-1" style="width: 200rem; border-radius: 20px;">
+             <h1 class="text-center bg-dark text-primary">Graphs</h1>
             <p class="h2 text-center"></p>
             <div class="row my-1">
-
                 <div class="container">
                     <div class="card">
                         <div class="card-header bg-light text-dark">
@@ -22,7 +21,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class=" col-md-2">
-                                    <a class="text-decoration-none text-dark" href="{% url 'resourcesexcell-admin' %}">
+                                    <a class="text-decoration-none text-dark" href="{{ '//127.0.0.1:8000/resourcesexcell-admin/' }}">
                                         <div class="card my-card shadow text-center p-2">
                                             <h5>Recsources <i class="fa fa-leaf" aria-hidden="true"></i></h5>
                                             <h4>4</h4>
@@ -30,7 +29,7 @@
                                     </a>
                                 </div>
                                 <div class=" col-md-2">
-                                    <a class="text-decoration-none text-dark" href="{% url 'django-admin' %}">
+                                    <a class="text-decoration-none text-dark" href="{{'http:/127.0.0.1:8000/admin/'}}">
                                         <div class="card my-card shadow text-center p-2">
                                             <h5>Admins <i class="fa fa-bar-chart" aria-hidden="true"></i></h5>
                                             <h4>4</h4>
@@ -38,7 +37,7 @@
                                     </a>
                                 </div>
                                 <div class=" col-md-2">
-                                    <a class="text-decoration-none text-dark" href="{% url 'psp' %}">
+                                    <a class="text-decoration-none text-dark" href="{% url 'psp-dashboard' %}">
                                         <div class="card my-card shadow text-center p-2">
                                             <h5>Dashboard <i class="fa fa-television" aria-hidden="true"></i>
                                             </h5>
@@ -47,16 +46,16 @@
                                     </a>
                                 </div>
                                 <div class=" col-md-2">
-                                    <a class="text-decoration-none text-dark" href="{% url 'save_changes' %}">
+                                    <a class="text-decoration-none text-dark" href="{% url 'fields-record' %}">
                                         <div class="card my-card shadow text-center p-2">
-                                            <h5>Save <i class="fa fa-binoculars" aria-hidden="true"></i></h5>
+                                            <h5>Field <i class="fa fa-binoculars" aria-hidden="true"></i></h5>
                                             <h4>4</h4>
                                         </div>
                                     </a>
                                 </div>
                                 <div class=" col-md-2">
                                     <a class="text-decoration-none text-dark"
-                                       href="{% url 'programmedscheme-update' %}">
+                                       href="{% url 'roundsmonitor-record' %}">
                                         <div class="card my-card shadow text-center p-2">
                                             <h5>Plucking Record <i class="fa-solid fa-paperclip"></i></h5>
                                             <h4>4</h4>

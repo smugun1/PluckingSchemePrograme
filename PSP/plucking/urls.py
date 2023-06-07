@@ -1,19 +1,17 @@
 from django.urls import path
 from django.views.generic import RedirectView
 from . import views
-from .views import PSP, chart_view
+from .views import PSPDashboard, chart_view
 
 urlpatterns = [
-    path('', PSP, name='psp'),
-    path('first-page', views.FirstPage, name='first-page'),
+    path('', views.FirstPage, name='first-page'),
+
+    path('psp-dashboard', PSPDashboard, name='psp-dashboard'),
     path('psp-graphs', views.PSPGraphs, name='psp-graphs'),
-    path('psp-calc', views.PSPCalculator, name='psp-calc'),
 
-    path('admin/', views.Admin, name='admin'),
-    path('resources-admin/', views.AdminResources, name='resources-admin'),
+    path('127.0.0.1:8000/resourcesexcell-admin/', views.Resourcesexcell,
+         name='127.0.0.1/resourcesadmin-admin'),
 
-    path('http://127.0.0.1:8000/resourcesexcell-admin/', views.Resourcesexcell, name='resourcesexcell-admin'),
-    path('http:/127.0.0.1:8000/admin/', views.Admin, name='django-admin'),
     path('save/', views.save_changes, name='save_changes'),
 
     path('chart/', chart_view, name='chart_view'),
@@ -30,6 +28,14 @@ urlpatterns = [
     path('fields-update/', views.FieldsViewUpdate, name='fields-update'),
     path('fields-create/', views.FieldsViewCreate, name='fields-create'),
 
+    path('autofields-record/', views.AutoFieldsViewRetrieve, name='autofields-record'),
+    path('autofields-update/', views.AutoFieldsViewUpdate, name='autofields-update'),
+    path('autofields-create/', views.AutoFieldsViewCreate, name='autofields-create'),
+
+    path('plucking-rounds-record/', views.PluckingRoundsViewRetrieve, name='plucking-rounds-record'),
+    path('plucking-rounds-update/', views.PluckingRoundsViewUpdate, name='plucking-rounds-update'),
+    path('plucking-rounds-create/', views.PluckingRoundsViewCreate, name='plucking-rounds-create'),
+
     path('plucking-rounds/', views.PluckingRoundsViewRetrieve, name='plucking-rounds'),
     path('plucking-rounds-update/', views.PluckingRoundsViewUpdate, name='plucking-rounds-update'),
 
@@ -42,8 +48,8 @@ urlpatterns = [
     path('fields-edit/<int:pk>/', views.FieldsEdit, name='fields-edit'),
     path('fields-delete/<int:pk>/', views.FieldsDelete, name='fields-delete'),
 
-    path('plucking-rounds-update/<int:pk>/', views.PluckingRoundsViewUpdate, name='plucking-rounds-update'),
-    path('plucking-rounds-create/<int:pk>/', views.PluckingRoundsViewCreate, name='plucking-rounds-create'),
+    path('autofields-edit/<int:pk>/', views.AutoFieldsEdit, name='autofields-edit'),
+    path('autofields-delete/<int:pk>/', views.AutoFieldsDelete, name='autofields-delete'),
 
     path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico', permanent=True)),
 ]

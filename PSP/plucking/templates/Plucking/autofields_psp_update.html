@@ -2,15 +2,16 @@
 
 {% load static %}
 
-{% block title %}PSP Fields Rounds Checker Update{% endblock %}
+{% block title %}PSP Auto Fields Forms Update{% endblock %}
 
 {% block body %}
 <style>
     /* CSS styles */
 
+
 </style>
 
-<title>PSP Fields Rounds Checker Update</title>
+<title>PSP Auto Fields Forms Update</title>
 
 <h1>Update Field</h1>
 <div class="col-lg-12 d-none my-2 d-lg-flex">
@@ -18,13 +19,14 @@
          style="background-color: indigo; width: 80rem; border-radius: 20px;">
         <div class="card card bg-light text-right h-100 d-flex align-items-center justify-content-center m-3 p-3"
              style="width: 80rem; border-radius: 20px;">
-            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Plucking Rounds Update</h2>
+            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Plucking Forms</h2>
             <div class="border p-3" style="border-radius: 20px">
                 <a class="btn btn-Primary bg-primary btn-info block-lg text-light"
-                   href="{% url 'fields-record' %}">Back</a>
-                <a class="btn btn-Primary bg-primary btn-info block-lg text-light" href="{% url 'psp' %}">Go To Dashboard</a>
+                   href="{% url 'autofields-record' %}">Back</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg text-light" href="{% url 'psp-dashboard' %}">Go
+                    To Dashboard</a>
                 <div class="container" style="width: 50rem;">
-                    <form action="{% url 'fields-create' %}" method="post">
+                    <form action="{% url 'autofields-create' %}" method="post">
                         {% csrf_token %}
 
                         <div class="form-group">
@@ -40,9 +42,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="Leaf_Type">Leaf Type:</label>
-                            <input type="text" class="form-control" id="Leaf_Type" name="Leaf_Type"
-                                   value="{{ Leaf_Type|default_if_none:'' }}" required>
+                            <label for="Leaf_type">Leaf Type:</label>
+                            <input type="text" class="form-control" id="Leaf_type" name="Leaf_type"
+                                   value="{{ Leaf_type|default_if_none:'' }}" required>
                         </div>
 
                         <div class="form-group">
@@ -236,8 +238,9 @@
                         <div class="container" style="width: 50rem;">
                             <button type="submit" class="btn btn-primary">Update</button>
                             <a class="btn btn-Primary bg-primary btn-info block-lg text-light"
-                               href="{% url 'fields-record' %}">Back</a>
-                            <a class="btn btn-Primary bg-primary btn-info block-lg text-light" href="{% url 'psp' %}">Go To
+                               href="{% url 'autofields-record' %}">Back</a>
+                            <a class="btn btn-Primary bg-primary btn-info block-lg text-light"
+                               href="{% url 'psp-dashboard' %}">Go To
                                 Dashboard</a>
                         </div>
                     </form>

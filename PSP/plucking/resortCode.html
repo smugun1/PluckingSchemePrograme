@@ -1,57 +1,411 @@
-{% extends 'base.html' %}
 
-{% load static %}
-
-{% block title %}PSP Fields Rounds Checker Update{% endblock %}
-
-{% block body %}
 <style>
-    /* CSS styles */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+
 </style>
 
-<title>PSP Fields Rounds Checker Update</title>
 
-<h1>Update Field</h1>
-<div class="col-lg-12 d-none my-2 d-lg-flex">
-    <div class="container-fluid text-primary h-100 d-flex align-items-center justify-content-center"
-         style="background-color: indigo; width: 80rem; border-radius: 20px;">
-        <div class="card card bg-light text-right h-100 d-flex align-items-center justify-content-center m-3 p-3"
-             style="width: 80rem; border-radius: 20px;">
-            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Plucking Rounds Update</h2>
-            <div class="border p-3" style="border-radius: 20px">
-                <a class="btn btn-Primary bg-primary btn-info block-lg text-light"
-                   href="{% url 'fields-record' %}">Back</a>
-                <a class="btn btn-Primary bg-primary btn-info block-lg text-light" href="{% url 'psp' %}">Go To Dashboard</a>
-                <div class="container" style="width: 50rem;">
-                    <form action="{% url 'fields-create' %}" method="post">
-                        {% csrf_token %}
+<title>Auto Fields Record</title>
+{% block body %}
+<div class="row g-2 d-flex align-items-center">
+    <div class="col-lg-0 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-2 px-2 my-2 py-4"
+             style="background-color: rgba(13, 70, 10, 1); border-radius: 20px">
+            <div class="card-body">
+                <a href="{% url 'autofields-update' %}"
+                   class="btn btn-warning bg-primary block-lg text-light">Add</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-record' %}">Go
+                    To RoundsMonitor</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go
+                    To PS Record</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-dashboard' %}">Go To
+                    Dashboard</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-graphs' %}">Go To
+                    Graphs</a>
+            </div>
+            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Auto Fields</h2>
+            <div class="border p-1" style="border-radius: 20px">
 
-                        <div class="form-group">
-                            <label for="zone_field">Zone Field:</label>
-                            <input type="text" class="form-control" id="zone_field" name="zone_field"
-                                   value="{{ zone_field|default_if_none:'' }}" required>
-                        </div>
+                <div class="container row g-0 d-flex align-items-left">
+                    <tbody>
+                    <table class="text-center bg-light text-Primary" style="border-radius: 10px">
+                        <tr>
+                            <th>Zone E</th>
+                            <th>Field No</th>
+                            <th>Leaf Type</th>
+                            <th>Ha</th>
+                            <th>Days to pluck</th>
+                            <th>Age</th>
+                            <th>Schemes No</th>
+                            <th>Day Carried Forward</th>
+                            <th>01</th>
+                            <th>02</th>
+                            <th>03</th>
+                            <th>04</th>
+                            <th>05</th>
+                            <th>06</th>
+                            <th>07</th>
+                            <th>08</th>
+                            <th>09</th>
+                            <th>10</th>
+                            <th>11</th>
+                            <th>12</th>
+                            <th>13</th>
+                            <th>14</th>
+                            <th>15</th>
+                            <th>16</th>
+                            <th>17</th>
+                            <th>18</th>
+                            <th>19</th>
+                            <th>20</th>
+                            <th>21</th>
+                            <th>22</th>
+                            <th>23</th>
+                            <th>24</th>
+                            <th>25</th>
+                            <th>26</th>
+                            <th>27</th>
+                            <th>28</th>
+                            <th>29</th>
+                            <th>30</th>
+                            <th>31</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
 
-                        <div class="form-group">
-                            <label for="leaf_type">Leaf Type:</label>
-                            <input type="text" class="form-control" id="leaf_type" name="leaf_type"
-                                   value="{{ leaf_type|default_if_none:'' }}" required>
-                        </div>
+                        </tr>
+                        {% with current_zone=data.zone %}
+                        {% for data in autofields %}
+                        {% if data.Zone != current_zone %}
+                        {% if current_zone %}
 
-                        <!-- Add other form fields with default values using the `default_if_none` filter -->
+                        <tr>
+                            <td colspan="35">Zone {{ current_zone }}</td>
+                        </tr>
+                        {% endif %}
+                        {% with current_zone=data.Zone %}
+                        {% endwith %}
+                        {% endif %}
 
-                        <div class="container" style="width: 50rem;">
-                            <button type="submit" class="btn btn-primary">Update</button>
-                            <a class="btn btn-Primary bg-primary btn-info block-lg text-light"
-                               href="{% url 'fields-record' %}">Back</a>
-                            <a class="btn btn-Primary bg-primary btn-info block-lg text-light" href="{% url 'psp' %}">Go To
-                                Dashboard</a>
-                        </div>
-                    </form>
+
+                        <tr>
+
+                            <td>{{ data.zone }}</td>
+                            <td>{{ data.Field_No }}</td>
+                            <td>{{ data.Leaf_type }}</td>
+                            <td>{{ data.Ha }}</td>
+                            <td>{{ data.Days_to_plk }}</td>
+                            <td>{{ data.Prune_age }}</td>
+                            <td>{{ data.Number_of_schemes }}</td>
+                            <td>{{ data.Growing_days_CF }}</td>
+                            <th>{{ data.Month_day_01 }}</th>
+                            <th>{{ data.Month_day_02 }}</th>
+                            <th>{{ data.Month_day_03 }}</th>
+                            <th>{{ data.Month_day_04 }}</th>
+                            <th>{{ data.Month_day_05 }}</th>
+                            <th>{{ data.Month_day_06 }}</th>
+                            <th>{{ data.Month_day_07 }}</th>
+                            <th>{{ data.Month_day_08 }}</th>
+                            <th>{{ data.Month_day_09 }}</th>
+                            <th>{{ data.Month_day_10 }}</th>
+                            <th>{{ data.Month_day_11 }}</th>
+                            <th>{{ data.Month_day_12 }}</th>
+                            <th>{{ data.Month_day_13 }}</th>
+                            <th>{{ data.Month_day_14 }}</th>
+                            <th>{{ data.Month_day_15 }}</th>
+                            <th>{{ data.Month_day_16 }}</th>
+                            <th>{{ data.Month_day_17 }}</th>
+                            <th>{{ data.Month_day_18 }}</th>
+                            <th>{{ data.Month_day_19 }}</th>
+                            <th>{{ data.Month_day_20 }}</th>
+                            <th>{{ data.Month_day_21 }}</th>
+                            <th>{{ data.Month_day_22 }}</th>
+                            <th>{{ data.Month_day_23 }}</th>
+                            <th>{{ data.Month_day_24 }}</th>
+                            <th>{{ data.Month_day_25 }}</th>
+                            <th>{{ data.Month_day_26 }}</th>
+                            <th>{{ data.Month_day_27 }}</th>
+                            <th>{{ data.Month_day_28 }}</th>
+                            <th>{{ data.Month_day_29 }}</th>
+                            <th>{{ data.Month_day_30 }}</th>
+                            <th>{{ data.Month_day_31 }}</th>
+                            <td><a class="btn btn btn-block text-light h2 btn btn-info"
+                                   style="background-color: #0000ff;"
+                                   href="{% url 'autofields-edit' data.id %}">+</a></td>
+                            <td><a class="btn btn-info btn-block btn h2 btn-info text-light"
+                                   style="background-color: #ff0000;"
+                                   href="{% url 'autofields-delete' data.id %}">-</a></td>
+                        </tr>
+                        {% endfor %}
+                        {% endwith %}
+
+                    </table>
+                    </tbody>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-0 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-2 px-2 my-2 py-4"
+             style="background-color: rgba(13, 70, 10, 1); border-radius: 20px">
+            <div class="border p-1" style="border-radius: 20px">
+                <div class="container row g-0 d-flex align-items-left">
+                    <tbody>
+                    <table class="text-center bg-light text-Primary" style="border-radius: 10px">
+                        <tr>
+                            <th>Zone F</th>
+                            <th>Field No</th>
+                            <th>Leaf Type</th>
+                            <th>Ha</th>
+                            <th>Days to pluck</th>
+                            <th>Age</th>
+                            <th>Schemes No</th>
+                            <th>Day Carried Forward</th>
+                            <th>01</th>
+                            <th>02</th>
+                            <th>03</th>
+                            <th>04</th>
+                            <th>05</th>
+                            <th>06</th>
+                            <th>07</th>
+                            <th>08</th>
+                            <th>09</th>
+                            <th>10</th>
+                            <th>11</th>
+                            <th>12</th>
+                            <th>13</th>
+                            <th>14</th>
+                            <th>15</th>
+                            <th>16</th>
+                            <th>17</th>
+                            <th>18</th>
+                            <th>19</th>
+                            <th>20</th>
+                            <th>21</th>
+                            <th>22</th>
+                            <th>23</th>
+                            <th>24</th>
+                            <th>25</th>
+                            <th>26</th>
+                            <th>27</th>
+                            <th>28</th>
+                            <th>29</th>
+                            <th>30</th>
+                            <th>31</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+
+                        </tr>
+                        {% with current_zone=data.zone %}
+                        {% for data in autofields %}
+                        {% if data.Zone != current_zone %}
+                        {% if current_zone %}
+
+                        <tr>
+                            <td colspan="35">Zone {{ current_zone }}</td>
+                        </tr>
+                        {% endif %}
+                        {% with current_zone=data.Zone %}
+
+                        {% endwith %}
+                        {% endif %}
+
+                        <tr>
+
+                            <td>{{ data.zone }}</td>
+                            <td>{{ data.Field_No }}</td>
+                            <td>{{ data.Leaf_type }}</td>
+                            <td>{{ data.Ha }}</td>
+                            <td>{{ data.Days_to_plk }}</td>
+                            <td>{{ data.Prune_age }}</td>
+                            <td>{{ data.Number_of_schemes }}</td>
+                            <td>{{ data.Growing_days_CF }}</td>
+                            <th>{{ data.Month_day_01 }}</th>
+                            <th>{{ data.Month_day_02 }}</th>
+                            <th>{{ data.Month_day_03 }}</th>
+                            <th>{{ data.Month_day_04 }}</th>
+                            <th>{{ data.Month_day_05 }}</th>
+                            <th>{{ data.Month_day_06 }}</th>
+                            <th>{{ data.Month_day_07 }}</th>
+                            <th>{{ data.Month_day_08 }}</th>
+                            <th>{{ data.Month_day_09 }}</th>
+                            <th>{{ data.Month_day_10 }}</th>
+                            <th>{{ data.Month_day_11 }}</th>
+                            <th>{{ data.Month_day_12 }}</th>
+                            <th>{{ data.Month_day_13 }}</th>
+                            <th>{{ data.Month_day_14 }}</th>
+                            <th>{{ data.Month_day_15 }}</th>
+                            <th>{{ data.Month_day_16 }}</th>
+                            <th>{{ data.Month_day_17 }}</th>
+                            <th>{{ data.Month_day_18 }}</th>
+                            <th>{{ data.Month_day_19 }}</th>
+                            <th>{{ data.Month_day_20 }}</th>
+                            <th>{{ data.Month_day_21 }}</th>
+                            <th>{{ data.Month_day_22 }}</th>
+                            <th>{{ data.Month_day_23 }}</th>
+                            <th>{{ data.Month_day_24 }}</th>
+                            <th>{{ data.Month_day_25 }}</th>
+                            <th>{{ data.Month_day_26 }}</th>
+                            <th>{{ data.Month_day_27 }}</th>
+                            <th>{{ data.Month_day_28 }}</th>
+                            <th>{{ data.Month_day_29 }}</th>
+                            <th>{{ data.Month_day_30 }}</th>
+                            <th>{{ data.Month_day_31 }}</th>
+                            <td><a class="btn btn btn-block text-light h2 btn btn-info"
+                                   style="background-color: #0000ff;"
+                                   href="{% url 'autofields-edit' data.id %}">+</a></td>
+                            <td><a class="btn btn-info btn-block btn h2 btn-info text-light"
+                                   style="background-color: #ff0000;"
+                                   href="{% url 'autofields-delete' data.id %}">-</a></td>
+                        </tr>
+                        {% endfor %}
+                        {% endwith %}
+
+                    </table>
+                    </tbody>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-0 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-2 px-2 my-2 py-4"
+             style="background-color: rgba(13, 70, 10, 1); border-radius: 20px">
+            <div class="border p-1" style="border-radius: 20px">
+                <div class="container row g-0 d-flex align-items-left">
+                    <tbody>
+                    <table class="text-center bg-light text-Primary" style="border-radius: 10px">
+                        <tr>
+                            <th>Zone G</th>
+                            <th>Field No</th>
+                            <th>Leaf Type</th>
+                            <th>Ha</th>
+                            <th>Days to pluck</th>
+                            <th>Age</th>
+                            <th>Schemes No</th>
+                            <th>Day Carried Forward</th>
+                            <th>01</th>
+                            <th>02</th>
+                            <th>03</th>
+                            <th>04</th>
+                            <th>05</th>
+                            <th>06</th>
+                            <th>07</th>
+                            <th>08</th>
+                            <th>09</th>
+                            <th>10</th>
+                            <th>11</th>
+                            <th>12</th>
+                            <th>13</th>
+                            <th>14</th>
+                            <th>15</th>
+                            <th>16</th>
+                            <th>17</th>
+                            <th>18</th>
+                            <th>19</th>
+                            <th>20</th>
+                            <th>21</th>
+                            <th>22</th>
+                            <th>23</th>
+                            <th>24</th>
+                            <th>25</th>
+                            <th>26</th>
+                            <th>27</th>
+                            <th>28</th>
+                            <th>29</th>
+                            <th>30</th>
+                            <th>31</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+
+                        </tr>
+                        {% with current_zone=data.zone %}
+                        {% for data in autofields %}
+                        {% if data.Zone != current_zone %}
+                        {% if current_zone %}
+
+                        <tr>
+                            <td colspan="35">Zone {{ current_zone }}</td>
+                        </tr>
+                        {% endif %}
+                        {% with current_zone=data.Zone %}
+
+                        {% endwith %}
+                        {% endif %}
+
+                        <tr>
+
+                            <td>{{ data.zone }}</td>
+                            <td>{{ data.Field_No }}</td>
+                            <td>{{ data.Leaf_type }}</td>
+                            <td>{{ data.Ha }}</td>
+                            <td>{{ data.Days_to_plk }}</td>
+                            <td>{{ data.Prune_age }}</td>
+                            <td>{{ data.Number_of_schemes }}</td>
+                            <td>{{ data.Growing_days_CF }}</td>
+                            <th>{{ data.Month_day_01 }}</th>
+                            <th>{{ data.Month_day_02 }}</th>
+                            <th>{{ data.Month_day_03 }}</th>
+                            <th>{{ data.Month_day_04 }}</th>
+                            <th>{{ data.Month_day_05 }}</th>
+                            <th>{{ data.Month_day_06 }}</th>
+                            <th>{{ data.Month_day_07 }}</th>
+                            <th>{{ data.Month_day_08 }}</th>
+                            <th>{{ data.Month_day_09 }}</th>
+                            <th>{{ data.Month_day_10 }}</th>
+                            <th>{{ data.Month_day_11 }}</th>
+                            <th>{{ data.Month_day_12 }}</th>
+                            <th>{{ data.Month_day_13 }}</th>
+                            <th>{{ data.Month_day_14 }}</th>
+                            <th>{{ data.Month_day_15 }}</th>
+                            <th>{{ data.Month_day_16 }}</th>
+                            <th>{{ data.Month_day_17 }}</th>
+                            <th>{{ data.Month_day_18 }}</th>
+                            <th>{{ data.Month_day_19 }}</th>
+                            <th>{{ data.Month_day_20 }}</th>
+                            <th>{{ data.Month_day_21 }}</th>
+                            <th>{{ data.Month_day_22 }}</th>
+                            <th>{{ data.Month_day_23 }}</th>
+                            <th>{{ data.Month_day_24 }}</th>
+                            <th>{{ data.Month_day_25 }}</th>
+                            <th>{{ data.Month_day_26 }}</th>
+                            <th>{{ data.Month_day_27 }}</th>
+                            <th>{{ data.Month_day_28 }}</th>
+                            <th>{{ data.Month_day_29 }}</th>
+                            <th>{{ data.Month_day_30 }}</th>
+                            <th>{{ data.Month_day_31 }}</th>
+                            <td><a class="btn btn btn-block text-light h2 btn btn-info"
+                                   style="background-color: #0000ff;"
+                                   href="{% url 'autofields-edit' data.id %}">+</a></td>
+                            <td><a class="btn btn-info btn-block btn h2 btn-info text-light"
+                                   style="background-color: #ff0000;"
+                                   href="{% url 'autofields-delete' data.id %}">-</a></td>
+                        </tr>
+                        {% endfor %}
+                        {% endwith %}
+
+                    </table>
+                    </tbody>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-{% endblock %}

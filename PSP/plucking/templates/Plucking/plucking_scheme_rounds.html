@@ -41,9 +41,18 @@
     <div class="card-header">
         <div class="container-fluid">
             <div class="card-body">
+                <a href="{% url 'plucking-rounds-update' %}" class="btn btn-warning bg-primary block-lg text-light">Add</a>
                 <a href="{% url 'fields-record' %}" class="btn btn-warning block-lg bg-primary text-light">Go To PSP Field Rounds</a>
-                <a class="btn btn-warning bg-primary text-light btn-info block-lg" href="{% url 'psp'%}">Go
+                <a class="btn btn-warning bg-primary text-light btn-info block-lg" href="{% url 'psp-dashboard'%}">Go
                     Dashboard</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-record' %}">Go
+                    To RoundsMonitor</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go
+                    To PS Record</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-dashboard' %}">Go To
+                    Dashboard</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-graphs' %}">Go To
+                    Graphs</a>
             </div>
         </div>
         <h3>{{company}}</h3>

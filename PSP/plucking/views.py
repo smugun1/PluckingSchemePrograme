@@ -1,7 +1,9 @@
 import decimal
+from calendar import month
 from datetime import datetime, timedelta
 from decimal import Decimal, InvalidOperation
 
+import day
 import pandas as pd
 from django.db.models import Sum, Count
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
@@ -10,9 +12,12 @@ from django.shortcuts import render
 from django.db import models
 
 from . import models
-from .forms import ProgrammedSchemeForm, PSPForms, RoundsMonitorForm, FieldsForm
-from .models import ProgrammedScheme, RoundsMonitor, DataEntry, FieldsToPluck
+from .forms import ProgrammedSchemeForm, PSPForms, RoundsMonitorForm, FieldsForm, FieldsForms
+from .models import ProgrammedScheme, RoundsMonitor, DataEntry, FieldsToPluck, AutoFields
 from django.db.models import IntegerField
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from .models import AutoFields
 
 
 def Resourcesexcell(request):
@@ -20,31 +25,20 @@ def Resourcesexcell(request):
     return HttpResponse('127.0.0.1:8000/Resourcesexcell-admin/')
 
 
-def Admin(request):
-    pass
-    return HttpResponse('admin/')
-
-
-def AdminResources(request):
-    pass
-
-    return HttpResponse('This is the plucking reports Page')
-
-
 def FirstPage(request):
     context = {
         'name': {'welcome to the first Page'},
         'form': PSPForms
     }
-    return render(request, 'UpdateFields/first_page.html', context)
+    return render(request, 'Plucking/first_page.html', context)
 
 
-def PSP(request):
+def PSPDashboard(request):
     context = {
         'name': {'This is the plucking reports Page'},
         'form': PSPForms
     }
-    return render(request, 'UpdateFields/dasboard.html', context)
+    return render(request, 'Plucking/dasboard.html', context)
 
 
 def PSPGraphs(request):
@@ -52,29 +46,20 @@ def PSPGraphs(request):
         'name': {'This is the plucking graphs dashboard'},
         'form': PSPForms
     }
-    return render(request, 'UpdateFields/graphs_psp.html', context)
+    return render(request, 'Plucking/graphs_psp.html', context)
 
 
-def PSPCalculator(request):
-    context = {
-        'name': {'This is the plucking reports Page'},
-        'form': PSPForms
-    }
-    return render(request, 'UpdateFields/test.html', {'context': context})
-
-
-########################################################################################################################
 def RoundsMonitorViewRetrieve(request):
     data = RoundsMonitor.objects.all()
     current_date = datetime.strptime("2023-05-01T20:16", "%Y-%m-%dT%H:%M")
     field = IntegerField()
-    rd_today_date = datetime.strptime("2023-05-01T20:16", "%Y-%m-%dT%H:%M")
+    rd_today_date = datetime.strptime("2023-05-01T20:16", "%Y-%m-%dT%H:%M")  # round_today_date
     plucking_round = 8
     plucking_day = datetime.now()
     if plucking_day:
         timestamp = int(plucking_day.timestamp())
     else:
-        # Handle the case when plucking_day is None or invalid
+        # Handle the case when Plucking_day is None or invalid
         timestamp = 0
     next_plucking = int(timestamp + plucking_round)
     actual_plucking_day = int(current_date.strftime("%Y%m%d")) + plucking_round
@@ -101,19 +86,20 @@ def RoundsMonitorViewRetrieve(request):
     today_date = datetime.today().date()
     n = month_end.date() - today_date
     months = int(n.days / 30)
-    days_to_end_month = round_bal_days + 8 - month_end.day
+    days_to_end_month = month_end.day - (total_plucking_round * 8)
     if days_to_end_month <= 0:
         days_to_end_month = 0
-    days_bf = months - round_bal_days
-    if days_bf <= 0:
-        days_bf = 0
+    days_bf = (month_end.day - (total_plucking_round * 8))
+    if days_bf >= 0:
+        if (total_plucking_round * 8) >= 8 or 16 or 24:
+            days_bf = days_bf % 8
 
     context = {
         "roundsmonitor": data,
         "field": field,
-        "rd_today_date": rd_today_date,
+        "rd_today_date": today_date,
         "plucking_round": plucking_round,
-        "plucking_day": plucking_day,
+        "Plucking_day": plucking_day,
         "next_plucking": next_plucking,
         "actual_plucking_day": actual_plucking_day,
         "days_behind": days_behind,
@@ -124,7 +110,7 @@ def RoundsMonitorViewRetrieve(request):
         "days_to_end_month": days_to_end_month,
         "days_bf": days_bf,
     }
-    return render(request, 'UpdateFields/rounds_monitor.html', context)
+    return render(request, 'Plucking/rounds_monitor.html', context)
 
 
 def RoundsMonitorViewUpdate(request):
@@ -138,11 +124,19 @@ def RoundsMonitorViewUpdate(request):
     if plucking_day:
         timestamp = int(plucking_day.timestamp())
     else:
-        # Handle the case when plucking_day is None or invalid
+        # Handle the case when Plucking_day is None or invalid
         timestamp = 0
 
     next_plucking = int(timestamp + plucking_round)
+    if next_plucking is None:
+        next_plucking = 0
+    else:
+        next_plucking = int(timestamp + plucking_round)
     actual_plucking_day = int(current_date.strftime("%Y%m%d")) + plucking_round
+    if actual_plucking_day is None:
+        actual_plucking_day = 0
+    else:
+        actual_plucking_day = int(current_date.strftime("%Y%m%d")) + plucking_round
     days_behind = int(timestamp - actual_plucking_day)
     if isinstance(days_behind, timedelta):
         days_behind = days_behind.days
@@ -185,7 +179,7 @@ def RoundsMonitorViewUpdate(request):
 
         "current_date": current_date,
         "plucking_round": plucking_round,
-        "plucking_day": plucking_day,
+        "Plucking_day": plucking_day,
         "next_plucking": next_plucking,
         "actual_plucking_day": actual_plucking_day,
         "days_behind": days_behind,  # Use days property to get the difference in days
@@ -201,7 +195,7 @@ def RoundsMonitorViewUpdate(request):
     # data.month_end = month_end.day
     # data.save()
 
-    return render(request, 'UpdateFields/rounds_monitor_update.html', context)
+    return render(request, 'Plucking/rounds_monitor_update.html', context)
 
 
 def RoundsMonitoViewCreate(request):
@@ -209,7 +203,7 @@ def RoundsMonitoViewCreate(request):
         today_date = request.GET.get('today_date') or None
         field = request.POST['field']
         plucking_round = request.POST['plucking_round']
-        plucking_day = request.GET.get('plucking_day') or None
+        plucking_day = request.GET.get('Plucking_day') or None
         next_plucking = request.GET.get('next_plucking') or None
         actual_plucking_day = request.GET.get('actual_plucking_day') or None
         days_behind = request.POST['days_behind']
@@ -248,10 +242,9 @@ def chart_view(request):
     context = {
         'chart_data': chart_data
     }
-    return render(request, 'UpdateFields/psp_graphs_board.html', context)
+    return render(request, 'Plucking/psp_graphs_board.html', context)
 
 
-########################################################################################################################
 def ProgrammedSchemeViewRetrieve(request):
     data = ProgrammedScheme.objects.all()
     plucking_date = datetime.strptime("2023-05-01T20:16", "%Y-%m-%dT%H:%M")
@@ -302,7 +295,7 @@ def ProgrammedSchemeViewRetrieve(request):
         "zone_number_supervisor": zone_number_supervisor,
         "total_number_pluckers": total_number_pluckers,
     }
-    return render(request, 'UpdateFields/programmedscheme_record.html', context)
+    return render(request, 'Plucking/programmedscheme_record.html', context)
 
 
 def ProgrammedSchemeViewUpdate(request):
@@ -350,7 +343,7 @@ def ProgrammedSchemeViewUpdate(request):
         "total_number_pluckers": total_number_pluckers,
     }
 
-    return render(request, 'UpdateFields/programmedscheme_update.html', context)
+    return render(request, 'Plucking/programmedscheme_update.html', context)
 
 
 def ProgrammedSchemeViewCreate(request):
@@ -477,7 +470,6 @@ def RoundsMonitorDelete(request, pk):
     return render(request, 'RoundsMonitor/delete.html', context)
 
 
-########################################################################################################################
 def PluckingRoundsViewRetrieve(request):
     table = {
         'Zone E': {
@@ -547,7 +539,7 @@ def PluckingRoundsViewRetrieve(request):
         'html': html,
     }
 
-    return render(request, 'UpdateFields/plucking_scheme_rounds.html', context)
+    return render(request, 'Plucking/plucking_scheme_rounds.html', context)
 
 
 def PluckingRoundsViewUpdate(request):
@@ -682,7 +674,7 @@ def PluckingRoundsViewUpdate(request):
         'Month_day_31': data.Month_day_31,
 
     }
-    return render(request, 'UpdateFields/psp_fields_rounds_checker-update.html', context)
+    return render(request, 'Plucking/psp_fields_rounds_checker-update.html', context)
 
 
 def PluckingRoundsViewCreate(request):
@@ -690,7 +682,7 @@ def PluckingRoundsViewCreate(request):
         table = request.POST['table']
         table.save()
 
-    return render(request, 'UpdateFields/plucking_scheme_rounds.html')
+    return render(request, 'Plucking/plucking_scheme_rounds.html')
 
 
 def save_edited_content(request):
@@ -702,55 +694,74 @@ def save_edited_content(request):
         return JsonResponse({'success': False})
 
 
-########################################################################################################################
-
-
 def FieldsViewRetrieve(request):
     # Retrieve field data from the database
     data = FieldsToPluck.objects.all()
 
     Division_data = {
-        'Zone A': {
-            'Field_No': ['1', '2', '3', '4', '5'],
-            'Leaf_Type': ['VP', 'SD', 'VP', 'SD', 'VP'],
-            'Ha': [17.06, 7.19, 14.34, 20.43, 16.36],
-            'Days_to_plk': [2, 1, 1, 2, 2],
-            'Prune_age': [1, 2, 1, 3, 3],
-            'Num_of_Schemes': [190, 71, 113, 158, 165],
-            'Growing_days_CF': [2, 1, 1, 2, 2],
-            'Month_day_Jan': [31, 31, 31, 31, 31],
-            'Month_day_Feb': [28, 28, 28, 28, 28],
-            'Month_day_Mar': [31, 31, 31, 31, 31],
-            'Month_day_Apr': [30, 30, 30, 30, 30],
-            'Month_day_May': [31, 31, 31, 31, 31],
-            'Month_day_Jun': [30, 30, 30, 30, 30],
-            'Month_day_Jul': [31, 31, 31, 31, 31],
-            'Month_day_Aug': [31, 31, 31, 31, 31],
-            'Month_day_Sep': [30, 30, 30, 30, 30],
-            'Month_day_Oct': [31, 31, 31, 31, 31],
-            'Month_day_Nov': [30, 30, 30, 30, 30],
-            'Month_day_Dec': [31, 31, 31, 31, 31],
+        'Zone E': {
+            'Field_No': ['5', '3', '7', '12', '14', '15'],
+            'Leaf_Type': ['SD', 'SD', 'VP', 'VP', 'VP'],
+            'Ha': [13.02, 8.27, 14.99, 12.93, 22.60, 10.65],
+            'Days_to_plk': [1, 2, 1, 2, 2, 1],
+            'Prune_age': [2, 2, 1, 0, 3, 4],
+            'Num_of_Schemes': [185, 145, 92, 152, 323, 167],
+            'Growing_days_CF': [1, 2, 1, 2, 1, 0],
+            'Month_day_Jan': [31, 31, 31, 31, 31, 31],
+            'Month_day_Feb': [28, 28, 28, 28, 28, 28],
+            'Month_day_Mar': [31, 31, 31, 31, 31, 31],
+            'Month_day_Apr': [30, 30, 30, 30, 30, 30],
+            'Month_day_May': [31, 31, 31, 31, 31, 31],
+            'Month_day_Jun': [30, 30, 30, 30, 30, 30],
+            'Month_day_Jul': [31, 31, 31, 31, 31, 31],
+            'Month_day_Aug': [31, 31, 31, 31, 31, 31],
+            'Month_day_Sep': [30, 30, 30, 30, 30, 30],
+            'Month_day_Oct': [31, 31, 31, 31, 31, 31],
+            'Month_day_Nov': [30, 30, 30, 30, 30, 30],
+            'Month_day_Dec': [31, 31, 31, 31, 31, 31],
         },
-        'Zone B': {
-            'Field_No': ['6', '7', '8', '9', '10'],
-            'Leaf_Type': ['SD', 'VP', 'SD', 'VP', 'SD'],
-            'Ha': [7.19, 14.34, 20.43, 16.36, 17.06],
-            'Days_to_plk': [1, 1, 2, 2, 2],
-            'Prune_age': [2, 1, 3, 3, 1],
-            'Num_of_Schemes': [71, 113, 158, 165, 190],
-            'Growing_days_CF': [1, 1, 2, 2, 2],
-            'Month_day_Jan': [31, 31, 31, 31, 31],
-            'Month_day_Feb': [28, 28, 28, 28, 28],
-            'Month_day_Mar': [31, 31, 31, 31, 31],
-            'Month_day_Apr': [30, 30, 30, 30, 30],
-            'Month_day_May': [31, 31, 31, 31, 31],
-            'Month_day_Jun': [30, 30, 30, 30, 30],
-            'Month_day_Jul': [31, 31, 31, 31, 31],
-            'Month_day_Aug': [31, 31, 31, 31, 31],
-            'Month_day_Sep': [30, 30, 30, 30, 30],
-            'Month_day_Oct': [31, 31, 31, 31, 31],
-            'Month_day_Nov': [30, 30, 30, 30, 30],
-            'Month_day_Dec': [31, 31, 31, 31, 31],
+        'Zone F': {
+            'Field_No': ['11', '10', '42', '2', '6', '43'],
+            'Leaf_Type': ['SD', 'SD', 'VP', 'SD', 'VP'],
+            'Ha': [16.01, 22.55, 7.51, 7.41, 17.00, 4.6],
+            'Days_to_plk': [2, 3, 1, 1, 2, 1],
+            'Prune_age': [2, 1, 3, 1, 0, 1],
+            'Num_of_Schemes': [178, 251, 107, 106, 189, 66],
+            'Growing_days_CF': [9, 3, 1, 3, 1, 2],
+            'Month_day_Jan': [31, 31, 31, 31, 31, 31],
+            'Month_day_Feb': [28, 28, 28, 28, 28, 28],
+            'Month_day_Mar': [31, 31, 31, 31, 31, 31],
+            'Month_day_Apr': [30, 30, 30, 30, 30, 30],
+            'Month_day_May': [31, 31, 31, 31, 31, 31],
+            'Month_day_Jun': [30, 30, 30, 30, 30, 30],
+            'Month_day_Jul': [31, 31, 31, 31, 31, 31],
+            'Month_day_Aug': [31, 31, 31, 31, 31, 31],
+            'Month_day_Sep': [30, 30, 30, 30, 30, 30],
+            'Month_day_Oct': [31, 31, 31, 31, 31, 31],
+            'Month_day_Nov': [30, 30, 30, 30, 30, 30],
+            'Month_day_Dec': [31, 31, 31, 31, 31, 31],
+        },
+        'Zone G': {
+            'Field_No': ['8', '1', '44', '13', '9', '4'],
+            'Leaf_Type': ['VP', 'SD', 'VP', 'VP', 'SD', 'VP'],
+            'Ha': [9.07, 17.06, 7.19, 14.34, 20.43, 16.36],
+            'Days_to_plk': [1, 2, 1, 1, 2, 2],
+            'Prune_age': [3, 1, 2, 1, 3, 3],
+            'Num_of_Schemes': [130, 190, 71, 113, 158, 165],
+            'Growing_days_CF': [1, 2, 1, 1, 2, 2],
+            'Month_day_Jan': [31, 31, 31, 31, 31, 31],
+            'Month_day_Feb': [28, 28, 28, 28, 28, 28],
+            'Month_day_Mar': [31, 31, 31, 31, 31, 31],
+            'Month_day_Apr': [30, 30, 30, 30, 30, 30],
+            'Month_day_May': [31, 31, 31, 31, 31, 31],
+            'Month_day_Jun': [30, 30, 30, 30, 30, 30],
+            'Month_day_Jul': [31, 31, 31, 31, 31, 31],
+            'Month_day_Aug': [31, 31, 31, 31, 31, 31],
+            'Month_day_Sep': [30, 30, 30, 30, 30, 30],
+            'Month_day_Oct': [31, 31, 31, 31, 31, 31],
+            'Month_day_Nov': [30, 30, 30, 30, 30, 30],
+            'Month_day_Dec': [31, 31, 31, 31, 31, 31],
+
         },
     }
 
@@ -809,7 +820,7 @@ def FieldsViewRetrieve(request):
         'num_days': num_days[month]
     }
 
-    return render(request, 'UpdateFields/psp_field_rounds_checker.html', context)
+    return render(request, 'Plucking/psp_field_rounds_checker.html', context)
 
 
 def FieldsViewUpdate(request):
@@ -919,7 +930,7 @@ def FieldsViewUpdate(request):
         'Month_day_Dec': zone_data.get('Month_day_Dec', []),
     }
 
-    return render(request, 'UpdateFields/psp_fields_rounds_checker-update.html', {'Division_data': Division_data})
+    return render(request, 'Plucking/psp_fields_rounds_checker-update.html', {'Division_data': Division_data})
 
 
 def FieldsViewCreate(request):
@@ -1001,7 +1012,7 @@ def FieldsEdit(request, pk):
 
 
 def FieldsDelete(request, pk):
-    data = RoundsMonitor.objects.get(id=pk)
+    data = FieldsToPluck.objects.get(id=pk)
     if request.method == 'POST':
         data.delete()
         return redirect('/fields-record')
@@ -1010,3 +1021,401 @@ def FieldsDelete(request, pk):
         'data': data,
     }
     return render(request, 'Fields/delete.html', context)
+
+
+def AutoFieldsViewRetrieve(request):
+    # Retrieve field data from the database
+    data = AutoFields.objects.all()
+
+    Zone_E_data = {
+                      'Field_No': ['5', '3', '7', '12', '14', '15'],
+                      'Leaf_type': ['SD', 'SD', 'VP', 'VP', 'VP'],
+                      'Ha': [13.02, 8.27, 14.99, 12.93, 22.60, 10.65],
+                      'Days_to_plk': [1, 2, 1, 2, 2, 1],
+                      'Prune_age': [2, 2, 1, 0, 3, 4],
+                      'Num_of_Schemes': [185, 145, 92, 152, 323, 167],
+                      'Growing_days_CF': [1, 2, 1, 2, 1, 0],
+                      'Month_day_Jan': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Feb': [28, 28, 28, 28, 28, 28],
+                      'Month_day_Mar': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Apr': [30, 30, 30, 30, 30, 30],
+                      'Month_day_May': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Jun': [30, 30, 30, 30, 30, 30],
+                      'Month_day_Jul': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Aug': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Sep': [30, 30, 30, 30, 30, 30],
+                      'Month_day_Oct': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Nov': [30, 30, 30, 30, 30, 30],
+                      'Month_day_Dec': [31, 31, 31, 31, 31, 31],
+                  },
+    Zone_F_data = {
+                      'Field_No': ['11', '10', '42', '2', '6', '43'],
+                      'Leaf_type': ['SD', 'SD', 'VP', 'SD', 'VP'],
+                      'Ha': [16.01, 22.55, 7.51, 7.41, 17.00, 4.6],
+                      'Days_to_plk': [2, 3, 1, 1, 2, 1],
+                      'Prune_age': [2, 1, 3, 1, 0, 1],
+                      'Num_of_Schemes': [178, 251, 107, 106, 189, 66],
+                      'Growing_days_CF': [9, 3, 1, 3, 1, 2],
+                      'Month_day_Jan': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Feb': [28, 28, 28, 28, 28, 28],
+                      'Month_day_Mar': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Apr': [30, 30, 30, 30, 30, 30],
+                      'Month_day_May': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Jun': [30, 30, 30, 30, 30, 30],
+                      'Month_day_Jul': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Aug': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Sep': [30, 30, 30, 30, 30, 30],
+                      'Month_day_Oct': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Nov': [30, 30, 30, 30, 30, 30],
+                      'Month_day_Dec': [31, 31, 31, 31, 31, 31],
+                  },
+    Zone_G_data = {
+                      'Field_No': ['8', '1', '44', '13', '9', '4'],
+                      'Leaf_type': ['VP', 'SD', 'VP', 'VP', 'SD', 'VP'],
+                      'Ha': [9.07, 17.06, 7.19, 14.34, 20.43, 16.36],
+                      'Days_to_plk': [1, 2, 1, 1, 2, 2],
+                      'Prune_age': [3, 1, 2, 1, 3, 3],
+                      'Num_of_Schemes': [130, 190, 71, 113, 158, 165],
+                      'Growing_days_CF': [1, 2, 1, 1, 2, 2],
+                      'Month_day_Jan': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Feb': [28, 28, 28, 28, 28, 28],
+                      'Month_day_Mar': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Apr': [30, 30, 30, 30, 30, 30],
+                      'Month_day_May': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Jun': [30, 30, 30, 30, 30, 30],
+                      'Month_day_Jul': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Aug': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Sep': [30, 30, 30, 30, 30, 30],
+                      'Month_day_Oct': [31, 31, 31, 31, 31, 31],
+                      'Month_day_Nov': [30, 30, 30, 30, 30, 30],
+                      'Month_day_Dec': [31, 31, 31, 31, 31, 31],
+
+                  },
+
+    field_list = []
+    for zone_data in [Zone_E_data, Zone_F_data, Zone_G_data]:
+        zone_fields = []
+        for i in range(len(zone_data)):
+            field = {
+                'Field_No': zone_data[i]['Field_No'],
+                'Leaf_type': zone_data[i]['Leaf_type'],
+                'Ha': zone_data[i]['Ha'],
+                'Days_to_plk': zone_data[i]['Days_to_plk'],
+                'Prune_age': zone_data[i]['Prune_age'],
+                'Num_of_Schemes': zone_data[i]['Num_of_Schemes'],
+                'Growing_days_CF': zone_data[i]['Growing_days_CF'],
+                'Month_day_Jan': zone_data[i]['Month_day_Jan'],
+                'Month_day_Feb': zone_data[i]['Month_day_Feb'],
+                'Month_day_Mar': zone_data[i]['Month_day_Mar'],
+                'Month_day_Apr': zone_data[i]['Month_day_Apr'],
+                'Month_day_May': zone_data[i]['Month_day_May'],
+                'Month_day_Jun': zone_data[i]['Month_day_Jun'],
+                'Month_day_Jul': zone_data[i]['Month_day_Jul'],
+                'Month_day_Aug': zone_data[i]['Month_day_Aug'],
+                'Month_day_Sep': zone_data[i]['Month_day_Sep'],
+                'Month_day_Oct': zone_data[i]['Month_day_Oct'],
+                'Month_day_Nov': zone_data[i]['Month_day_Nov'],
+                'Month_day_Dec': zone_data[i]['Month_day_Dec'],
+            }
+            field_list.append(field)
+
+    month = 5
+    num_days = {
+        1: 31,
+        2: 28,
+        3: 31,
+        4: 30,
+        5: 31,
+        6: 30,
+        7: 31,
+        8: 31,
+        9: 30,
+        10: 31,
+        11: 30,
+        12: 31
+    }
+
+    context = {
+        'autofields': data,
+        'num_days': num_days[month]
+    }
+
+    return render(request, 'Plucking/autofields_psp.html', context)
+
+
+def AutoFieldsViewUpdate(request):
+    data = AutoFields.objects.all()
+    Division_data = {
+        'Zone_E': {
+            'Field_No': ['5', '3', '7', '12', '14', '15'],
+            'Leaf_type': ['SD', 'SD', 'VP', 'VP', 'VP'],
+            'Ha': [13.02, 8.27, 14.99, 12.93, 22.60, 10.65],
+            'Days_to_plk': [1, 2, 1, 2, 2, 1],
+            'Prune_age': [2, 2, 1, 0, 3, 4],
+            'Num_of_Schemes': [185, 145, 92, 152, 323, 167],
+            'Growing_days_CF': [1, 2, 1, 2, 1, 0],
+            'Month_day_Jan': [31, 31, 31, 31, 31, 31],
+            'Month_day_Feb': [28, 28, 28, 28, 28, 28],
+            'Month_day_Mar': [31, 31, 31, 31, 31, 31],
+            'Month_day_Apr': [30, 30, 30, 30, 30, 30],
+            'Month_day_May': [31, 31, 31, 31, 31, 31],
+            'Month_day_Jun': [30, 30, 30, 30, 30, 30],
+            'Month_day_Jul': [31, 31, 31, 31, 31, 31],
+            'Month_day_Aug': [31, 31, 31, 31, 31, 31],
+            'Month_day_Sep': [30, 30, 30, 30, 30, 30],
+            'Month_day_Oct': [31, 31, 31, 31, 31, 31],
+            'Month_day_Nov': [30, 30, 30, 30, 30, 30],
+            'Month_day_Dec': [31, 31, 31, 31, 31, 31],
+        },
+        'Zone_F': {
+            'Field_No': ['11', '10', '42', '2', '6', '43'],
+            'Leaf_type': ['SD', 'SD', 'VP', 'SD', 'VP'],
+            'Ha': [16.01, 22.55, 7.51, 7.41, 17.00, 4.6],
+            'Days_to_plk': [2, 3, 1, 1, 2, 1],
+            'Prune_age': [2, 1, 3, 1, 0, 1],
+            'Num_of_Schemes': [178, 251, 107, 106, 189, 66],
+            'Growing_days_CF': [9, 3, 1, 3, 1, 2],
+            'Month_day_Jan': [31, 31, 31, 31, 31, 31],
+            'Month_day_Feb': [28, 28, 28, 28, 28, 28],
+            'Month_day_Mar': [31, 31, 31, 31, 31, 31],
+            'Month_day_Apr': [30, 30, 30, 30, 30, 30],
+            'Month_day_May': [31, 31, 31, 31, 31, 31],
+            'Month_day_Jun': [30, 30, 30, 30, 30, 30],
+            'Month_day_Jul': [31, 31, 31, 31, 31, 31],
+            'Month_day_Aug': [31, 31, 31, 31, 31, 31],
+            'Month_day_Sep': [30, 30, 30, 30, 30, 30],
+            'Month_day_Oct': [31, 31, 31, 31, 31, 31],
+            'Month_day_Nov': [30, 30, 30, 30, 30, 30],
+            'Month_day_Dec': [31, 31, 31, 31, 31, 31],
+        },
+        'Zone_G': {
+            'Field_No': ['8', '1', '44', '13', '9', '4'],
+            'Leaf_type': ['VP', 'SD', 'VP', 'VP', 'SD', 'VP'],
+            'Ha': [9.07, 17.06, 7.19, 14.34, 20.43, 16.36],
+            'Days_to_plk': [1, 2, 1, 1, 2, 2],
+            'Prune_age': [3, 1, 2, 1, 3, 3],
+            'Num_of_Schemes': [130, 190, 71, 113, 158, 165],
+            'Growing_days_CF': [1, 2, 1, 1, 2, 2],
+            'Month_day_Jan': [31, 31, 31, 31, 31, 31],
+            'Month_day_Feb': [28, 28, 28, 28, 28, 28],
+            'Month_day_Mar': [31, 31, 31, 31, 31, 31],
+            'Month_day_Apr': [30, 30, 30, 30, 30, 30],
+            'Month_day_May': [31, 31, 31, 31, 31, 31],
+            'Month_day_Jun': [30, 30, 30, 30, 30, 30],
+            'Month_day_Jul': [31, 31, 31, 31, 31, 31],
+            'Month_day_Aug': [31, 31, 31, 31, 31, 31],
+            'Month_day_Sep': [30, 30, 30, 30, 30, 30],
+            'Month_day_Oct': [31, 31, 31, 31, 31, 31],
+            'Month_day_Nov': [30, 30, 30, 30, 30, 30],
+            'Month_day_Dec': [31, 31, 31, 31, 31, 31],
+
+        },
+    }
+
+    if data:
+        zone = data[0].Zone
+    else:
+        zone = None
+
+    if request.method == 'POST':
+        Field_No = request.POST.get('Field_No')  # Retrieve Field_No from POST request
+    else:
+        Field_No = request.GET.get('Field_No')  # Retrieve Field_No from GET request
+
+    if Field_No is not None:
+        field_index = int(Field_No) - 1
+    else:
+        field_index = None
+
+    zone_data = Division_data.get(zone, {})
+    Division_data = {
+        'Zone': zone_data.get('Zone_E', []),
+        'Leaf_type': zone_data.get('Leaf_type', []),
+        'Ha': zone_data.get('Ha', []),
+        'Days_to_plk': zone_data.get('Days_to_plk', []),
+        'Prune_age': zone_data.get('Prune_age', []),
+        'Num_of_Schemes': zone_data.get('Num_of_Schemes', []),
+        'Growing_days_CF': zone_data.get('Growing_days_CF', []),
+        'Month_day_Jan': zone_data.get('Month_day_Jan', []),
+        'Month_day_Feb': zone_data.get('Month_day_Feb', []),
+        'Month_day_Mar': zone_data.get('Month_day_Mar', []),
+        'Month_day_Apr': zone_data.get('Month_day_Apr', []),
+        'Month_day_May': zone_data.get('Month_day_May', []),
+        'Month_day_Jun': zone_data.get('Month_day_Jun', []),
+        'Month_day_Jul': zone_data.get('Month_day_Jul', []),
+        'Month_day_Aug': zone_data.get('Month_day_Aug', []),
+        'Month_day_Sep': zone_data.get('Month_day_Sep', []),
+        'Month_day_Oct': zone_data.get('Month_day_Oct', []),
+        'Month_day_Nov': zone_data.get('Month_day_Nov', []),
+        'Month_day_Dec': zone_data.get('Month_day_Dec', []),
+    }
+
+   
+
+    if data:
+        zone = data[0].Zone
+    else:
+        zone = None
+
+    if request.method == 'POST':
+        Field_No = request.POST.get('Field_No')  # Retrieve Field_No from POST request
+    else:
+        Field_No = request.GET.get('Field_No')  # Retrieve Field_No from GET request
+
+    if Field_No is not None:
+        field_index = int(Field_No) - 1
+    else:
+        field_index = None
+
+    zone_data = Division_data.get(zone, {})
+    Division_data = {
+        'Zone': zone_data.get('Zone_F', []),
+        'Leaf_type': zone_data.get('Leaf_type', []),
+        'Ha': zone_data.get('Ha', []),
+        'Days_to_plk': zone_data.get('Days_to_plk', []),
+        'Prune_age': zone_data.get('Prune_age', []),
+        'Num_of_Schemes': zone_data.get('Num_of_Schemes', []),
+        'Growing_days_CF': zone_data.get('Growing_days_CF', []),
+        'Month_day_Jan': zone_data.get('Month_day_Jan', []),
+        'Month_day_Feb': zone_data.get('Month_day_Feb', []),
+        'Month_day_Mar': zone_data.get('Month_day_Mar', []),
+        'Month_day_Apr': zone_data.get('Month_day_Apr', []),
+        'Month_day_May': zone_data.get('Month_day_May', []),
+        'Month_day_Jun': zone_data.get('Month_day_Jun', []),
+        'Month_day_Jul': zone_data.get('Month_day_Jul', []),
+        'Month_day_Aug': zone_data.get('Month_day_Aug', []),
+        'Month_day_Sep': zone_data.get('Month_day_Sep', []),
+        'Month_day_Oct': zone_data.get('Month_day_Oct', []),
+        'Month_day_Nov': zone_data.get('Month_day_Nov', []),
+        'Month_day_Dec': zone_data.get('Month_day_Dec', []),
+    }
+
+    if data:
+        zone = data[0].Zone
+    else:
+        zone = None
+
+    if request.method == 'POST':
+        Field_No = request.POST.get('Field_No')  # Retrieve Field_No from POST request
+    else:
+        Field_No = request.GET.get('Field_No')  # Retrieve Field_No from GET request
+
+    if Field_No is not None:
+        field_index = int(Field_No) - 1
+    else:
+        field_index = None
+
+    zone_data = Division_data.get(zone, {})
+    Division_data = {
+        'Zone_G': zone_data.get('Zone_G', []),
+        'Leaf_type': zone_data.get('Leaf_type', []),
+        'Ha': zone_data.get('Ha', []),
+        'Days_to_plk': zone_data.get('Days_to_plk', []),
+        'Prune_age': zone_data.get('Prune_age', []),
+        'Num_of_Schemes': zone_data.get('Num_of_Schemes', []),
+        'Growing_days_CF': zone_data.get('Growing_days_CF', []),
+        'Month_day_Jan': zone_data.get('Month_day_Jan', []),
+        'Month_day_Feb': zone_data.get('Month_day_Feb', []),
+        'Month_day_Mar': zone_data.get('Month_day_Mar', []),
+        'Month_day_Apr': zone_data.get('Month_day_Apr', []),
+        'Month_day_May': zone_data.get('Month_day_May', []),
+        'Month_day_Jun': zone_data.get('Month_day_Jun', []),
+        'Month_day_Jul': zone_data.get('Month_day_Jul', []),
+        'Month_day_Aug': zone_data.get('Month_day_Aug', []),
+        'Month_day_Sep': zone_data.get('Month_day_Sep', []),
+        'Month_day_Oct': zone_data.get('Month_day_Oct', []),
+        'Month_day_Nov': zone_data.get('Month_day_Nov', []),
+        'Month_day_Dec': zone_data.get('Month_day_Dec', []),
+    }
+
+    return render(request, 'Plucking/autofields_psp_update.html', {'Division_data': Division_data})
+
+
+def AutoFieldsViewCreate(request):
+    if request.method == "POST":
+        Zone = request.POST.get('Zone')
+        Field_No = request.POST.get('Field_No')
+        Leaf_type = request.POST.get('Leaf_type')
+        Ha = request.POST.get('Ha')
+        Days_to_plk = request.POST.get('Days_to_plk')
+        Prune_age = request.POST.get('Prune_age')
+        Number_of_schemes = request.POST.get('Number_of_schemes')
+        Growing_days_CF = request.POST.get('Growing_days_CF')
+        Month_day_01 = request.POST.get('Month_day_01')
+        Month_day_02 = request.POST.get('Month_day_02')
+        Month_day_03 = request.POST.get('Month_day_03')
+        Month_day_04 = request.POST.get('Month_day_04')
+        Month_day_05 = request.POST.get('Month_day_05')
+        Month_day_06 = request.POST.get('Month_day_06')
+        Month_day_07 = request.POST.get('Month_day_07')
+        Month_day_08 = request.POST.get('Month_day_08')
+        Month_day_09 = request.POST.get('Month_day_09')
+        Month_day_10 = request.POST.get('Month_day_10')
+        Month_day_11 = request.POST.get('Month_day_11')
+        Month_day_12 = request.POST.get('Month_day_12')
+        Month_day_13 = request.POST.get('Month_day_13')
+        Month_day_14 = request.POST.get('Month_day_14')
+        Month_day_15 = request.POST.get('Month_day_15')
+        Month_day_16 = request.POST.get('Month_day_16')
+        Month_day_17 = request.POST.get('Month_day_17')
+        Month_day_18 = request.POST.get('Month_day_18')
+        Month_day_19 = request.POST.get('Month_day_19')
+        Month_day_20 = request.POST.get('Month_day_20')
+        Month_day_21 = request.POST.get('Month_day_21')
+        Month_day_22 = request.POST.get('Month_day_22')
+        Month_day_23 = request.POST.get('Month_day_23')
+        Month_day_24 = request.POST.get('Month_day_24')
+        Month_day_25 = request.POST.get('Month_day_25')
+        Month_day_26 = request.POST.get('Month_day_26')
+        Month_day_27 = request.POST.get('Month_day_27')
+        Month_day_28 = request.POST.get('Month_day_28')
+        Month_day_29 = request.POST.get('Month_day_29')
+        Month_day_30 = request.POST.get('Month_day_30')
+        Month_day_31 = request.POST.get('Month_day_31')
+
+        insert = AutoFields(Zone=Zone, Field_No=Field_No, Leaf_type=Leaf_type, Ha=Ha,
+                            Days_to_plk=Days_to_plk, Prune_age=Prune_age, Number_of_schemes=Number_of_schemes,
+                            Growing_days_CF=Growing_days_CF, Month_day_01=Month_day_01,
+                            Month_day_02=Month_day_02, Month_day_03=Month_day_03, Month_day_04=Month_day_04,
+                            Month_day_05=Month_day_05, Month_day_06=Month_day_06, Month_day_07=Month_day_07,
+                            Month_day_08=Month_day_08, Month_day_09=Month_day_09, Month_day_10=Month_day_10,
+                            Month_day_11=Month_day_11, Month_day_12=Month_day_12, Month_day_13=Month_day_13,
+                            Month_day_14=Month_day_14, Month_day_15=Month_day_15, Month_day_16=Month_day_16,
+                            Month_day_17=Month_day_17, Month_day_18=Month_day_18, Month_day_19=Month_day_19,
+                            Month_day_20=Month_day_20, Month_day_21=Month_day_21, Month_day_22=Month_day_22,
+                            Month_day_23=Month_day_23, Month_day_24=Month_day_24, Month_day_25=Month_day_25,
+                            Month_day_26=Month_day_26, Month_day_27=Month_day_27, Month_day_28=Month_day_28,
+                            Month_day_29=Month_day_29, Month_day_30=Month_day_30, Month_day_31=Month_day_31)
+        insert.save()
+
+    return redirect('/autofields-record')
+
+
+def AutoFieldsEdit(request, pk):
+    fields = AutoFields.objects.get(id=pk)
+    if request.method == 'POST':
+        form = FieldsForms(request.POST, instance=fields)
+        if form.is_valid():
+            form.save()
+            return redirect('/autofields-record')
+
+    else:
+        form = FieldsForms(instance=fields)
+
+    context = {
+        'form': form, 'FieldsForms': FieldsForms,
+
+    }
+    return render(request, 'Autofields/update.html', context)
+
+
+def AutoFieldsDelete(request, pk):
+    data = AutoFields.objects.get(id=pk)
+    if request.method == 'POST':
+        data.delete()
+        return redirect('/autofields-record')
+
+    context = {
+        'data': data,
+    }
+    return render(request, 'Autofields/delete.html', context)

@@ -15,8 +15,7 @@
                         Back</a>
                     <a class="btn btn-warning bg-primary btn-info block-lg" href="{% url 'plucking-planner-view' %}">Go
                         To Plucking Planner Record</a>
-                    <a class="btn btn-warning bg-primary btn-info block-lg" href="{% url 'psp' %}">Go To Plucking Scheme
-                        Program</a>
+                    <a class="btn btn-warning bg-primary btn-info block-lg" href="{% url 'psp-dashboard' %}">Go To Dasboard</a>
                     <form method="POST" action="{% url 'plucking-view-update' %}">
                         {% csrf_token %}
 

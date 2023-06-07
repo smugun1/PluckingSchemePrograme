@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'plucking',
     'members',
+    'plucking_resources',
     'import_export',
-    'templatetags',
+    # 'template_tags',
+    'mathfilters',
     # 'chartjs',
 
 ]

@@ -1,12 +1,6 @@
 from django import forms
 
-from .models import Resources, ProgrammedScheme, RoundsMonitor, FieldsToPluck
-
-
-class ResourcesForm(forms.ModelForm):
-    class Meta:
-        model = Resources
-        fields = '__all__'
+from .models import ProgrammedScheme, RoundsMonitor, FieldsToPluck, AutoFields
 
 
 class PSPForms(forms.ModelForm):
@@ -30,4 +24,10 @@ class RoundsMonitorForm(forms.ModelForm):
 class FieldsForm(forms.ModelForm):
     class Meta:
         model = FieldsToPluck
+        fields = '__all__'
+
+
+class FieldsForms(forms.ModelForm):
+    class Meta:
+        model = AutoFields
         fields = '__all__'

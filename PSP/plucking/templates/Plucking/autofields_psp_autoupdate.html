@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% load static
+{% load  %}
+{% load mathfilters %}
+
+{% include 'autofields/update.html' %}
+
+{% include 'autofields/delete.html' %}
+
+{% block title %}Auto Fields Autoupdate{% endblock %}
+%}
+<title>Auto Fields PSP</title>
+{% block body %}
+<div class="row g-2 d-flex align-items-center">
+    <div class="col-lg-0 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-4 px-4 my-4 py-4"
+             style="background-color: rgba(13, 70, 10, 1); border-radius: 20px">
+            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Auto Fields Autoupdate</h2>
+            <div class="border p-1" style="border-radius: 20px">
+                <div class="card-body">
+                    <a href="{% url 'autofields-update' %}"
+                       class="btn btn-warning bg-primary block-lg text-light">Add</a>
+                    <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-record' %}">Go
+                        To RoundsMonitor</a>
+                    <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go
+                        To PS Record</a>
+                    <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-dashboard' %}">Go To Dashboard</a>
+                    <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-graphs' %}">Go To
+                        Graphs</a>
+                </div>
+                <h1 class="text-center bg-light text-Primary" style="border-radius: 10px">Auto Fields Autoupdate</h1>
+                <div class="container row g-0 d-flex align-items-center">
+                    <!-- Table headers -->
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Zone</th>
+                            <th>Field Num</th>
+                            <th>Leaf Type</th>
+                            <th>Ha</th>
+                            <th>Days to plk</th>
+                            <th>Prune age</th>
+                            <th>Num of schemes</th>
+                            <th>Growing days CF</th>
+                            <th>Month day Jan</th>
+                            <th>Month day Feb</th>
+                            <th>Month day Mar</th>
+                            <th>Month day Apr</th>
+                            <th>Month day May</th>
+                            <th>Month day Jun</th>
+                            <th>Month day Jul</th>
+                            <th>Month day Aug</th>
+                            <th>Month day Sep</th>
+                            <th>Month day Oct</th>
+                            <th>Month day Nov</th>
+                            <th>Month day Dec</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if Field_Num and Days_to_Plk and Growing_days_CF %}
+                          {% for key, value in Division_data.items %}
+                            {% if key|slice:"0:9" == 'Month_day_' %}
+                              {% with round_count=0 %}
+                                {% for i in value %}
+                                  {% if key|slice:"-2:" == i|add:1|stringformat:"02" %}
+                                    {% if round_count < Days_to_Plk %}
+                                      {% if key.startswith('Month_day_') and key|slice:"-2:" == str(i + 1).zfill(2) %}
+                                        {% if round_count < value.i %}
+                                          {% with value.i=round_count %}
+                                            {% if remaining_days > 0 %}
+                                              {% with day_count=start_day %}
+                                                {% for j in "01234567" %}
+                                                  {% if day_count < 32 %}
+                                                    {{ day_count }}
+                                                  {% else %}
+                                                    0
+                                                  {% endif %}
+                                                  {% with day_count=day_count|add:1 %}
+                                                {% endfor %}
+                                              {% endwith %}
+                                              <td>{{ day_count }}</td>
+                                              {% if remaining_days < 8 %}
+                                                {% with remaining_days=remaining_days|add:"-1" %}
+                                                  {% if remaining_days == 0 %}
+                                                    {% with start_day=start_day|add:1 %}
+                                                      {% with remaining_days=start_day %}
+                                                        {% for k in "12345678" %}
+                                                          {% with current_iteration=forloop.counter %}
+                                                            {% if remaining_days > 0 %}
+                                                              {% with day=start_day|subtract:remaining_days %}
+                                                                {{ day }}
+                                                                {% with remaining_days=remaining_days - 1 %}
+                                                              {% endwith %}
+                                                            {% endif %}
+                                                          {% endwith %}
+                                                        {% endfor %}
+                                                      {% endwith %}
+                                                    {% endwith %}
+                                                  {% endif %}
+                                                {% endwith %}
+                                              {% endif %}
+                                            {% endif %}
+                                          {% endwith %}
+                                        {% else %}
+                                          <td>0</td>
+                                        {% endif %}
+                                      {% endif %}
+                                    {% endif %}
+                                  {% endif %}
+                                {% endfor %}
+                                {% with round_count=round_count + 1 %}
+                              {% endwith %}
+                            {% endif %}
+                          {% endfor %}
+                        {% endif %}
+                        <tr>
+                            <td>{{ i }}</td>
+                            <td>{{ Division_data.Field_Num.i }}</td>
+                            <td>{{ Division_data.Leaf_Type.i }}</td>
+                            <td>{{ Division_data.Ha.i }}</td>
+                            <td>{{ Division_data.Days_to_plk.i }}</td>
+                            <td>{{ Division_data.Prune_age.i }}</td>
+                            <td>{{ Division_data.Num_of_schemes.i }}</td>
+                            <td>{{ Division_data.Growing_days_CF.i }}</td>
+                            <td>{{ Division_data.Month_day_Jan.i }}</td>
+                            <td>{{ Division_data.Month_day_Feb.i }}</td>
+                            <td>{{ Division_data.Month_day_Mar.i }}</td>
+                            <td>{{ Division_data.Month_day_Apr.i }}</td>
+                            <td>{{ Division_data.Month_day_May.i }}</td>
+                            <td>{{ Division_data.Month_day_Jun.i }}</td>
+                            <td>{{ Division_data.Month_day_Jul.i }}</td>
+                            <td>{{ Division_data.Month_day_Aug.i }}</td>
+                            <td>{{ Division_data.Month_day_Sep.i }}</td>
+                            <td>{{ Division_data.Month_day_Oct.i }}</td>
+                            <td>{{ Division_data.Month_day_Nov.i }}</td>
+                            <td>{{ Division_data.Month_day_Dec.i }}</td>
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

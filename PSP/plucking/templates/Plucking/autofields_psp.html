@@ -2,9 +2,8 @@
 
 {% load static %}
 
-{% block title %}PSP Field Rounds Checker{% endblock %}
+{% block title %}Auto Fields{% endblock %}
 
-{% block body %}
 
 <style>
         table {
@@ -28,36 +27,45 @@
         }
 
 
+
+
+
 </style>
 
-<title>PSP Field Rounds Checker</title>
+
+<title>Auto Fields Record</title>
+{% block body %}
 <div class="row g-2 d-flex align-items-center">
     <div class="col-lg-0 d-none d-lg-flex">
         <div class="container-fluid text-right card card-light mx-2 px-2 my-2 py-4"
-             style="background-color: rgba(13, 70, 10, 0.4); border-radius: 20px">
-            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Programmed Scheme Record</h2>
+             style="background-color: rgba(13, 70, 10, 1); border-radius: 20px">
+            <div class="card-body">
+                <a href="{% url 'autofields-update' %}"
+                   class="btn btn-warning bg-primary block-lg text-light">Add</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-record' %}">Go
+                    To RoundsMonitor</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go
+                    To PS Record</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-dashboard' %}">Go To
+                    Dashboard</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-graphs' %}">Go To
+                    Graphs</a>
+            </div>
+            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Auto Fields</h2>
             <div class="border p-1" style="border-radius: 20px">
-                <div class="card-body">
-                    <a href="{% url 'fields-update' %}" class="btn btn-warning bg-primary block-lg text-light">Add</a>
-                    <a href="{% url 'plucking-rounds' %}" class="btn btn-warning bg-primary block-lg text-light">Go To
-                        Plucking Scheme
-                        Rounds</a>
-                    <a href="{% url 'psp'%}" class="btn btn-warning bg-primary btn-info block-lg text-light">Go
-                        Dashboard</a>
-                </div>
-                <h1 class="text-center bg-light text-Primary" style="border-radius: 10px">PSP Field Rounds Checker</h1>
-                <div class="container row g-0 d-flex align-items-left">
+
+
                     <tbody>
-                    <table>
+                    <table class="text-center bg-light text-Primary" style="border-radius: 10px">
                         <tr>
-                            <th>Zn</th>
-                            <th>Fld</th>
-                            <th>Typ</th>
+                            <th>Zone E</th>
+                            <th>Field No</th>
+                            <th>Leaf Type</th>
                             <th>Ha</th>
-                            <th>Days</th>
+                            <th>Days to pluck</th>
                             <th>Age</th>
-                            <th>Schs</th>
-                            <th>CF</th>
+                            <th>Schemes No</th>
+                            <th>Day Carried Forward</th>
                             <th>01</th>
                             <th>02</th>
                             <th>03</th>
@@ -93,25 +101,25 @@
                             <th>Delete</th>
 
                         </tr>
-                        {% with current_zone=None %}
-                        {% for data in fieldstopluck %}
+                        {% with current_zone=data.zone %}
+                        {% for data in autofields %}
                         {% if data.Zone != current_zone %}
                         {% if current_zone %}
+
                         <tr>
                             <td colspan="35">Zone {{ current_zone }}</td>
                         </tr>
                         {% endif %}
                         {% with current_zone=data.Zone %}
-                        <tr>
-                            <td>{{ current_zone }}</td>
-                            <td colspan="34"></td>
-                        </tr>
                         {% endwith %}
                         {% endif %}
+
+
                         <tr>
-                            <td>{{ data.Zone }}</td>
+
+                            <td>{{ zone }}</td>
                             <td>{{ data.Field_No }}</td>
-                            <td>{{ data.Leaf_Type }}</td>
+                            <td>{{ data.Leaf_type }}</td>
                             <td>{{ data.Ha }}</td>
                             <td>{{ data.Days_to_plk }}</td>
                             <td>{{ data.Prune_age }}</td>
@@ -148,12 +156,12 @@
                             <th>{{ data.Month_day_29 }}</th>
                             <th>{{ data.Month_day_30 }}</th>
                             <th>{{ data.Month_day_31 }}</th>
-                            <td><a class="btn btn btn-block text-primary btn btn-info"
-                                   style="background-color: #22e39c;"
-                                   href="{% url 'fields-edit' data.id %}">+</a></td>
-                            <td><a class="btn btn-info btn-block btn btn-info text-light"
-                                   style="background-color: #e32289;"
-                                   href="{% url 'fields-delete' data.id %}">-</a></td>
+                            <td><a class="btn btn btn-block text-light h2 btn btn-info"
+                                   style="background-color: #0000ff;"
+                                   href="{% url 'autofields-edit' data.id %}">+</a></td>
+                            <td><a class="btn btn-info btn-block btn h2 btn-info text-light"
+                                   style="background-color: #ff0000;"
+                                   href="{% url 'autofields-delete' data.id %}">-</a></td>
                         </tr>
                         {% endfor %}
                         {% endwith %}
@@ -164,7 +172,7 @@
             </div>
         </div>
     </div>
-</div>
 
+</div>
 
 {% endblock %}

@@ -40,7 +40,7 @@
                             <label for="formGroupExampleInput2"
                                    class="form-label"><strong>Plucked on</strong></label>
                             <input style="height:40px;width:700px" type="date" id="update-date-input"
-                                    name="plucking_day" value="{{plucking_day}}" class="form-control"
+                                    name="plucking_day" value="{{plucking_day|date:'Y-m-d'}}" class="form-control"
                                    placeholder="plucking_day">
                         </div>
 
@@ -48,14 +48,14 @@
                             <label for="formGroupExampleInput2"
                                    class="form-label"><strong>Estimate plucking on</strong></label>
                             <input style="height:40px;width:700px" type="date" id="update-date-input1"
-                                    name="next_plucking" value="{{next_plucking}}" class="form-control"
+                                    name="next_plucking" value="{{next_plucking|date:'Y-m-d'}}" class="form-control"
                                    placeholder="next_plucking">
                         </div>
 
                         <div class="col-sm col-sm">
                             <label for="formGroupExampleInput2" class="form-label"><strong>Actual plucking on</strong></label>
                              <input style="height:40px;width:700px" type="date" id="update-date-input2"
-                                    name="actual_plucking_day" value="{{actual_plucking_day}}" class="form-control"
+                                    name="actual_plucking_day" value="{{actual_plucking_day|date:'Y-m-d'}}" class="form-control"
                                    placeholder="Actual plucking_day">
                         </div>
                         <div class="col-sm col-sm">
@@ -132,18 +132,25 @@
           document.getElementById("update-date-input").value = currentDate;
      </script>
     <script>
-          // Get the current date
-          var currentDate = new Date().toISOString().split('T')[0];
+        // Get the current date
+        var currentDate = new Date();
 
-          // Set the current date as the value of the date input field
-          document.getElementById("update-date-input1").value = currentDate;
+        // Add 8 days to the current date
+        currentDate.setDate(currentDate.getDate() + 8);
+
+        // Format the date as yyyy-mm-dd
+        var formattedDate = currentDate.toISOString().split('T')[0];
+
+        // Set the formatted date as the value of the input field
+        document.getElementById("update-date-input1").value = formattedDate;
     </script>
+
     <script>
           // Get the current date
-          var currentDate = new Date().toISOString().split('T')[0];
+         // var currentDate = new Date().toISOString().split('T')[0];
 
           // Set the current date as the value of the date input field
-          document.getElementById("update-date-input2").value = currentDate;
+         // document.getElementById("update-date-input2").value = currentDate;
     </script>
 
     {% endblock %}

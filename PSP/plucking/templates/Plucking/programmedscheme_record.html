@@ -21,7 +21,8 @@
                 <a class="btn btn-Primary bg-primary btn-info block-lg"
                    href="{% url 'programmedscheme-update'%}">Add</a>
                 <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-record' %}">Go To RoundsMonitor</a>
-                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp' %}">Go To Dashboard</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'fields-record' %}">Go To Field</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-dashboard' %}">Go To Dashboard</a>
                 <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-graphs' %}">Go To Graphs</a>
                 <form action="" method="POST">
                     {% csrf_token %}
@@ -79,9 +80,9 @@
                         <th>SD rounds</th>
                         <th>VP zone size</th>
                         <th>SD zone size</th>
+                        <th>zone number supervisor</th>
                         <th>VP zone number pluckers</th>
                         <th>SD zone number pluckers</th>
-                        <th>zone number supervisor</th>
                         <th>total number pluckers</th>
                         <th>Edit</th>
                         <th>Delete</th>
@@ -96,9 +97,9 @@
                         <td>{{data.SD_rounds}}</td>
                         <td>{{data.VP_zone_size}}</td>
                         <td>{{data.SD_zone_size}}</td>
+                        <td>{{data.zone_number_supervisor}}</td>
                         <td>{{data.VP_zone_number_pluckers}}</td>
                         <td>{{data.SD_zone_number_pluckers}}</td>
-                        <td>{{data.zone_number_supervisor}}</td>
                         <td>{{data.total_number_pluckers}}</td>
                         <td><a class="btn btn btn-block text-primary btn btn-info" style="background-color: #22e39c;"
                                href="{% url 'programmedscheme-update' data.id %}">Edit</a></td>

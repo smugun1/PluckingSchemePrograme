@@ -7,7 +7,7 @@
 {% include 'RoundsMonitor/delete.html' %}
 
 
-<title>{% block title %}Rounds Monitor Record{% endblock %}</title>
+<title>{% block title %}Rounds Monitor{% endblock %}</title>
 
 {% block body %}
 <div class="row g-4 d-flex align-items-center">
@@ -19,7 +19,8 @@
                 <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-update' %}">Add</a>
                 <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go To
                     ProgramedScheme</a>
-                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp' %}">Go To Dashboard</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'fields-record' %}">Go To Field</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-dashboard' %}">Go To Dashboard</a>
                 <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-graphs' %}">Go To Graphs</a>
                 <form action="" method="POST">
                     {% csrf_token %}
@@ -49,12 +50,12 @@
                     {% for data in roundsmonitor %}
 
                     <tr>
-                        <td>{{data.today_date}}</td>
+                        <td>{{data.today_date|date}}</td>
                         <td>{{data.field}}</td>
                         <td>{{data.plucking_round}}</td>
-                        <td>{{data.plucking_day}}</td>
-                        <td>{{data.next_plucking}}</td>
-                        <td>{{data.actual_plucking_day}}</td>
+                        <td>{{data.plucking_day|date}}</td>
+                        <td>{{next_plucking}}</td>
+                        <td>{{actual_plucking_day}}</td>
                         <td>{{data.days_behind}}</td>
                         <td>{{data.days_ahead}}</td>
                         <td>{{data.total_plucking_round}}</td>
