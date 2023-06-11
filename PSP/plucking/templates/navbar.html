@@ -6,17 +6,19 @@
         </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href=""></a></li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'psp-dashboard'%}">Dashboard</a></li>
+                <a class="nav-link active" aria-current="page" href="{% url 'psp-dashboard'%}">Dashboard</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'psp-graphs' %}">PSP Graphs</a></li>
+                <a class="nav-link" href="{% url 'psp-graphs' %}">PSP Graphs</a></li>
                 <li class="nav-item">
                 <li class="nav-item"><a class="nav-link" href="{% url 'roundsmonitor-record' %}">Roundsmonitor</a></li>
                 <li class="nav-item">
                 <a class="nav-link" href="{% url 'programmedscheme-record' %}">Programmed-Scheme</a></li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href=""></a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'plucking-cycle' %}">Cycle</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'fields-record' %}">Fields Record</a></li>
                 <li class="nav-item">

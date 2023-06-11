@@ -10,7 +10,7 @@
 <div class="container">
     <div class="container md-12">
         <div class="container bg-white text-secondary my-1" style="width: 200rem; border-radius: 20px;">
-             <h1 class="text-center bg-dark text-primary">Graphs</h1>
+            <h1 class="text-center bg-dark text-primary">Graphs</h1>
             <p class="h2 text-center"></p>
             <div class="row my-1">
                 <div class="container">
@@ -21,7 +21,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class=" col-md-2">
-                                    <a class="text-decoration-none text-dark" href="{{ '//127.0.0.1:8000/resourcesexcell-admin/' }}">
+                                    <a class="text-decoration-none text-dark"
+                                       href="{{ '//127.0.0.1:8000/resourcesexcell-admin/' }}">
                                         <div class="card my-card shadow text-center p-2">
                                             <h5>Recsources <i class="fa fa-leaf" aria-hidden="true"></i></h5>
                                             <h4>4</h4>
@@ -46,7 +47,7 @@
                                     </a>
                                 </div>
                                 <div class=" col-md-2">
-                                    <a class="text-decoration-none text-dark" href="{% url 'fields-record' %}">
+                                    <a class="text-decoration-none text-dark" href="{% url 'plucking-cycle' %}">
                                         <div class="card my-card shadow text-center p-2">
                                             <h5>Field <i class="fa fa-binoculars" aria-hidden="true"></i></h5>
                                             <h4>4</h4>
@@ -98,42 +99,37 @@
                                                         </div>
                                                     </div>
                                                     <!--mid-graphs-->
-                                                    <div class="col-md-4">
-                                                        <div class="bg-white">
-                                                            <canvas id="Chart" width="400" height="300"></canvas>
-                                                            <script>
-                                              const ctx = document.getElementById('Chart');
+                                                <div class="col-md-4">
+                                                    <div class="bg-white">
+                                                        <div class="container">
+                                                           <canvas id="Chart" width="400" height="300"></canvas>
+                                                        </div>
 
-                                              new Chart(ctx, {
-                                                type: 'line',
-                                                data: {
-                                                  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                                                  datasets: [{
-                                                    label: '# of Votes',
-                                                    data: [12, 19, 3, 5, 2, 3],
-                                                    borderWidth: 1
-                                                  }]
-                                                },
-                                                options: {
-                                                  scales: {
-                                                    y: {
-                                                      beginAtZero: true
-                                                    }
-                                                  }
-                                                }
-                                              });
-
-
-
-
+                                                        <script>
+                                                            const ctx = document.getElementById('chart');
+                                                            new Chart(ctx, {
+                                                                type: 'line',
+                                                                data: {
+                                                                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                                                                    datasets: [{
+                                                                        label: '# of Votes',
+                                                                        data: [data.data[0]['id'], data.data[1]['id'], data.data[2]['id'], data.data[3]['id'], data.data[4]['id'], data.data[5]['id']],
+                                                                        borderWidth: 1
+                                                                    }]
+                                                                },
+                                                                options: {
+                                                                    scales: {
+                                                                        y: {
+                                                                            beginAtZero: true
+                                                                        }
+                                                                    }
+                                                                }
+                                                            });
 
 
+                                                        </script>
 
 
-
-
-
-                                                            </script>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-4">
@@ -160,6 +156,8 @@
                                                   }
                                                 }
                                               });
+
+
 
 
 
@@ -198,6 +196,8 @@
                                                   }
                                                 }
                                               });
+
+
 
 
                                                             </script>
@@ -265,6 +265,8 @@
 
 
 
+
+
                                         </script>
                                     </div>
                                 </div>
@@ -305,6 +307,8 @@
 
 
 
+
+
                                         </script>
                                     </div>
                                 </div>
@@ -334,6 +338,8 @@
                           }
                         }
                       });
+
+
 
 
 
@@ -397,6 +403,8 @@
 
 
 
+
+
                                             </script>
                                         </div>
                                     </div>
@@ -431,6 +439,8 @@
 
 
 
+
+
                                             </script>
                                         </div>
                                     </div>
@@ -460,6 +470,8 @@
                                       }
                                     }
                                   });
+
+
 
 
 
@@ -500,6 +512,8 @@
 
 
 
+
+
                                             </script>
                                         </div>
                                     </div>
@@ -527,6 +541,8 @@
                                                   }
                                                 }
                                               });
+
+
 
 
 
@@ -566,6 +582,8 @@
 
 
 
+
+
                                             </script>
                                         </div>
                                     </div>
@@ -599,6 +617,8 @@
 
 
 
+
+
                                             </script>
                                         </div>
                                     </div>
@@ -612,6 +632,58 @@
     </div>
 </div>
 
-<!--end-graphs>-->
 
+<!--end-graphs>-->
 {% endblock %}
+<!--<div class="container">-->
+<!--    <h2>Line Chart</h2>-->
+<!--    <canvas id="Chart" width="400" height="300"></canvas>-->
+<!--    <button onclick="fetchDataAndCreateChart()">Fetch Data-->
+<!--        and Create Chart-->
+<!--    </button>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--                                                                    // Function to retrieve data and create the chart-->
+<!--                                                                    function fetchDataAndCreateChart() {-->
+<!--                                                                        axios.get('https://reqres.in/api/users?page=2')-->
+<!--                                                                            .then(function (response) {-->
+<!--                                                                                console.log(response);-->
+<!--                                                                                createChart(response.data);-->
+<!--                                                                            })-->
+<!--                                                                            .catch(function (error) {-->
+<!--                                                                                console.log(error);-->
+<!--                                                                            });-->
+<!--                                                                    }-->
+
+<!--                                                                    // Function to create the chart using the retrieved data-->
+<!--                                                                    function createChart(data) {-->
+<!--                                                                        const ctx = document.getElementById('chart');-->
+<!--                                                                        new Chart(ctx, {-->
+<!--                                                                            type: 'line',-->
+<!--                                                                            data: {-->
+<!--                                                                                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],-->
+<!--                                                                                datasets: [{-->
+<!--                                                                                    label: '# of Votes',-->
+<!--                                                                                    data: [data.data[0]['id'], data.data[1]['id'], data.data[2]['id'], data.data[3]['id'], data.data[4]['id'], data.data[5]['id']],-->
+<!--                                                                                    borderWidth: 1-->
+<!--                                                                                }]-->
+<!--                                                                            },-->
+<!--                                                                            options: {-->
+<!--                                                                                scales: {-->
+<!--                                                                                    y: {-->
+<!--                                                                                        beginAtZero: true-->
+<!--                                                                                    }-->
+<!--                                                                                }-->
+<!--                                                                            }-->
+<!--                                                                        });-->
+<!--                                                                    }-->
+
+<!--                                                        -->
+<!--</script>-->
+
+
+
+
+
+

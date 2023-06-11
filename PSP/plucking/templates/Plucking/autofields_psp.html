@@ -105,6 +105,14 @@
                         {% for data in autofields %}
                         {% if data.Zone != current_zone %}
                         {% if current_zone %}
+                        <tr>
+                                <tr>
+
+                                {% for column in num_columns|make_list %}
+                                    <th>{{ column }}</th>
+                                {% endfor %}
+                            </tr>
+
 
                         <tr>
                             <td colspan="35">Zone {{ current_zone }}</td>
@@ -116,7 +124,6 @@
 
 
                         <tr>
-
                             <td>{{ data.Zone }}</td>
                             <td>{{ data.Field_No }}</td>
                             <td>{{ data.Leaf_type }}</td>
@@ -173,6 +180,6 @@
         </div>
     </div>
 
-</div>
+
 
 {% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Tea Plucking Cycle Forms Update{% endblock %}
+
+{% block content %}
+<style>
+    /* CSS styles */
+
+
+
+</style>
+
+<h1 class="text-center">Update Plucking Cycle</h1>
+<div class="col-lg-12 d-none my-2 d-lg-flex">
+    <div class="container-fluid text-primary h-100 d-flex align-items-center justify-content-center"
+         style="background-color: indigo; width: 100rem; border-radius: 20px;">
+        <div class="card card bg-light text-right h-100 d-flex align-items-center justify-content-center m-3 p-3"
+             style="width: 100rem; border-radius: 20px;">
+            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Plucking Cycle Forms</h2>
+            <div class="border p-3" style="border-radius: 20px">
+                <a class="btn btn-Primary bg-primary btn-info block-lg text-light"
+                   href="{% url 'plucking-cycle' %}">Back</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg text-light" href="{% url 'psp-dashboard' %}">Go
+                    To Dashboard</a>
+                <div class="container" style="width: 100rem;">
+                    <!-- tea_plucking_cycle.html -->
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        <table class="text-center bg-light text-Primary" style="border-radius: 10px">
+                            <tr>
+                                <th>Zone</th>
+                                <th>Fields</th>
+                                <th>Growing Days CF</th>
+                                <th>1</th>
+                                <th>2</th>
+                                <th>3</th>
+                                <th>4</th>
+                                <th>5</th>
+                                <th>6</th>
+                                <th>7</th>
+                                <th>8</th>
+                                <th>9</th>
+                                <th>10</th>
+                                <th>11</th>
+                                <th>12</th>
+                                <th>13</th>
+                                <th>14</th>
+                                <th>15</th>
+                                <th>16</th>
+                                <th>17</th>
+                                <th>18</th>
+                                <th>19</th>
+                                <th>20</th>
+                                <th>21</th>
+                                <th>22</th>
+                                <th>23</th>
+                                <th>24</th>
+                                <th>25</th>
+                                <th>26</th>
+                                <th>27</th>
+                                <th>28</th>
+                                <th>29</th>
+                                <th>30</th>
+                                <th>31</th>
+                                <!-- Add more column headers as needed -->
+                            </tr>
+
+                            {% for data in table_data %}
+                            <tr>
+                                <td>{{ data.Zone }}</td>
+                                <td>{{ data.Fields }}</td>
+                                <td>
+                                    {% for i in "12345678910111213141516171819202122232425262728293031" %}
+                                    <input type="text" name="Growing_days_CF"
+                                           value="{{ data.Growing_Days_CF.forloop.counter|default:'' }}">
+                                    {% endfor %}
+                                </td>
+                                {% for i in "12345678910111213141516171819202122232425262728293031" %}
+                                <td>
+                                    <input type="text" name="Daily_Actual"
+                                           value="{{ data.Daily_Actual.forloop.counter|default:'' }}">
+                                </td>
+                                {% endfor %}
+                                <!-- Add more table cells as needed -->
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="34">
+                                    <button type="submit">Update</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

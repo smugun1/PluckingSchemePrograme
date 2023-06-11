@@ -12,8 +12,8 @@ from django.shortcuts import render
 from django.db import models
 
 from . import models
-from .forms import ProgrammedSchemeForm, PSPForms, RoundsMonitorForm, FieldsForm, FieldsForms
-from .models import ProgrammedScheme, RoundsMonitor, DataEntry, FieldsToPluck, AutoFields
+from .forms import ProgrammedSchemeForm, PSPForms, RoundsMonitorForm, FieldsForm, FieldsForms, CycleForms
+from .models import ProgrammedScheme, RoundsMonitor, DataEntry, FieldsToPluck, AutoFields, TeaPluckingCycle
 from django.db.models import IntegerField
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -1148,9 +1148,29 @@ def AutoFieldsViewRetrieve(request):
         12: 31
     }
 
+    rows = [
+        [6, 1],
+        [5, None, 2],
+        [5, None, 2],
+        [4, None, None, 3],
+        [3, None, None, 4],
+        [3, None, None, 4, 5],
+        [2, None, None, None, None, 6],
+        [0, None, None, None, None, None, 7],
+        [0, None, None, None, None, None, 7]
+    ]
+
+    num_columns = max(len(row) for row in rows)
+
+    for row in rows:
+        while len(row) < num_columns:
+            row.insert(1, None)
+
     context = {
         'autofields': data,
-        'num_days': num_days[month]
+        'num_days': num_days[month],
+        'rows': rows,
+        'num_columns': num_columns
     }
 
     return render(request, 'Plucking/autofields_psp.html', context)
@@ -1430,3 +1450,383 @@ def AutoFieldsDelete(request, pk):
         'data': data,
     }
     return render(request, 'Autofields/delete.html', context)
+
+
+def TeaPluckingCycleViewRetrieve(request):
+    table_data = [
+        {
+            'Zone': 'ZONE E',
+            'Fields': '14',
+            'Growing_Days_CF': [8, 1, 2],
+            'Daily_Actual': [1, 2, None, None, None, None, None, None, 1, 2, None, None, None, None, None, None, 1, 2,
+                             None, None, None, None, None, None, 1, 2, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE E',
+            'Fields': '15',
+            'Growing_Days_CF': [6, None, None, 3],
+            'Daily_Actual': [None, None, 3, None, None, None, None, None, None, None, None, 3, None, None, None, None,
+                             None, None, None, None, None, None, 3, None, None, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE E',
+            'Fields': '5',
+            'Growing_Days_CF': [4, None, None, None, 4, 5],
+            'Daily_Actual': [None, None, None, None, 4, 5, None, None, None, None, None, None, 4, 5, None, None, None,
+                             None, 4, 5, None, None, None, None, 4, 5, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE E',
+            'Fields': '3',
+            'Growing_Days_CF': [3, None, None, None, None, None, 6],
+            'Daily_Actual': [None, None, None, None, None, None, 6, None, None, None, None, None, None, None, 6, None,
+                             None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE E',
+            'Fields': '7',
+            'Growing_Days_CF': [2, None, None, None, None, 6, 7],
+            'Daily_Actual': [None, None, None, None, None, 6, 7, None, None, None, None, None, None, None, None, 6, 7,
+                             None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE E',
+            'Fields': '12',
+            'Growing_Days_CF': [1, None, None, None, None, None, None, 7],
+            'Daily_Actual': [None, None, None, None, None, None, None, 7, None, None, None, None, None, None, None,
+                             None, None, 7, None, None, None, None, None, None, None, None, None, None, None, None,
+                             None]
+        },
+        {
+            'Zone': 'ZONE F',
+            'Fields': '10',
+            'Growing_Days_CF': [8, 1, 2],
+            'Daily_Actual': [1, 2, None, None, None, None, None, None, 1, 2, None, None, None, None, None, None, 1, 2,
+                             None, None, None, None, None, None, 1, 2, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE F',
+            'Fields': '42',
+            'Growing_Days_CF': [6, None, None, 3],
+            'Daily_Actual': [None, None, 3, None, None, None, None, None, None, None, None, 3, None, None, None, None,
+                             None, None, None, None, None, None, 3, None, None, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE F',
+            'Fields': '2',
+            'Growing_Days_CF': [4, None, None, None, None, None, 4],
+            'Daily_Actual': [None, None, None, None, None, None, 4, None, None, None, None, None, None, None, 4, None,
+                             None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE F',
+            'Fields': '6',
+            'Growing_Days_CF': [3, None, None, 5, 6],
+            'Daily_Actual': [None, None, 5, 6, None, None, None, None, None, 5, 6, None, None, None, None, 5, 6, None,
+                             None, None, None, 5, 6, None, None, None, None, 5, 6, None, None]
+        },
+        {
+            'Zone': 'ZONE F',
+            'Fields': '43',
+            'Growing_Days_CF': [2, None, None, 6, 7],
+            'Daily_Actual': [None, None, 6, 7, None, None, None, None, None, 6, 7, None, None, None, None, 6, 7, None,
+                             None, None, None, 6, 7, None, None, None, None, 6, 7, None, None]
+        },
+        {
+            'Zone': 'ZONE F',
+            'Fields': '11',
+            'Growing_Days_CF': [1, None, None, 7],
+            'Daily_Actual': [None, None, 7, None, None, None, None, None, None, None, None, 7, None, None, None, None,
+                             None, None, None, None, None, None, 7, None, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE G',
+            'Fields': '44',
+            'Growing_Days_CF': [8, None, None, None, None, None, None, None, 1],
+            'Daily_Actual': [None, None, None, None, None, None, None, None, 1, None, None, None, None, None, None,
+                             None, 1, None, None, None, None, None, None, None, 1, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE G',
+            'Fields': '13',
+            'Growing_Days_CF': [8, None, None, None, None, None, None, None, 1],
+            'Daily_Actual': [None, None, None, None, None, None, None, None, 1, None, None, None, None, None, None,
+                             None, 1, None, None, None, None, None, None, None, 1, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE G',
+            'Fields': '9',
+            'Growing_Days_CF': [6, None, None, 2, 3],
+            'Daily_Actual': [None, None, 2, 3, None, None, None, None, None, 2, 3, None, None, None, None, 2, 3, None,
+                             None, None, None, 2, 3, None, None, None, None, 2, 3, None, None]
+        },
+        {
+            'Zone': 'ZONE G',
+            'Fields': '4',
+            'Growing_Days_CF': [4, None, None, None, 4, 5],
+            'Daily_Actual': [None, None, None, None, 4, 5, None, None, None, None, None, None, 4, 5, None, None, None,
+                             None, 4, 5, None, None, None, None, 4, 5, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE G',
+            'Fields': '8',
+            'Growing_Days_CF': [2, None, None, None, 5, 6],
+            'Daily_Actual': [None, None, None, None, 5, 6, None, None, None, None, None, None, 5, 6, None, None, None,
+                             None, 5, 6, None, None, None, None, 5, 6, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE G',
+            'Fields': '1',
+            'Growing_Days_CF': [1, None, None, None, None, None, None, 7],
+            'Daily_Actual': [None, None, None, None, None, None, None, 7, None, None, None, None, None, None, None, 7,
+                             None, None, None, None, None, None, 7, None, None, None, None, None, None, None]
+        },
+    ]
+
+    context = {
+
+        'table_data': table_data,
+    }
+
+    return render(request, 'Plucking/tea_plucking_cycle.html', context)
+
+
+def TeaPluckingCycleViewUpdate(request):
+    table_data = []  # Default value for table_data
+    table_data = [
+        {
+            'Zone': 'ZONE E',
+            'Fields': '14',
+            'Growing_Days_CF': [8, 1, 2],
+            'Daily_Actual': [1, 2, None, None, None, None, None, None, 1, 2, None, None, None, None, None, None, 1, 2,
+                             None, None, None, None, None, None, 1, 2, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE E',
+            'Fields': '15',
+            'Growing_Days_CF': [6, None, None, 3],
+            'Daily_Actual': [None, None, 3, None, None, None, None, None, None, None, None, 3, None, None, None, None,
+                             None, None, None, None, None, None, 3, None, None, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE E',
+            'Fields': '5',
+            'Growing_Days_CF': [4, None, None, None, 4, 5],
+            'Daily_Actual': [None, None, None, None, 4, 5, None, None, None, None, None, None, 4, 5, None, None, None,
+                             None, 4, 5, None, None, None, None, 4, 5, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE E',
+            'Fields': '3',
+            'Growing_Days_CF': [3, None, None, None, None, None, 6],
+            'Daily_Actual': [None, None, None, None, None, None, 6, None, None, None, None, None, None, None, 6, None,
+                             None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE E',
+            'Fields': '7',
+            'Growing_Days_CF': [2, None, None, None, None, 6, 7],
+            'Daily_Actual': [None, None, None, None, None, 6, 7, None, None, None, None, None, None, None, None, 6, 7,
+                             None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE E',
+            'Fields': '12',
+            'Growing_Days_CF': [1, None, None, None, None, None, None, 7],
+            'Daily_Actual': [None, None, None, None, None, None, None, 7, None, None, None, None, None, None, None,
+                             None, None, 7, None, None, None, None, None, None, None, None, None, None, None, None,
+                             None]
+        },
+        {
+            'Zone': 'ZONE F',
+            'Fields': '10',
+            'Growing_Days_CF': [8, 1, 2],
+            'Daily_Actual': [1, 2, None, None, None, None, None, None, 1, 2, None, None, None, None, None, None, 1, 2,
+                             None, None, None, None, None, None, 1, 2, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE F',
+            'Fields': '42',
+            'Growing_Days_CF': [6, None, None, 3],
+            'Daily_Actual': [None, None, 3, None, None, None, None, None, None, None, None, 3, None, None, None, None,
+                             None, None, None, None, None, None, 3, None, None, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE F',
+            'Fields': '2',
+            'Growing_Days_CF': [4, None, None, None, None, None, 4],
+            'Daily_Actual': [None, None, None, None, None, None, 4, None, None, None, None, None, None, None, 4, None,
+                             None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE F',
+            'Fields': '6',
+            'Growing_Days_CF': [3, None, None, 5, 6],
+            'Daily_Actual': [None, None, 5, 6, None, None, None, None, None, 5, 6, None, None, None, None, 5, 6, None,
+                             None, None, None, 5, 6, None, None, None, None, 5, 6, None, None]
+        },
+        {
+            'Zone': 'ZONE F',
+            'Fields': '43',
+            'Growing_Days_CF': [2, None, None, 6, 7],
+            'Daily_Actual': [None, None, 6, 7, None, None, None, None, None, 6, 7, None, None, None, None, 6, 7, None,
+                             None, None, None, 6, 7, None, None, None, None, 6, 7, None, None]
+        },
+        {
+            'Zone': 'ZONE F',
+            'Fields': '11',
+            'Growing_Days_CF': [1, None, None, 7],
+            'Daily_Actual': [None, None, 7, None, None, None, None, None, None, None, None, 7, None, None, None, None,
+                             None, None, None, None, None, None, 7, None, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE G',
+            'Fields': '44',
+            'Growing_Days_CF': [8, None, None, None, None, None, None, None, 1],
+            'Daily_Actual': [None, None, None, None, None, None, None, None, 1, None, None, None, None, None, None,
+                             None, 1, None, None, None, None, None, None, None, 1, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE G',
+            'Fields': '13',
+            'Growing_Days_CF': [8, None, None, None, None, None, None, None, 1],
+            'Daily_Actual': [None, None, None, None, None, None, None, None, 1, None, None, None, None, None, None,
+                             None, 1, None, None, None, None, None, None, None, 1, None, None, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE G',
+            'Fields': '9',
+            'Growing_Days_CF': [6, None, None, 2, 3],
+            'Daily_Actual': [None, None, 2, 3, None, None, None, None, None, 2, 3, None, None, None, None, 2, 3, None,
+                             None, None, None, 2, 3, None, None, None, None, 2, 3, None, None]
+        },
+        {
+            'Zone': 'ZONE G',
+            'Fields': '4',
+            'Growing_Days_CF': [4, None, None, None, 4, 5],
+            'Daily_Actual': [None, None, None, None, 4, 5, None, None, None, None, None, None, 4, 5, None, None, None,
+                             None, 4, 5, None, None, None, None, 4, 5, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE G',
+            'Fields': '8',
+            'Growing_Days_CF': [2, None, None, None, 5, 6],
+            'Daily_Actual': [None, None, None, None, 5, 6, None, None, None, None, None, None, 5, 6, None, None, None,
+                             None, 5, 6, None, None, None, None, 5, 6, None, None, None, None]
+        },
+        {
+            'Zone': 'ZONE G',
+            'Fields': '1',
+            'Growing_Days_CF': [1, None, None, None, None, None, None, 7],
+            'Daily_Actual': [None, None, None, None, None, None, None, 7, None, None, None, None, None, None, None, 7,
+                             None, None, None, None, None, None, 7, None, None, None, None, None, None, None]
+        },
+    ]
+    if request.method == 'POST':
+        # Retrieve the updated values from the request
+        updated_data = {
+            'Zone': request.POST.get('Zone'),
+            'Fields': request.POST.get('Fields'),
+            'Growing_Days_CF': [int(day) if day else None for day in request.POST.getlist('Growing_days_CF')],
+            'Daily_Actual': [int(actual) if actual else None for actual in request.POST.getlist('Daily_Actual')],
+        }
+
+        # Update the existing data with the updated values
+        for i, data in enumerate(table_data):
+            if i < len(updated_data):
+                updated_item = updated_data[i]
+                data['Growing_Days_CF'] = updated_item.get('Growing_Days_CF', data['Growing_Days_CF'])
+                data['Daily_Actual'] = updated_item.get('Daily_Actual', data['Daily_Actual'])
+
+        # Perform any necessary validation or database updates here
+
+    context = {
+        'table_data': table_data,
+    }
+
+    return render(request, 'Plucking/tea_plucking_cycle_update.html', context)
+
+
+def TeaPluckingCycleViewCreate(request):
+    if request.method == "POST":
+        Zone = request.POST.get('Zone')
+        Fields = request.POST.get('Fields')
+        Growing_days_CF = request.POST.get('Growing_days_CF')
+        Daily_Actual = request.POST.get('Daily_Actual')
+        Month_day_01 = request.POST.get('Month_day_01')
+        Month_day_02 = request.POST.get('Month_day_02')
+        Month_day_03 = request.POST.get('Month_day_03')
+        Month_day_04 = request.POST.get('Month_day_04')
+        Month_day_05 = request.POST.get('Month_day_05')
+        Month_day_06 = request.POST.get('Month_day_06')
+        Month_day_07 = request.POST.get('Month_day_07')
+        Month_day_08 = request.POST.get('Month_day_08')
+        Month_day_09 = request.POST.get('Month_day_09')
+        Month_day_10 = request.POST.get('Month_day_10')
+        Month_day_11 = request.POST.get('Month_day_11')
+        Month_day_12 = request.POST.get('Month_day_12')
+        Month_day_13 = request.POST.get('Month_day_13')
+        Month_day_14 = request.POST.get('Month_day_14')
+        Month_day_15 = request.POST.get('Month_day_15')
+        Month_day_16 = request.POST.get('Month_day_16')
+        Month_day_17 = request.POST.get('Month_day_17')
+        Month_day_18 = request.POST.get('Month_day_18')
+        Month_day_19 = request.POST.get('Month_day_19')
+        Month_day_20 = request.POST.get('Month_day_20')
+        Month_day_21 = request.POST.get('Month_day_21')
+        Month_day_22 = request.POST.get('Month_day_22')
+        Month_day_23 = request.POST.get('Month_day_23')
+        Month_day_24 = request.POST.get('Month_day_24')
+        Month_day_25 = request.POST.get('Month_day_25')
+        Month_day_26 = request.POST.get('Month_day_26')
+        Month_day_27 = request.POST.get('Month_day_27')
+        Month_day_28 = request.POST.get('Month_day_28')
+        Month_day_29 = request.POST.get('Month_day_29')
+        Month_day_30 = request.POST.get('Month_day_30')
+        Month_day_31 = request.POST.get('Month_day_31')
+
+        insert = TeaPluckingCycle(Zone=Zone, Fields=Fields,
+                                  Growing_days_CF=Growing_days_CF, Daily_Actual=Daily_Actual, Month_day_01=Month_day_01,
+                                  Month_day_02=Month_day_02, Month_day_03=Month_day_03, Month_day_04=Month_day_04,
+                                  Month_day_05=Month_day_05, Month_day_06=Month_day_06, Month_day_07=Month_day_07,
+                                  Month_day_08=Month_day_08, Month_day_09=Month_day_09, Month_day_10=Month_day_10,
+                                  Month_day_11=Month_day_11, Month_day_12=Month_day_12, Month_day_13=Month_day_13,
+                                  Month_day_14=Month_day_14, Month_day_15=Month_day_15, Month_day_16=Month_day_16,
+                                  Month_day_17=Month_day_17, Month_day_18=Month_day_18, Month_day_19=Month_day_19,
+                                  Month_day_20=Month_day_20, Month_day_21=Month_day_21, Month_day_22=Month_day_22,
+                                  Month_day_23=Month_day_23, Month_day_24=Month_day_24, Month_day_25=Month_day_25,
+                                  Month_day_26=Month_day_26, Month_day_27=Month_day_27, Month_day_28=Month_day_28,
+                                  Month_day_29=Month_day_29, Month_day_30=Month_day_30, Month_day_31=Month_day_31)
+        insert.save()
+
+    return redirect('/plucking-cycle')
+
+
+def TeaPluckingCycleEdit(request, pk):
+    fields = TeaPluckingCycle.objects.get(id=pk)
+    if request.method == 'POST':
+        form = CycleForms(request.POST, instance=fields)
+        if form.is_valid():
+            form.save()
+            return redirect('/plucking-cycle')
+
+    else:
+        form = CycleForms(instance=fields)
+
+    context = {
+        'form': form, 'CycleForms': CycleForms,
+
+    }
+    return render(request, 'Teapluckingcycle/update.html', context)
+
+
+def TeaPluckingCycleDelete(request, pk):
+    data = TeaPluckingCycle.objects.get(id=pk)
+    if request.method == 'POST':
+        data.delete()
+        return redirect('/plucking-cycle')
+
+    context = {
+        'data': data,
+    }
+    return render(request, 'Teapluckingcycle/delete.html', context)

@@ -36,8 +36,11 @@ urlpatterns = [
     path('plucking-rounds-update/', views.PluckingRoundsViewUpdate, name='plucking-rounds-update'),
     path('plucking-rounds-create/', views.PluckingRoundsViewCreate, name='plucking-rounds-create'),
 
-    path('plucking-rounds/', views.PluckingRoundsViewRetrieve, name='plucking-rounds'),
+    path('plucking-cycle/', views.TeaPluckingCycleViewRetrieve, name='plucking-cycle'),
+    path('plucking-cycle-update/', views.TeaPluckingCycleViewUpdate, name='plucking-cycle-update'),
+    path('plucking-cycle-create/', views.TeaPluckingCycleViewCreate, name='plucking-cycle-create'),
 
+    path('plucking-rounds/', views.PluckingRoundsViewRetrieve, name='plucking-rounds'),
 
     path('programmedscheme-update/<int:pk>/', views.ProgrammedSchemeUpdate, name='programmedscheme-update'),
     path('programmedscheme-delete/<int:pk>/', views.ProgrammedSchemeDelete, name='programmedscheme-delete'),
@@ -50,6 +53,9 @@ urlpatterns = [
 
     path('autofields-edit/<int:pk>/', views.AutoFieldsEdit, name='autofields-edit'),
     path('autofields-delete/<int:pk>/', views.AutoFieldsDelete, name='autofields-delete'),
+
+    path('teapluckingcycle-edit/<int:pk>/', views.TeaPluckingCycleEdit, name='teapluckingcycle-edit'),
+    path('teapluckingcycle-delete/<int:pk>/', views.TeaPluckingCycleDelete, name='teapluckingcycle-delete'),
 
     path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico', permanent=True)),
 ]

@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Tea Plucking Cycle{% endblock %}
+<title>Tea Plucking Cycle</title>
+
+<style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+
+</style>
+
+
+<title>Plucking Cycle Record</title>
+{% block body %}
+<div class="row g-2 d-flex align-items-center">
+    <div class="col-lg-0 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-2 px-2 my-2 py-2"
+             style="background-color: rgba(13, 70, 10, 1); border-radius: 20px">
+            <div class="card-body">
+                <div class=" bg-light h1 text-center" style="border-radius: 10px">Plucking Cycle Record</div>
+                <a href="{% url 'plucking-cycle-update' %}"
+                   class="btn btn-warning bg-primary block-lg text-light">Add</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-record' %}">Go
+                    To RoundsMonitor</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go
+                    To PS Record</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-dashboard' %}">Go To
+                    Dashboard</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-graphs' %}">Go To
+                    Graphs</a>
+            </div>
+            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Plucking Cycle Record</h2>
+            <div class="border p-1" style="border-radius: 20px">
+                    <table class="text-center bg-light text-Primary" style="border-radius: 10px">
+                    <tr>
+                        <th>Zone</th>
+                        <th>Fields</th>
+                        <th>Growing Days CF</th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                        <th>8</th>
+                        <th>9</th>
+                        <th>10</th>
+                        <th>11</th>
+                        <th>12</th>
+                        <th>13</th>
+                        <th>14</th>
+                        <th>15</th>
+                        <th>16</th>
+                        <th>17</th>
+                        <th>18</th>
+                        <th>19</th>
+                        <th>20</th>
+                        <th>21</th>
+                        <th>22</th>
+                        <th>23</th>
+                        <th>24</th>
+                        <th>25</th>
+                        <th>26</th>
+                        <th>27</th>
+                        <th>28</th>
+                        <th>29</th>
+                        <th>30</th>
+                        <th>31</th>
+                        <!-- Add more column headers as needed -->
+                    </tr>
+
+                    {% for data in table_data %}
+                    <tr>
+                        <td>{{ data.Zone }}</td>
+                        <td>{{ data.Fields }}</td>
+                        <td>
+                            {% for value in data.Growing_Days_CF %}
+                            {{ value|default:'' }}
+                            {% endfor %}
+                        </td>
+                        {% for value in data.Daily_Actual %}
+                        <td>{{ value|default:'' }}</td>
+                        {% endfor %}
+                        <!-- Add more table cells as needed -->
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
