@@ -19,7 +19,7 @@
                 <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-update' %}">Add</a>
                 <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go To
                     ProgramedScheme</a>
-                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'plucking-cycle' %}">Go To Tea Cycle</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'growing-cycle' %}">Go To Tea Cycle</a>
                 <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-dashboard' %}">Go To Dashboard</a>
                 <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-graphs' %}">Go To Graphs</a>
                 <form action="" method="POST">
@@ -53,7 +53,7 @@
                         <td>{{data.today_date|date}}</td>
                         <td>{{data.field}}</td>
                         <td>{{data.plucking_round}}</td>
-                        <td>{{data.plucking_day|date}}</td>
+                        <td>{{data.plucking_day}}</td>
                         <td>{{next_plucking}}</td>
                         <td>{{actual_plucking_day}}</td>
                         <td>{{data.days_behind}}</td>

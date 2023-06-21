@@ -1,4 +1,449 @@
- <table id="myTable" border="1">
+ {% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Tea Growing days{% endblock %}
+<title xmlns="http://www.w3.org/1999/html">Tea Growing days</title>
+
+<div class="form-group">
+
+
+<title>Growing days Record</title>
+{% block body %}
+<div class="row g-4 d-flex align-items-center">
+    <div class="col-lg-0 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-2 px-2 my-2 py-2"
+             style="background-color: rgba(13, 70, 10, 1); border-radius: 20px">
+            <div class="card-body">
+                <div class=" bg-light h1 text-center" style="border-radius: 20px; text: bold;">Growing days Record</div>
+                <div class=" text-light  text-center" style="border-radius: 20px; text: bold;">
+                <a href="{% url 'growing-days-update' %}"
+                   class="btn btn-warning bg-primary block-lg text-light">Add</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-record' %}">Go
+                    To RoundsMonitor</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go
+                    To PS Record</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-dashboard' %}">Go To
+                    Dashboard</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-graphs' %}">Go To
+                    Graphs</a>
+                <div class="container-fluid text-light card card-light mx-0 px-0 my-0 py-0"
+                     style="background-color: rgba(113, 170, 10, 1); border-radius: 20px">
+                <form method="POST" action="">
+                    {% csrf_token %}
+
+
+                    <label for="Zone">Zone:</label>
+                    <input type="text" name="Zone">
+
+                    <label for="Fields">Fields:</label>
+                    <input type="text" name="Fields">
+
+                    <label for="Growing_days">Growing Days:</label>
+                    <input type="text" name="Growing_days[]" multiple>
+
+                    <label for="CF">CF:</label>
+                    <input type="text" name="CF[]" multiple>
+
+                    <label for="today_date">Today's Date:</label>
+                    <input type="text" name="today_date">
+
+                    <label for="plucking_round">Plucking Round:</label>
+                    <input type="text" name="plucking_round" value="{{ plucking_round }}">
+
+                    <label for="Plucking_day">Plucking Day:</label>
+                    <input type="text" name="Plucking_day" value="{{ Plucking_day }}">
+
+                    <label for="next_plucking">Next Plucking:</label>
+                    <input type="text" name="next_plucking" value="{{ next_plucking }}">
+
+                    <label for="actual_plucking_day">Actual Plucking Day:</label>
+                    <input type="text" name="actual_plucking_day" value="{{ actual_plucking_day }}">
+
+                    <label for="total_plucking_round">Total Plucking Round:</label>
+                    <input type="text" name="total_plucking_round" value="{{ total_plucking_round }}">
+
+                    <label for="month_end">Month End:</label>
+                    <input type="text" name="month_end" value="{{ month_end }}">
+
+                    <label for="Growing_Days_CF">Growing Days CF:</label>
+                    <input type="text" name="Growing_Days_CF" value="{{ Growing_Days_CF }}">
+
+                    <label for="Growing_Days">Growing Days:</label>
+                    <input type="text" name="Growing_Days" value="{{ Growing_Days }}">
+
+                    <label for="days_bf">Days BF:</label>
+                    <input type="text" name="days_bf" value="{{ days_bf }}">
+
+                    <!-- Loop through the Month_days -->
+                    {% for i in "0123456789" %}
+                    {% with "Month_day_"|add:i as month_day_field %}
+                    <label for="{{ month_day_field }}">Month Day {{ i }}:</label>
+                    <input type="text" name="{{ month_day_field }}" value="{{ month_day_field }}">
+                    {% endwith %}
+                    {% endfor %}
+
+                    </form>
+                    </div>
+                </div>
+            </div>
+            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Plucking Cycle Record</h2>
+            <div class="border p-1" style="border-radius: 20px">
+                <table class="text-center bg-light text-primary table-bordered"
+                       style="border-radius: 10px; width: 100%;">
+                    <colgroup>
+                        <col style="width: 5%;"/> <!-- Adjust the width as needed -->
+                        <col style="width: 5%;"/> <!-- Adjust the width as needed -->
+                        <col style="width: 5%;"/> <!-- Adjust the width as needed -->
+                        <col style="width: 5%;"/> <!-- Adjust the width as needed -->
+                        <!-- Add more col elements for additional columns -->
+                    </colgroup>
+                    <tbody>
+                    <tr>
+                        <th class="column-header">Zone</th>
+                        <th class="column-header">Fields</th>
+                        <th class="column-header">Growing Days</th>
+                        <th class="column-header">CF</th>
+                        {% for i in "12345678910111213141516171819202122232425262728293031" %}
+                        <th class="column-header">
+                            {% if i|length > 1 %}
+                            <br>{{ i }}
+                            {% else %}
+                            {{ i }}
+                            {% endif %}
+                        </th>
+                        {% endfor %}
+                    </tr>
+                    {% for zone in data %}
+                    {% for field in zone.Fields %}
+                    <tr>
+                        <td>{{ zone.Zone }}</td>
+                        <td>{{ field.Field }}</td>
+                        <td>{{ field.Growing_Days.0|join:", " }}</td>
+                        <td>{{ field.CF.0|default:'' }}</td>
+                        {% if forloop.parentloop.counter0 == 3 and field.Field == 14 or 15 or 5 or 3 or 7 or 12 %}
+                        {% for value in field.CF %}
+                        <td>{{ value|default:'' }}</td>
+                        {% endfor %}
+                        {% elif forloop.parentloop.counter0 == 3 and field.Field == 10 or 42 or 6 or 2 or 43 or 11 %}
+                        {% for value in field.CF.2 %}
+                        <td>{{ value|default:'' }}</td>
+                        {% endfor %}
+                        {% elif forloop.parentloop.counter0 == 3 and field.Field == 4 or 8 or 1 or 44 or 13 or 9 %}
+                        {% for value in field.CF.3 %}
+                        <td>{{ value|default:'' }}</td>
+                        {% endfor %}
+                        {% else %}
+                        {% for value in field.CF %}
+                        <td>{{ value|default:'' }}</td>
+                        {% endfor %}
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+ {% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Growing Days Update{% endblock %}
+
+{% block body %}
+<div class="row g-0 d-flex align-items-center">
+    <div class="col-lg-12 d-none d-lg-flex">
+        <div class="container-fluid text-light card card-light mx-2 px-2 my-2 py-4"
+             style="background-color: rgba(75, 0, 130, 1); border-radius: 20px">
+            <h2 class="text-center bg-light text-light" style="border-radius: 10px">Growing Days Update</h2>
+            <div class="border p-1" style="border-radius: 20px">
+                <div class="card-body">
+                    <a class="btn btn-primary btn-info block-lg" href="{% url 'growing-days' %}">Back</a>
+                </div>
+
+                <title>Growing Days Update</title>
+
+                <h1>Growing Days Update</h1>
+                <form method="post" action="{% url 'growing-days-create' %}">
+                    {% csrf_token %}
+                    <!-- Include form fields for Zone, Fields, Growing_days, CF, today_date, Field, plucking_round, plucking_day, next_plucking, actual_plucking_day, total_plucking_round, month_end, Growing_Days_CF, Growing_Days, days_bf, and Month_days -->
+
+                    <label for="zone">Zone:</label>
+                    <input type="text" name="zone">
+
+                    <label for="fields">Fields:</label>
+                    <input type="text" name="fields">
+
+                    <label for="growing_days">Growing Days:</label>
+                    <input type="number" name="growing_days[]" multiple>
+
+                    <label for="cf">CF:</label>
+                    <input type="number" name="cf[]" multiple value="{{ cf }}">
+
+                    <label for="date">Date:</label>
+                    <input type="datetime-local" name="date" value="{{ date }}">
+
+                    <label for="balance">Balance:</label>
+                    <input type="text" name="balance" value="{{ balance }}>
+
+                    <!-- Add other form fields here -->
+
+                    <!-- Loop through the Month_days -->
+                    {% for i in '0123456789' %}
+                    {% with "Month_day_"|add:i as month_day_field %}
+                    <label for="{{ month_day_field }}">Month Day {{ i }}:</label>
+                    <input type="text" name="{{ month_day_field }}" value="{{ month_day_field }}">
+                    {% endwith %}
+                    {% endfor %}
+                    <div>
+                        <button class="bg-success text-light" type="submit" style="border-radius: 10px; text: bold;">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+ {% block content %}
+<div class="card mb-3">
+    <div class="row g-0 d-flex align-items-center">
+        <div class="border p-3">
+            <h4>Delete Task</h4>
+            <hr>
+            <div class="alert alert-danger">
+                <p>Are you sure you want to delete {{ item }} figure ?</p>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <button class="btn btn-danger" typeof="hover" type="submit">Confirm</button>
+                <button class="btn btn-warning" typeof="hover"><a href="{% url 'plucking-cycle' %}">Cancel</a>
+                </button>
+
+            </form>
+        </div>
+        </div>
+    </div>
+        {% endblock %}
+
+
+
+
+{% block content %}
+<div class="border p-3">
+    <div class="card-body bg-secondary">
+        <h4>Update Task</h4>
+        <hr>
+        <div class="alert alert-info">
+            <p>Update record here!</p>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <input class="btn btn-info bg-warning" type="submit" value="Edit">
+            <a class="btn btn-warning bg-warning btn-info block-lg" href="{% url 'plucking-cycle' %}">Return</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+ {% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Tea Plucking Cycle{% endblock %}
+<title>Tea Plucking Cycle</title>
+
+<style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+
+
+
+
+</style>
+
+
+<title>Plucking Cycle Record</title>
+{% block body %}
+<div class="row g-4 d-flex align-items-center">
+    <div class="col-lg-0 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-2 px-2 my-2 py-2"
+             style="background-color: rgba(13, 70, 10, 1); border-radius: 20px">
+            <div class="card-body">
+                <div class=" bg-light h1 text-center" style="border-radius: 10px">Plucking Cycle Record</div>
+                <a href="{% url 'growing-cycle-update' %}"
+                   class="btn btn-warning bg-primary block-lg text-light">Add</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-record' %}">Go
+                    To RoundsMonitor</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go
+                    To PS Record</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-dashboard' %}">Go To
+                    Dashboard</a>
+                <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-graphs' %}">Go To
+                    Graphs</a>
+            </div>
+            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Plucking Cycle Record</h2>
+            <div class="border p-1" style="border-radius: 20px">
+                <table class="text-center bg-light text-primary table-bordered"
+                       style="border-radius: 10px; width: 100%;">
+                    <colgroup>
+                        <col style="width: 5%;"/> <!-- Adjust the width as needed -->
+                        <col style="width: 5%;"/> <!-- Adjust the width as needed -->
+                        <col style="width: 5%;"/> <!-- Adjust the width as needed -->
+                        <col style="width: 5%;"/> <!-- Adjust the width as needed -->
+                        <!-- Add more col elements for additional columns -->
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th class="column-header">Zone</th>
+                        <th class="column-header">Fields</th>
+                        <th class="column-header">Growing Days CF</th>
+                        <th class="column-header">Rounds space</th>
+                        <!-- Add more column headers as needed -->
+                        {% for i in "12345678910111213141516171819202122232425262728293031" %}
+                 {% if i < 10 %}
+                    <th class="column-header">{{ i }}</th>
+                {% else %}
+                    <th class="column-header" colspan="2">{{ i }}</th>
+                        {% endif %}
+                    {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for data in table_data %}
+                    <tr>
+                        <td>{{ data.Zone }}</td>
+                        <td>{{ data.Fields }}</td>
+                        <td>
+                            {% for value in data.Growing_Days_CF.0 %}
+                            {{ value|default:'' }}
+                            {% endfor %}
+                        </td>
+                        <td></td>
+                        {% for value in data.Rounds_space %}
+                        <td>{{ value|default:'' }}</td>
+                        <td></td>
+                        {% endfor %}
+                        <!-- Add more table cells as needed -->
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+ {% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Tea Plucking Cycle Update{% endblock %}
+
+{% block body %}
+<div class="row g-0 d-flex align-items-center">
+    <div class="col-lg-12 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-2 px-2 my-2 py-4" style="background-color: rgba(75, 0, 130, 1); border-radius: 20px">
+            <h2 class="text-center bg-light text-primary" style="border-radius: 10px">Tea Plucking Cycle Update</h2>
+            <div class="border p-1" style="border-radius: 20px">
+                <div class="card-body">
+                    <a class="btn btn-primary btn-info block-lg" href="{% url 'plucking-cycle' %}">Back</a>
+                </div>
+                <div class="container-fluid text-right card card-light mx-2 px-2 my-2 py-4" style="width: 100%; overflow-x: auto;">
+                    <!-- Update form -->
+                    <form method="POST" action="{% url 'plucking-cycle-create' %}">
+                        {% csrf_token %}
+                        <div>
+                            <label for="Zone">Zone:</label>
+                            <input type="text" name="Zone" id="Zone" required>
+                        </div>
+                        <div>
+                            <label for="Fields">Fields:</label>
+                            <input type="text" name="Fields" id="Fields" required>
+                        </div>
+                        <div>
+                            <label for="Growing_days_CF">Growing Days CF:</label>
+                            <input type="text" name="Growing_days_CF[]" id="Growing_days_CF" required>
+                        </div>
+                        <div>
+                            <label for="Rounds_space">Rounds Space:</label>
+                            <input type="text" name="Rounds_space[]" id="Rounds_space" required>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table text-center bg-light text-primary" style="border-radius: 10px;">
+                                <thead>
+                                    <tr>
+                                        <th>Zone</th>
+                                        <th>Fields</th>
+                                        <th>Growing Days CF</th>
+                                        <th>Rounds Space</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in table_data %}
+                                    <tr>
+                                        <td>{{ item.Zone }}</td>
+                                        <td>{{ item.Fields }}</td>
+                                        <td>
+                                            {% for day in item.Growing_days_CF %}
+                                            {{ day }}
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% for space in item.Rounds_space %}
+                                            {{ space }}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Add more fields if needed -->
+                        <button type="submit">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+<table id="myTable" border="1">
             <tr>
                 <th contenteditable="true" oninput="saveChanges(this)" id="1">{{estate}}</th>
                 <td contenteditable="true" oninput="saveChanges(this)" id="2"><input type="text" name="estate"

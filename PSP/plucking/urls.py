@@ -24,10 +24,6 @@ urlpatterns = [
     path('roundsmonitor-update/', views.RoundsMonitorViewUpdate, name='roundsmonitor-update'),
     path('roundsmonitor-create/', views.RoundsMonitoViewCreate, name='roundsmonitor-create'),
 
-    path('fields-record/', views.FieldsViewRetrieve, name='fields-record'),
-    path('fields-update/', views.FieldsViewUpdate, name='fields-update'),
-    path('fields-create/', views.FieldsViewCreate, name='fields-create'),
-
     path('autofields-record/', views.AutoFieldsViewRetrieve, name='autofields-record'),
     path('autofields-update/', views.AutoFieldsViewUpdate, name='autofields-update'),
     path('autofields-create/', views.AutoFieldsViewCreate, name='autofields-create'),
@@ -36,11 +32,17 @@ urlpatterns = [
     path('plucking-rounds-update/', views.PluckingRoundsViewUpdate, name='plucking-rounds-update'),
     path('plucking-rounds-create/', views.PluckingRoundsViewCreate, name='plucking-rounds-create'),
 
-    path('plucking-cycle/', views.TeaPluckingCycleViewRetrieve, name='plucking-cycle'),
-    path('plucking-cycle-update/', views.TeaPluckingCycleViewUpdate, name='plucking-cycle-update'),
-    path('plucking-cycle-create/', views.TeaPluckingCycleViewCreate, name='plucking-cycle-create'),
+
+    path('growing-cycle/', views.GrowingCycleViewRetrieve, name='growing-cycle'),
+    path('growing-cycle-update/', views.GrowingCycleViewUpdate, name='growing-cycle-update'),
+    path('growing-cycle-create/', views.GrowingCycleViewCreate, name='growing-cycle-create'),
 
     path('plucking-rounds/', views.PluckingRoundsViewRetrieve, name='plucking-rounds'),
+
+    path('division-zones/', views.DivisionZonesViewRetrieve, name='division-zones'),
+    path('division-zones-update/', views.DivisionZonesViewUpdate, name='division-zones-update'),
+    path('division-zones-create/', views.DivisionZonesViewCreate, name='division-zones-create'),
+    path('division-inspect/', views.DivisionZonesViewInspect, name='division-inspect'),
 
     path('programmedscheme-update/<int:pk>/', views.ProgrammedSchemeUpdate, name='programmedscheme-update'),
     path('programmedscheme-delete/<int:pk>/', views.ProgrammedSchemeDelete, name='programmedscheme-delete'),
@@ -48,14 +50,15 @@ urlpatterns = [
     path('roundsmonitor-edit/<int:pk>/', views.RoundsMonitorEdit, name='roundsmonitor-edit'),
     path('roundsmonitor-delete/<int:pk>/', views.RoundsMonitorDelete, name='roundsmonitor-delete'),
 
-    path('fields-edit/<int:pk>/', views.FieldsEdit, name='fields-edit'),
-    path('fields-delete/<int:pk>/', views.FieldsDelete, name='fields-delete'),
-
     path('autofields-edit/<int:pk>/', views.AutoFieldsEdit, name='autofields-edit'),
     path('autofields-delete/<int:pk>/', views.AutoFieldsDelete, name='autofields-delete'),
 
-    path('teapluckingcycle-edit/<int:pk>/', views.TeaPluckingCycleEdit, name='teapluckingcycle-edit'),
-    path('teapluckingcycle-delete/<int:pk>/', views.TeaPluckingCycleDelete, name='teapluckingcycle-delete'),
+
+    path('growingcycle-edit/<int:pk>/', views.GrowingCycleEdit, name='growingcycle-edit'),
+    path('growingcycle-delete/<int:pk>/', views.GrowingCycleDelete, name='growingcycle-delete'),
+
+    path('division-zones-edit/<int:pk>/', views.DivisionZonesEdit, name='division-zones-edit'),
+    path('division-zones-delete/<int:pk>/', views.DivisionZonesDelete, name='division-zones-delete'),
 
     path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico', permanent=True)),
 ]

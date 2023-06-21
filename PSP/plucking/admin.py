@@ -1,8 +1,7 @@
 from os import path
 from django.contrib import admin
 from django.core.paginator import Paginator, Page
-from .models import ProgrammedScheme, Resourcesexcell, RoundsMonitor, DataEntry, AutoFields, \
-    TeaPluckingCycle
+from .models import ProgrammedScheme, Resourcesexcell, RoundsMonitor, DataEntry, AutoFields
 from . import models
 
 # Register your models with Resourcesexcell_admin_site
@@ -21,7 +20,6 @@ resourcesexcell_admin_site = ResourcesexcellAdminSite(name='Resourcesexcell_admi
 admin.site.register(Resourcesexcell)
 admin.site.register(ProgrammedScheme)
 admin.site.register(RoundsMonitor)
-admin.site.register(TeaPluckingCycle)
 admin.site.register(AutoFields)
 
 resourcesexcell_admin_site.register(models.Resourcesexcell)

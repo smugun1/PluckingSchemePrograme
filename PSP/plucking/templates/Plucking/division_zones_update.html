@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Division Zone Update{% endblock %}
+
+{% block body %}
+<div class="row g-4 d-flex align-items-center">
+    <div class="col-lg-0 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-2 px-2 my-2 py-2"
+             style="background-color: rgba(13, 70, 10, 1); border-radius: 20px">
+            <div class="card-body">
+                <div class=" bg-light h1 text-center" style="border-radius: 20px; text: bold;">Division Zone Forms
+                </div>
+                <div class=" text-light  text-center" style="border-radius: 20px; text: bold;">
+                    <a href="{% url 'division-zones' %}"
+                       class="btn btn-warning bg-primary block-lg text-light">Back</a>
+
+
+                    <div class="container-fluid text-light card card-light mx-0 px-0 my-0 py-0"
+                         style="background-color: rgba(113, 170, 10, 1); border-radius: 20px">
+                        <h1>Division Zone Forms</h1>
+
+
+                        <form method="POST" action="{% url 'division-zones-create' %}">
+                            {% csrf_token %}
+
+
+                            <div class="form-group">
+                                <label for="zones"><h2>zones:</h2></label>
+                                <input type="text" name="zones" value="{{ zones }}" required>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="vp_zone_fields"><h2>vp_zone_fields:</h2></label>
+                                <input type="number" name="vp_zone_fields" value="{{ vp_zone_fields }}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sd_zone_fields"><h2>sd_zone_fields:</h2></label>
+                                <input type="number" name="sd_zone_fields" value="{{ sd_zone_fields }}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="vp_field_ha"><h2>vp_field_ha:</h2></label>
+                                <input type="number" name="vp_field_ha" value="{{ vp_field_ha }}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sd_field_ha"><h2>sd_field_ha:</h2></label>
+                                <input type="number" name="sd_field_ha" value="{{ sd_field_ha }}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="division_area"><h2>division_area:</h2></label>
+                                <input type="number" name="division_area" value="{{ division_area }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="zone_area"><h2>zone_area:</h2></label>
+                                <input type="number" name="zone_area" value="{{ zone_area }}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="num_schemes"><h2>num_schemes:</h2></label>
+                                <input type="number" name="num_schemes" value="{{ num_schemes }}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="plant_popn"><h2>plant_popn:</h2></label>
+                                <input type="number" name="plant_popn" value="{{ plant_popn }}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="num_pluckers"><h2>num_pluckers:</h2></label>
+                                <input type="number" name="num_pluckers" value="{{ num_pluckers }}" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="made_tea_yield"><h2>made_tea_yield:</h2></label>
+                                <input type="number" name="made_tea_yield" value="{{ made_tea_yield }}" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                        <form method="post">
+                                {% csrf_token %}
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Zone</th>
+                                            <th>VP Zone Field</th>
+                                            <th>SD Zone Field</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for division in divisions %}
+                                            <tr>
+                                                <td>
+                                                    <input type="text" name="zones[]" value="{{ division.zones }}" required>
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="vp_zone_fields[{{ division.id }}]" value="{{ division.vp_zone_field }}" required>
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="sd_zone_fields[{{ division.id }}]" value="{{ division.sd_zone_field }}" required>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                <button type="submit">Update</button>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

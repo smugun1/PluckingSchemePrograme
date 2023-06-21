@@ -2,244 +2,256 @@
 
 {% load static %}
 
-{% block title %}PSP Fields Rounds Checker Update{% endblock %}
+{% block title %}Growing Cycle Update{% endblock %}
 
 {% block body %}
-<style>
-    /* CSS styles */
+<div class="row g-4 d-flex align-items-center">
+    <div class="col-lg-0 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-2 px-2 my-2 py-2"
+             style="background-color: rgba(13, 70, 10, 1); border-radius: 20px">
+            <div class="card-body">
+                <div class=" bg-light h1 text-center" style="border-radius: 20px; text: bold;">Growing Cycle Form
+                </div>
+                <div class=" text-light  text-center" style="border-radius: 20px; text: bold;">
+                    <a href="{% url 'growing-cycle' %}"
+                       class="btn btn-warning bg-primary block-lg text-light">Back</a>
 
-</style>
+                    <div class="container-fluid text-light card card-light mx-0 px-0 my-0 py-0"
+                         style="background-color: rgba(113, 170, 10, 1); border-radius: 20px">
+                        <h1>Growing Cycle Form</h1>
 
-<title>PSP Fields Rounds Checker Update</title>
 
-<h1 class="text-center">Rounds Checker Update</h1>
-<div class="col-lg-12 d-none my-2 d-lg-flex">
-    <div class="container-fluid text-primary h-100 d-flex align-items-center justify-content-center"
-         style="background-color: indigo; width: 80rem; border-radius: 20px;">
-        <div class="card card bg-light text-right h-100 d-flex align-items-center justify-content-center m-3 p-3"
-             style="width: 80rem; border-radius: 20px;">
-            <h2 class="text-center bg-light text-Primary" style="border-radius: 10px">Plucking Rounds Update</h2>
-            <div class="border p-3" style="border-radius: 20px">
-                <a class="btn btn-Primary bg-primary btn-info block-lg text-light"
-                   href="{% url 'fields-record' %}">Back</a>
-                <a class="btn btn-Primary bg-primary btn-info block-lg text-light" href="{% url 'psp-dashboard' %}">Go To Dashboard</a>
-                <div class="container" style="width: 50rem;">
-                    <form action="{% url 'fields-create' %}" method="post">
-                        {% csrf_token %}
+                        <form method="POST" action="{% url 'growing-cycle-create' %}">
+                            {% csrf_token %}
 
-                        <div class="form-group">
-                            <label for="Zone_field">zone_field:</label>
-                            <input type="text" class="form-control" id="zone_field" name="zone_field"
-                                   value="{{ Zone_field|default_if_none:'' }}" required>
-                        </div>
+                             <div>
+                             <label for="zone">Zone:</label>
+                                <select name="zone" required>
+                                    <option value="">--Please Select a zone--</option>
+                                    <option value="E">zone E</option>
+                                    <option value="F">zone F</option>
+                                    <option value="G">zone G</option>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="leaf_type">leaf_type:</label>
-                            <input type="text" class="form-control" id="leaf_type" name="leaf_type"
-                                   value="{{ leaf_type|default_if_none:'' }}" required>
-                        </div>
+                            <div class="form-group">
+                                <label for="fields">Fields:</label>
+                                <select name="fields" required>
+                                    <option value="">--Please choose a field--</option>
+                                    <option value="5">fields 5</option>
+                                    <option value="3">fields 3</option>
+                                    <option value="7">fields 7</option>
+                                    <option value="12">fields 12</option>
+                                    <option value="14">fields 14</option>
+                                    <option value="15">fields 15</option>
+                                    <option value="11">fields 11</option>
+                                    <option value="10">fields 10</option>
+                                    <option value="42">fields 42</option>
+                                    <option value="2">fields 2</option>
+                                    <option value="6">fields 6</option>
+                                    <option value="43">fields 43</option>
+                                    <option value="8">fields 8</option>
+                                    <option value="1">fields 1</option>
+                                    <option value="44">fields 44</option>
+                                    <option value="13">fields 13</option>
+                                    <option value="9">fields 9</option>
+                                    <option value="4">fields 4</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="growing_days">Growing Days:</label>
+                                <input type="number" name="growing_days" value="{{ data.growing_days }}"
+                                       required>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="ha">Ha:</label>
-                            <input type="text" class="form-control" id="ha" name="ha"
-                                   value="{{ ha|default_if_none:'' }}" required>
-                        </div>
+                            <div class="form-group">
+                                <label for="cf">CF:</label>
+                                <input type="number" name="cf" value="{{ data.cf }}" required>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="Ha">days_to_pluck:</label>
-                            <input type="number" class="form-control" id="days_to_pluck" name="days_to_pluck"
-                                   value="{{ days_to_pluck|default_if_none:'' }}" required>
-                        </div>
+                            <div class="form-group">
+                                <label for="date">Date:</label>
+                                <input type="date" name="date" value="{{ data.date }}" required>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="prune_age">prune_age:</label>
-                            <input type="number" class="form-control" id="prune_age" name="prune_age"
-                                   value="{{ prune_age|default_if_none:'' }}" required>
-                        </div>
+                            <div class="form-group">
+                                <label for="balance">Balance:</label>
+                                <input type="number" name="balance" value="{{ data.balance }}" required>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="number_of_schemes">number_of_schemes:</label>
-                            <input type="number" class="form-control" id="number_of_schemes" name="number_of_schemes"
-                                   value="{{ number_of_schemes|default_if_none:'' }}" required>
-                        </div>
+                            <div class="form-group">
+                                <label for="cf_values">CF Values:</label>
+                                <input type="number" name="cf_values" value="{{ data.cf_values }}" required>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="Growing_days_CF">Growing_days_CF:</label>
-                            <input type="number" class="form-control" id="Growing_days_CF" name="Growing_days_CF"
-                                   value="{{ Growing_days_CF|default_if_none:'' }}" required>
-                        </div>
+                            <div class="form-group">
+                                <label for="plucking_round">Plucking Round:</label>
+                                <input type="number" name="plucking_round" value="{{ data.plucking_round }}"
+                                       required>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="Month_day_01">Month_day_01:</label>
+                            <div class="form-group">
+                            <label for="Month_day_01">Month day 01:</label>
                             <input type="text" class="form-control" id="Month_day_01" name="Month_day_01"
-                                   value="{{ Month_day_01|default_if_none:'' }}" required>
+                                   value="{{ 0|default_if_none:'' }}" required>
                         </div>
-
                         <div class="form-group">
-                            <label for="Month_day_01">Month_day_02:</label>
+                            <label for="Month_day_02">Month day 02:</label>
                             <input type="text" class="form-control" id="Month_day_02" name="Month_day_02"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_02">Month_day_03:</label>
+                            <label for="Month_day_03">Month day 03:</label>
                             <input type="text" class="form-control" id="Month_day_03" name="Month_day_03"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_03">Month_day_04:</label>
+                            <label for="Month_day_04">Month day 04:</label>
                             <input type="text" class="form-control" id="Month_day_04" name="Month_day_04"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_04">Month_day_05:</label>
+                            <label for="Month_day_05">Month day 05:</label>
                             <input type="text" class="form-control" id="Month_day_05" name="Month_day_05"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_05">Month_day_06:</label>
+                            <label for="Month_day_06">Month day 06:</label>
                             <input type="text" class="form-control" id="Month_day_06" name="Month_day_06"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_06">Month_day_07:</label>
+                            <label for="Month_day_07">Month day 07:</label>
                             <input type="text" class="form-control" id="Month_day_07" name="Month_day_07"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_07">Month_day_08:</label>
+                            <label for="Month_day_08">Month day 08:</label>
                             <input type="text" class="form-control" id="Month_day_08" name="Month_day_08"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_08">Month_day_09:</label>
+                            <label for="Month_day_09">Month day 09:</label>
                             <input type="text" class="form-control" id="Month_day_09" name="Month_day_09"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_09">Month_day_10:</label>
+                            <label for="Month_day_10">Month day 10:</label>
                             <input type="text" class="form-control" id="Month_day_10" name="Month_day_10"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_10">Month_day_11:</label>
+                            <label for="Month_day_11">Month day 11:</label>
                             <input type="text" class="form-control" id="Month_day_11" name="Month_day_11"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_11">Month_day_12:</label>
+                            <label for="Month_day_12">Month day 12:</label>
                             <input type="text" class="form-control" id="Month_day_12" name="Month_day_12"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_12">Month_day_13:</label>
+                            <label for="Month_day_13">Month day 13:</label>
                             <input type="text" class="form-control" id="Month_day_13" name="Month_day_13"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_13">Month_day_14:</label>
+                            <label for="Month_day_14">Month day 14:</label>
                             <input type="text" class="form-control" id="Month_day_14" name="Month_day_14"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_14">Month_day_15:</label>
+                            <label for="Month_day_15">Month day 15:</label>
                             <input type="text" class="form-control" id="Month_day_15" name="Month_day_15"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_15">Month_day_16:</label>
+                            <label for="Month_day_16">Month day 16:</label>
                             <input type="text" class="form-control" id="Month_day_16" name="Month_day_16"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_16">Month_day_17:</label>
+                            <label for="Month_day_17">Month day 17:</label>
                             <input type="text" class="form-control" id="Month_day_17" name="Month_day_17"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_17">Month_day_18:</label>
+                            <label for="Month_day_18">Month day 18:</label>
                             <input type="text" class="form-control" id="Month_day_18" name="Month_day_18"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_18">Month_day_19:</label>
+                            <label for="Month_day_19">Month day 19:</label>
                             <input type="text" class="form-control" id="Month_day_19" name="Month_day_19"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_19">Month_day_20:</label>
+                            <label for="Month_day_20">Month day 20:</label>
                             <input type="text" class="form-control" id="Month_day_20" name="Month_day_20"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_20">Month_day_21:</label>
+                            <label for="Month_day_21">Month day 21:</label>
                             <input type="text" class="form-control" id="Month_day_21" name="Month_day_21"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_21">Month_day_22:</label>
+                            <label for="Month_day_22">Month day 22:</label>
                             <input type="text" class="form-control" id="Month_day_22" name="Month_day_22"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_22">Month_day_23:</label>
+                            <label for="Month_day_23">Month day 23:</label>
                             <input type="text" class="form-control" id="Month_day_23" name="Month_day_23"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_23">Month_day_24:</label>
+                            <label for="Month_day_24">Month day 24:</label>
                             <input type="text" class="form-control" id="Month_day_24" name="Month_day_24"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_24">Month_day_25:</label>
+                            <label for="Month_day_25">Month day 25:</label>
                             <input type="text" class="form-control" id="Month_day_25" name="Month_day_25"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_25">Month_day_26:</label>
+                            <label for="Month_day_26">Month day 26:</label>
                             <input type="text" class="form-control" id="Month_day_26" name="Month_day_26"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_26">Month_day_27:</label>
+                            <label for="Month_day_27">Month day 27:</label>
                             <input type="text" class="form-control" id="Month_day_27" name="Month_day_27"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_27">Month_day_28:</label>
+                            <label for="Month_day_28">Month day 28:</label>
                             <input type="text" class="form-control" id="Month_day_28" name="Month_day_28"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_28">Month_day_29:</label>
+                            <label for="Month_day_29">Month day 29:</label>
                             <input type="text" class="form-control" id="Month_day_29" name="Month_day_29"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_29">Month_day_30:</label>
+                            <label for="Month_day_30">Month day 30:</label>
                             <input type="text" class="form-control" id="Month_day_30" name="Month_day_30"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
                         <div class="form-group">
-                            <label for="Month_day_30">Month_day_31:</label>
+                            <label for="Month_day_31">Month day 31:</label>
                             <input type="text" class="form-control" id="Month_day_31" name="Month_day_31"
                                    value="{{ 0|default_if_none:'' }}" required>
                         </div>
 
-                        <!-- Repeat the above div for each Month_day field (Month_day_02, Month_day_03, ..., Month_day_31) -->
-                        <div class="container" style="width: 50rem;">
                             <button type="submit" class="btn btn-primary">Update</button>
-                            <a class="btn btn-Primary bg-primary btn-info block-lg text-light"
-                               href="{% url 'fields-record' %}">Back</a>
-                            <a class="btn btn-Primary bg-primary btn-info block-lg text-light" href="{% url 'psp-dashboard' %}">Go To
-                                Dashboard</a>
-                        </div>
-                    </form>
-
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

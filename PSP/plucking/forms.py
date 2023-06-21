@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import ProgrammedScheme, RoundsMonitor, AutoFields, TeaPluckingCycle, FieldsToPluck
+from .models import ProgrammedScheme, RoundsMonitor, AutoFields, GrowingCycle, DivisionDetails
 
 
 class PSPForms(forms.ModelForm):
@@ -27,13 +27,13 @@ class FieldsForms(forms.ModelForm):
         fields = '__all__'
 
 
-class CycleForms(forms.ModelForm):
+class GrowingCycleForms(forms.ModelForm):
     class Meta:
-        model = TeaPluckingCycle
+        model = GrowingCycle
         fields = '__all__'
 
 
-class FieldsForm(forms.ModelForm):
+class DivisionZonesForms(forms.ModelForm):
     class Meta:
-        model = FieldsToPluck
+        model = DivisionDetails
         fields = '__all__'

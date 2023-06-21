@@ -13,3 +13,8 @@ class SignUpForm(UserCreationForm):
         labels = {'email': 'Email'}
 
 
+
+
+
+
+

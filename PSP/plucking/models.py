@@ -1,4 +1,4 @@
-from django.contrib.auth import admin
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 
@@ -64,51 +64,6 @@ class RoundsMonitor(models.Model):
         return str(self.field)
 
 
-class FieldsToPluck(models.Model):
-    Zone = models.CharField(max_length=100)
-    Field_No = models.IntegerField()
-    Leaf_Type = models.CharField(max_length=100, default=None)
-    Ha = models.IntegerField(default=0.00)
-    Days_to_plk = models.IntegerField()
-    Prune_age = models.IntegerField()
-    Number_of_schemes = models.IntegerField()
-    Growing_days_CF = models.IntegerField()
-    Month_day_01 = models.IntegerField()
-    Month_day_02 = models.IntegerField()
-    Month_day_03 = models.IntegerField()
-    Month_day_04 = models.IntegerField()
-    Month_day_05 = models.IntegerField()
-    Month_day_06 = models.IntegerField()
-    Month_day_07 = models.IntegerField()
-    Month_day_08 = models.IntegerField()
-    Month_day_09 = models.IntegerField()
-    Month_day_10 = models.IntegerField()
-    Month_day_11 = models.IntegerField()
-    Month_day_12 = models.IntegerField()
-    Month_day_13 = models.IntegerField()
-    Month_day_14 = models.IntegerField()
-    Month_day_15 = models.IntegerField()
-    Month_day_16 = models.IntegerField()
-    Month_day_17 = models.IntegerField()
-    Month_day_18 = models.IntegerField()
-    Month_day_19 = models.IntegerField()
-    Month_day_20 = models.IntegerField()
-    Month_day_21 = models.IntegerField()
-    Month_day_22 = models.IntegerField()
-    Month_day_23 = models.IntegerField()
-    Month_day_24 = models.IntegerField()
-    Month_day_25 = models.IntegerField()
-    Month_day_26 = models.IntegerField()
-    Month_day_27 = models.IntegerField()
-    Month_day_28 = models.IntegerField()
-    Month_day_29 = models.IntegerField()
-    Month_day_30 = models.IntegerField()
-    Month_day_31 = models.IntegerField()
-
-    def __str__(self):
-        return self.Field_No
-
-
 class AutoFields(models.Model):
     Zone = models.CharField(max_length=100)
     Field_No = models.IntegerField()
@@ -154,11 +109,15 @@ class AutoFields(models.Model):
         return self.Field_No
 
 
-class TeaPluckingCycle(models.Model):
-    Zone = models.CharField(max_length=100)
-    Fields = models.IntegerField()
-    Daily_Actual = models.IntegerField()
-    Growing_Days_CF = models.IntegerField()
+class GrowingCycle(models.Model):
+    zone = models.CharField(max_length=100)
+    fields = models.IntegerField()
+    growing_days = models.IntegerField()
+    cf_values = models.JSONField(default=list)
+    date = models.DateField()
+    balance = models.DecimalField(max_digits=10, decimal_places=2)
+    cf = models.IntegerField()
+    plucking_round = models.IntegerField()  # Add the 'plucking_round' field
     Month_day_01 = models.IntegerField()
     Month_day_02 = models.IntegerField()
     Month_day_03 = models.IntegerField()
@@ -192,5 +151,32 @@ class TeaPluckingCycle(models.Model):
     Month_day_31 = models.IntegerField()
 
     def __str__(self):
-        return self.Fields
+        return f"{self.zone} - {self.field}"
 
+
+class DivisionDetails(models.Model):
+    division_area = models.IntegerField()
+    zone_area = models.IntegerField(null=True, blank=True)
+    zones = models.CharField(max_length=100)
+    zone_field = models.IntegerField(null=True, blank=True)
+    zone_fields = models.IntegerField(null=True, blank=True)
+    vp_zone_field = models.IntegerField(null=True, blank=True)
+    sd_zone_field = models.IntegerField(null=True, blank=True)
+    block = models.IntegerField(null=True, blank=True)
+    vp_zone_fields = models.IntegerField(null=True, blank=True)
+    sd_zone_fields = models.IntegerField(null=True, blank=True)
+    vp_field_ha = models.IntegerField(null=True, blank=True)
+    sd_field_ha = models.IntegerField(null=True, blank=True)
+    num_schemes = models.IntegerField(null=True, blank=True)
+    plant_popn = models.IntegerField(null=True, blank=True)
+    num_pluckers = models.IntegerField(null=True, blank=True)
+    made_tea_yield = models.IntegerField(null=True, blank=True)
+    vp_area_plucked_day = models.IntegerField(null=True, blank=True)
+    sd_area_plucked_day = models.IntegerField(null=True, blank=True)
+    vp_area_supervised_ha = models.IntegerField(null=True, blank=True)
+    sd_area_supervised_ha = models.IntegerField(null=True, blank=True)
+    pluckers_supervised = models.IntegerField(null=True, blank=True)
+    area_supervised = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return str(self.division_area)

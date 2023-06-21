@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Division Zones{% endblock %}
+<title>Tea Growing Cycle</title>
+
+
+<title>Division Zones Record</title>
+{% block body %}
+<div class="row g-4 d-flex align-items-center">
+    <div class="col-lg-0 d-none d-lg-flex">
+        <div class="container-fluid text-right card card-light mx-2 px-2 my-2 py-2"
+             style="background-color: rgba(13, 70, 10, 1); border-radius: 20px">
+            <div class="card-body">
+                <div class=" bg-light h1 text-center" style="border-radius: 20px; text: bold;">Division Zones Record
+                </div>
+                <div class=" text-light  text-center" style="border-radius: 20px; text: bold;">
+                    <a href="{% url 'division-zones-update' %}"
+                       class="btn btn-warning bg-primary block-lg text-light">Add</a>
+                    <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'roundsmonitor-record' %}">Go
+                        To RoundsMonitor</a>
+                    <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'programmedscheme-record' %}">Go
+                        To PS Record</a>
+                    <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-dashboard' %}">Go To
+                        Dashboard</a>
+                    <a class="btn btn-Primary bg-primary btn-info block-lg" href="{% url 'psp-graphs' %}">Go To
+                        Graphs</a>
+                    <div class="container-fluid text-light card card-light mx-0 px-0 my-0 py-0"
+                         style="background-color: rgba(113, 170, 10, 1); border-radius: 20px">
+                        <h1>Division Zones Record</h1>
+
+
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Zones</th>
+                                <th>VP Zone Fields</th>
+                                <th>SD Zone Fields</th>
+                                <th>VP Fields Ha</th>
+                                <th>SD Fields Ha</th>
+                                <th>Division Area</th>
+                                <th>Zone Area</th>
+                                <th>Num Schemes</th>
+                                <th>Plant Popn</th>
+                                <th>Num Pluckers</th>
+                                <th>Made Tea Yield</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for data in divisiondetails %}
+                            <tr>
+                                <td>{{ data.zones }}</td>
+                                <td>{{ data.vp_zone_fields }}</td>
+                                <td>{{ data.sd_zone_fields }}</td>
+                                <td>{{ data.vp_field_ha }}</td>
+                                <td>{{ data.sd_field_ha }}</td>
+                                <td>{{ data.division_area }}</td>
+                                <td>{{ data.zone_area }}</td>
+                                <td>{{ data.num_schemes }}</td>
+                                <td>{{ data.plant_popn }}</td>
+                                <td>{{ data.num_pluckers }}</td>
+                                <td>{{ data.made_tea_yield }}</td>
+
+                                <td><a class="btn btn btn-block text-light h2 btn btn-info"
+                                       style="background-color: #0000ff;"
+                                       href="{% url 'division-zones-edit' data.id %}">+</a></td>
+                                <td><a class="btn btn-info btn-block btn h2 btn-info text-light"
+                                       style="background-color: #ff0000;"
+                                       href="{% url 'division-zones-delete' data.id %}">-</a></td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
