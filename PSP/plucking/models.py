@@ -160,13 +160,11 @@ class DivisionDetails(models.Model):
     zones = models.CharField(max_length=100)
     zone_field = models.IntegerField(null=True, blank=True)
     zone_fields = models.IntegerField(null=True, blank=True)
-    vp_zone_field = models.IntegerField(null=True, blank=True)
-    sd_zone_field = models.IntegerField(null=True, blank=True)
+
     block = models.IntegerField(null=True, blank=True)
-    vp_zone_fields = models.IntegerField(null=True, blank=True)
-    sd_zone_fields = models.IntegerField(null=True, blank=True)
-    vp_field_ha = models.IntegerField(null=True, blank=True)
-    sd_field_ha = models.IntegerField(null=True, blank=True)
+
+    field_ha = models.IntegerField(null=True, blank=True)
+
     num_schemes = models.IntegerField(null=True, blank=True)
     plant_popn = models.IntegerField(null=True, blank=True)
     num_pluckers = models.IntegerField(null=True, blank=True)

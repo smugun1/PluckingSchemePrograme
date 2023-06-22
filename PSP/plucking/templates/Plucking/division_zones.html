@@ -35,10 +35,10 @@
                             <thead>
                             <tr>
                                 <th>Zones</th>
-                                <th>VP Zone Fields</th>
-                                <th>SD Zone Fields</th>
-                                <th>VP Fields Ha</th>
-                                <th>SD Fields Ha</th>
+
+                                <th>Zone Fields</th>
+                                <th>Fields Ha</th>
+
                                 <th>Division Area</th>
                                 <th>Zone Area</th>
                                 <th>Num Schemes</th>
@@ -53,16 +53,16 @@
                             {% for data in divisiondetails %}
                             <tr>
                                 <td>{{ data.zones }}</td>
-                                <td>{{ data.vp_zone_fields }}</td>
-                                <td>{{ data.sd_zone_fields }}</td>
-                                <td>{{ data.vp_field_ha }}</td>
-                                <td>{{ data.sd_field_ha }}</td>
-                                <td>{{ data.division_area }}</td>
-                                <td>{{ data.zone_area }}</td>
-                                <td>{{ data.num_schemes }}</td>
-                                <td>{{ data.plant_popn }}</td>
-                                <td>{{ data.num_pluckers }}</td>
-                                <td>{{ data.made_tea_yield }}</td>
+                                <td>{{ data.zone_fields|floatformat:2 }}</td>
+
+                                <td>{{ data.field_ha|floatformat:2 }}</td>
+
+                                <td>{{ division_area|floatformat:2 }}</td>
+                                <td>{{ zone_area|floatformat:2 }}</td>
+                                <td>{{ num_schemes|floatformat:2 }}</td>
+                                <td>{{ plant_popn|floatformat:0 }}</td>
+                                <td>{{ num_pluckers|floatformat:0 }}</td>
+                                <td>{{ made_tea_yield|floatformat:2 }}</td>
 
                                 <td><a class="btn btn btn-block text-light h2 btn btn-info"
                                        style="background-color: #0000ff;"

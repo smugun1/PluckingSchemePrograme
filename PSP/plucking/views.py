@@ -837,75 +837,76 @@ def AutoFieldsViewRetrieve(request):
     return render(request, 'Plucking/autofields_psp.html', context)
 
 
+Division_data = {
+    'Zone_E': {
+        'Field_No': ['5', '3', '7', '12', '14', '15'],
+        'Leaf_type': ['SD', 'SD', 'VP', 'VP', 'VP'],
+        'Ha': [13.02, 8.27, 14.99, 12.93, 22.60, 10.65],
+        'Days_to_plk': [1, 2, 1, 2, 2, 1],
+        'Prune_age': [2, 2, 1, 0, 3, 4],
+        'Num_of_Schemes': [185, 145, 92, 152, 323, 167],
+        'Growing_days_CF': [1, 2, 1, 2, 1, 0],
+        'Month_day_Jan': [31, 31, 31, 31, 31, 31],
+        'Month_day_Feb': [28, 28, 28, 28, 28, 28],
+        'Month_day_Mar': [31, 31, 31, 31, 31, 31],
+        'Month_day_Apr': [30, 30, 30, 30, 30, 30],
+        'Month_day_May': [31, 31, 31, 31, 31, 31],
+        'Month_day_Jun': [30, 30, 30, 30, 30, 30],
+        'Month_day_Jul': [31, 31, 31, 31, 31, 31],
+        'Month_day_Aug': [31, 31, 31, 31, 31, 31],
+        'Month_day_Sep': [30, 30, 30, 30, 30, 30],
+        'Month_day_Oct': [31, 31, 31, 31, 31, 31],
+        'Month_day_Nov': [30, 30, 30, 30, 30, 30],
+        'Month_day_Dec': [31, 31, 31, 31, 31, 31],
+    },
+    'Zone_F': {
+        'Field_No': ['11', '10', '42', '2', '6', '43'],
+        'Leaf_type': ['SD', 'SD', 'VP', 'SD', 'VP'],
+        'Ha': [16.01, 22.55, 7.51, 7.41, 17.00, 4.6],
+        'Days_to_plk': [2, 3, 1, 1, 2, 1],
+        'Prune_age': [2, 1, 3, 1, 0, 1],
+        'Num_of_Schemes': [178, 251, 107, 106, 189, 66],
+        'Growing_days_CF': [9, 3, 1, 3, 1, 2],
+        'Month_day_Jan': [31, 31, 31, 31, 31, 31],
+        'Month_day_Feb': [28, 28, 28, 28, 28, 28],
+        'Month_day_Mar': [31, 31, 31, 31, 31, 31],
+        'Month_day_Apr': [30, 30, 30, 30, 30, 30],
+        'Month_day_May': [31, 31, 31, 31, 31, 31],
+        'Month_day_Jun': [30, 30, 30, 30, 30, 30],
+        'Month_day_Jul': [31, 31, 31, 31, 31, 31],
+        'Month_day_Aug': [31, 31, 31, 31, 31, 31],
+        'Month_day_Sep': [30, 30, 30, 30, 30, 30],
+        'Month_day_Oct': [31, 31, 31, 31, 31, 31],
+        'Month_day_Nov': [30, 30, 30, 30, 30, 30],
+        'Month_day_Dec': [31, 31, 31, 31, 31, 31],
+    },
+    'Zone_G': {
+        'Field_No': ['8', '1', '44', '13', '9', '4'],
+        'Leaf_type': ['VP', 'SD', 'VP', 'VP', 'SD', 'VP'],
+        'Ha': [9.07, 17.06, 7.19, 14.34, 20.43, 16.36],
+        'Days_to_plk': [1, 2, 1, 1, 2, 2],
+        'Prune_age': [3, 1, 2, 1, 3, 3],
+        'Num_of_Schemes': [130, 190, 71, 113, 158, 165],
+        'Growing_days_CF': [1, 2, 1, 1, 2, 2],
+        'Month_day_Jan': [31, 31, 31, 31, 31, 31],
+        'Month_day_Feb': [28, 28, 28, 28, 28, 28],
+        'Month_day_Mar': [31, 31, 31, 31, 31, 31],
+        'Month_day_Apr': [30, 30, 30, 30, 30, 30],
+        'Month_day_May': [31, 31, 31, 31, 31, 31],
+        'Month_day_Jun': [30, 30, 30, 30, 30, 30],
+        'Month_day_Jul': [31, 31, 31, 31, 31, 31],
+        'Month_day_Aug': [31, 31, 31, 31, 31, 31],
+        'Month_day_Sep': [30, 30, 30, 30, 30, 30],
+        'Month_day_Oct': [31, 31, 31, 31, 31, 31],
+        'Month_day_Nov': [30, 30, 30, 30, 30, 30],
+        'Month_day_Dec': [31, 31, 31, 31, 31, 31],
+
+    },
+}
+data = AutoFields.objects.all()
+
+
 def AutoFieldsViewUpdate(request):
-    data = AutoFields.objects.all()
-    Division_data = {
-        'Zone_E': {
-            'Field_No': ['5', '3', '7', '12', '14', '15'],
-            'Leaf_type': ['SD', 'SD', 'VP', 'VP', 'VP'],
-            'Ha': [13.02, 8.27, 14.99, 12.93, 22.60, 10.65],
-            'Days_to_plk': [1, 2, 1, 2, 2, 1],
-            'Prune_age': [2, 2, 1, 0, 3, 4],
-            'Num_of_Schemes': [185, 145, 92, 152, 323, 167],
-            'Growing_days_CF': [1, 2, 1, 2, 1, 0],
-            'Month_day_Jan': [31, 31, 31, 31, 31, 31],
-            'Month_day_Feb': [28, 28, 28, 28, 28, 28],
-            'Month_day_Mar': [31, 31, 31, 31, 31, 31],
-            'Month_day_Apr': [30, 30, 30, 30, 30, 30],
-            'Month_day_May': [31, 31, 31, 31, 31, 31],
-            'Month_day_Jun': [30, 30, 30, 30, 30, 30],
-            'Month_day_Jul': [31, 31, 31, 31, 31, 31],
-            'Month_day_Aug': [31, 31, 31, 31, 31, 31],
-            'Month_day_Sep': [30, 30, 30, 30, 30, 30],
-            'Month_day_Oct': [31, 31, 31, 31, 31, 31],
-            'Month_day_Nov': [30, 30, 30, 30, 30, 30],
-            'Month_day_Dec': [31, 31, 31, 31, 31, 31],
-        },
-        'Zone_F': {
-            'Field_No': ['11', '10', '42', '2', '6', '43'],
-            'Leaf_type': ['SD', 'SD', 'VP', 'SD', 'VP'],
-            'Ha': [16.01, 22.55, 7.51, 7.41, 17.00, 4.6],
-            'Days_to_plk': [2, 3, 1, 1, 2, 1],
-            'Prune_age': [2, 1, 3, 1, 0, 1],
-            'Num_of_Schemes': [178, 251, 107, 106, 189, 66],
-            'Growing_days_CF': [9, 3, 1, 3, 1, 2],
-            'Month_day_Jan': [31, 31, 31, 31, 31, 31],
-            'Month_day_Feb': [28, 28, 28, 28, 28, 28],
-            'Month_day_Mar': [31, 31, 31, 31, 31, 31],
-            'Month_day_Apr': [30, 30, 30, 30, 30, 30],
-            'Month_day_May': [31, 31, 31, 31, 31, 31],
-            'Month_day_Jun': [30, 30, 30, 30, 30, 30],
-            'Month_day_Jul': [31, 31, 31, 31, 31, 31],
-            'Month_day_Aug': [31, 31, 31, 31, 31, 31],
-            'Month_day_Sep': [30, 30, 30, 30, 30, 30],
-            'Month_day_Oct': [31, 31, 31, 31, 31, 31],
-            'Month_day_Nov': [30, 30, 30, 30, 30, 30],
-            'Month_day_Dec': [31, 31, 31, 31, 31, 31],
-        },
-        'Zone_G': {
-            'Field_No': ['8', '1', '44', '13', '9', '4'],
-            'Leaf_type': ['VP', 'SD', 'VP', 'VP', 'SD', 'VP'],
-            'Ha': [9.07, 17.06, 7.19, 14.34, 20.43, 16.36],
-            'Days_to_plk': [1, 2, 1, 1, 2, 2],
-            'Prune_age': [3, 1, 2, 1, 3, 3],
-            'Num_of_Schemes': [130, 190, 71, 113, 158, 165],
-            'Growing_days_CF': [1, 2, 1, 1, 2, 2],
-            'Month_day_Jan': [31, 31, 31, 31, 31, 31],
-            'Month_day_Feb': [28, 28, 28, 28, 28, 28],
-            'Month_day_Mar': [31, 31, 31, 31, 31, 31],
-            'Month_day_Apr': [30, 30, 30, 30, 30, 30],
-            'Month_day_May': [31, 31, 31, 31, 31, 31],
-            'Month_day_Jun': [30, 30, 30, 30, 30, 30],
-            'Month_day_Jul': [31, 31, 31, 31, 31, 31],
-            'Month_day_Aug': [31, 31, 31, 31, 31, 31],
-            'Month_day_Sep': [30, 30, 30, 30, 30, 30],
-            'Month_day_Oct': [31, 31, 31, 31, 31, 31],
-            'Month_day_Nov': [30, 30, 30, 30, 30, 30],
-            'Month_day_Dec': [31, 31, 31, 31, 31, 31],
-
-        },
-    }
-
     if data:
         zone = data[0].Zone
     else:
@@ -1280,6 +1281,23 @@ def GrowingCycleDelete(request, pk):
 
 def DivisionZonesViewRetrieve(request):
     data = DivisionDetails.objects.all()
+    division_data = {
+        'zone_E': {
+            'zone_fields': ['5', '3', '7', '12', '14', '15'],
+            'leaf_type': ['SD', 'SD', 'VP', 'VP', 'VP'],
+            'field_ha': [13.02, 8.27, 14.99, 12.93, 22.60, 10.65],
+        },
+        'zone_F': {
+            'zone_fields': ['11', '10', '42', '2', '6', '43'],
+            'leaf_type': ['SD', 'SD', 'VP', 'SD', 'VP'],
+            'field_ha': [16.01, 22.55, 7.51, 7.41, 17.00, 4.6],
+        },
+        'zone_G': {
+            'zone_fields': ['8', '1', '44', '13', '9', '4'],
+            'leaf_type': ['VP', 'SD', 'VP', 'VP', 'SD', 'VP'],
+            'field_ha': [9.07, 17.06, 7.19, 14.34, 20.43, 16.36],
+        },
+    }
 
     field_spacing = {
         'vp 4x2.5': 0.9290304,
@@ -1305,40 +1323,35 @@ def DivisionZonesViewRetrieve(request):
     pluckers_supervised = 90
     vp_percent = 40
     sd_percent = 60
+    division_area = sum(
+        division_data['zone_E']['field_ha'] + division_data['zone_F']['field_ha'] + division_data['zone_G']['field_ha'])
 
     # Fetch existing DivisionDetails object
     division_details = DivisionDetails.objects.first()
 
     # Initialize empty lists and dictionaries
     zones = []
-    vp_field_ha = []
-    sd_field_ha = []
-    vp_zone_fields = {}
-    sd_zone_fields = {}
+    field_ha = []
+    zone_fields = {}
 
     # Retrieve data from DivisionDetails model and populate the lists and dictionaries
     for division in DivisionDetails.objects.all():
         zones.append(division.zones)
-        vp_field_ha.append(division.vp_zone_field)
-        sd_field_ha.append(division.sd_zone_field)
+        field_ha.append(division.zone_field)
 
-    for item in DivisionDetails.objects.values('zone_field').annotate(sum_vp_zone_fields=Sum('vp_zone_field')):
-        vp_zone_fields[item['zone_field']] = item['sum_vp_zone_fields']
-
-    for item in DivisionDetails.objects.values('zone_field').annotate(sum_sd_zone_fields=Sum('sd_zone_field')):
-        sd_zone_fields[item['zone_field']] = item['sum_sd_zone_fields']
+    for item in DivisionDetails.objects.values('zone_field').annotate(sum_zone_fields=Sum('zone_field')):
+        zone_fields[item['zone_field']] = item['sum_zone_fields']
 
     # Calculations on plucking parameters
     division_area = DivisionDetails.objects.aggregate(sum_zones=Sum('zones'))['sum_zones']
 
-    zone_area = 0  # Initialize zone_area with a default value
-
     if division_area is not None and division_area != 0:
         vp_area = division_area * (vp_percent / 100)
         sd_area = division_area * (sd_percent / 100)
-        zone_area = sum(zones) if zones else 0
+        zone_area = division_area / ((vp_area / 50) + (sd_area / 72))
+        zones = sum(zones) if zones else 0
         vp_schemes = vp_area / vp_area_plucked_day
-        sd_schemes = vp_area / sd_area_plucked_day
+        sd_schemes = sd_area / sd_area_plucked_day
         num_zones = (vp_area / vp_area_plucked_day) + (sd_area / sd_area_plucked_day)
         num_schemes = division_area * (vp_area / vp_area_plucked_day + sd_area / sd_area_plucked_day)
     else:
@@ -1348,18 +1361,19 @@ def DivisionZonesViewRetrieve(request):
         sd_schemes = 0
         num_zones = 0
         num_schemes = 0
+        zone_area = 0
 
     vp_ha = DivisionDetails.objects.aggregate(sum_vp_area_supervised_ha=Coalesce(Sum('vp_area_supervised_ha'), 0))[
         'sum_vp_area_supervised_ha']
     sd_ha = DivisionDetails.objects.aggregate(sum_sd_area_supervised_ha=Coalesce(Sum('sd_area_supervised_ha'), 0))[
         'sum_sd_area_supervised_ha']
-    vp_ha = DivisionDetails.objects.aggregate(sum_vp_field_ha=Coalesce(Sum('vp_field_ha'), 0))['sum_vp_field_ha']
+    vp_ha = DivisionDetails.objects.aggregate(sum_field_ha=Coalesce(Sum('field_ha'), 0))['sum_field_ha']
     if vp_ha is not None:
         vp_plant_popn = vp_ha * field_spacing['vp 4x2.5']
     else:
         vp_plant_popn = 0.0
 
-    sd_ha = DivisionDetails.objects.aggregate(sum_sd_field_ha=Coalesce(Sum('sd_field_ha'), 0))['sum_sd_field_ha']
+    sd_ha = DivisionDetails.objects.aggregate(sum_field_ha=Coalesce(Sum('field_ha'), 0))['sum_field_ha']
     if sd_ha is not None:
         sd_plant_popn = sd_ha * field_spacing['sd 5X3']
     else:
@@ -1384,11 +1398,12 @@ def DivisionZonesViewRetrieve(request):
 
     context = {
         "divisiondetails": data,
+        "division_data": division_data,
         "zones": zones,
-        "vp_zone_fields": vp_zone_fields,
-        "sd_zone_fields": sd_zone_fields,
-        "vp_field_ha": vp_field_ha,
-        "sd_field_ha": sd_field_ha,
+        "zone_fields": zone_fields,
+
+        "field_ha": field_ha,
+
         "division_area": division_area,
         "zone_area": zone_area,
         "num_schemes": num_schemes,
@@ -1402,6 +1417,23 @@ def DivisionZonesViewRetrieve(request):
 
 def DivisionZonesViewUpdate(request):
     if request.method == 'POST':
+        division_data = {
+            'zone_E': {
+                'zone_fields': ['5', '3', '7', '12', '14', '15'],
+                'leaf_type': ['SD', 'SD', 'VP', 'VP', 'VP'],
+                'field_ha': [13.02, 8.27, 14.99, 12.93, 22.60, 10.65],
+            },
+            'zone_F': {
+                'zone_fields': ['11', '10', '42', '2', '6', '43'],
+                'leaf_type': ['SD', 'SD', 'VP', 'SD', 'VP'],
+                'field_ha': [16.01, 22.55, 7.51, 7.41, 17.00, 4.6],
+            },
+            'zone_G': {
+                'zone_fields': ['8', '1', '44', '13', '9', '4'],
+                'leaf_type': ['VP', 'SD', 'VP', 'VP', 'SD', 'VP'],
+                'field_ha': [9.07, 17.06, 7.19, 14.34, 20.43, 16.36],
+            },
+        }
         field_spacing = {
             'vp 4x2.5': 0.9290304,
             'sd 5X3': 1.3935456,
@@ -1426,30 +1458,31 @@ def DivisionZonesViewUpdate(request):
         pluckers_supervised = 90
         vp_percent = 40
         sd_percent = 60
-        division_area = 242
+        zone_E_area = sum(division_data['zone_E']['field_ha'])
+        zone_F_area = sum(division_data['zone_F']['field_ha'])
+        zone_G_area = sum(division_data['zone_G']['field_ha'])
+        division_area = sum(
+            division_data['zone_E']['field_ha'] + division_data['zone_F']['field_ha'] + division_data['zone_G'][
+                'field_ha'])
 
         # Initialize empty lists and dictionaries
         zones = []
-        vp_field_ha = []
-        sd_field_ha = []
-        vp_zone_fields = {}
-        sd_zone_fields = {}
+        field_ha = []
+
+        zone_fields = {}
 
         # Retrieve data from DivisionDetails model and populate the lists and dictionaries
         for division in DivisionDetails.objects.all():
             zones.append(division.zones)
-            vp_field_ha.append(division.vp_zone_field)
-            sd_field_ha.append(division.sd_zone_field)
+            field_ha.append(division.zone_field)
 
-        for item in DivisionDetails.objects.values('zone_field').annotate(sum_vp_zone_fields=Sum('vp_zone_field')):
-            vp_zone_fields[item['zone_field']] = item['sum_vp_zone_fields']
-
-        for item in DivisionDetails.objects.values('zone_field').annotate(sum_sd_zone_fields=Sum('sd_zone_field')):
-            sd_zone_fields[item['zone_field']] = item['sum_sd_zone_fields']
+        for item in DivisionDetails.objects.values('zone_field').annotate(sum_zone_fields=Sum('zone_field')):
+            zone_fields[item['zone_field']] = item['sum_zone_fields']
 
         # Calculations on plucking parameters
         vp_area = division_area * (vp_percent / 100)
         sd_area = division_area * (sd_percent / 100)
+        zone_area = division_area / ((vp_area / 50) + (sd_area / 72))
         # Initialize empty list to store valid zone values
         valid_zones = []
 
@@ -1459,19 +1492,19 @@ def DivisionZonesViewUpdate(request):
                 valid_zones.append(zone)
 
         # Calculate the zone_area using the filtered list
-        zone_area = sum(valid_zones) if valid_zones else 0
+        zones = sum(valid_zones) if valid_zones else 0
         vp_schemes = vp_area / vp_area_plucked_day
-        sd_schemes = vp_area / sd_area_plucked_day
+        sd_schemes = sd_area / sd_area_plucked_day
         num_zones = (vp_area / vp_area_plucked_day) + (sd_area / sd_area_plucked_day)
         num_schemes = division_area * (vp_area / vp_area_plucked_day + sd_area / sd_area_plucked_day)
         vp_ha = DivisionDetails.objects.aggregate(sum_vp_area_supervised_ha=Coalesce(Sum('vp_area_supervised_ha'), 0))[
             'sum_vp_area_supervised_ha']
         sd_ha = DivisionDetails.objects.aggregate(sum_sd_area_supervised_ha=Coalesce(Sum('sd_area_supervised_ha'), 0))[
             'sum_sd_area_supervised_ha']
-        vp_ha = DivisionDetails.objects.aggregate(sum_vp_field_ha=Coalesce(Sum('vp_field_ha'), 0))['sum_vp_field_ha']
-        vp_plant_popn = vp_ha * field_spacing['vp 4x2.5'] if vp_ha is not None else 0.0
-        sd_ha = DivisionDetails.objects.aggregate(sum_sd_field_ha=Coalesce(Sum('sd_field_ha'), 0))['sum_sd_field_ha']
-        sd_plant_popn = sd_ha * field_spacing['sd 5X3'] if sd_ha is not None else 0.0
+        ha = DivisionDetails.objects.aggregate(sum_field_ha=Coalesce(Sum('field_ha'), 0))['sum_field_ha']
+        vp_plant_popn = vp_ha * field_spacing['vp 4x2.5'] * 10000 if vp_ha is not None else 0.0
+
+        sd_plant_popn = sd_ha * field_spacing['sd 5X3'] * 10000 if sd_ha is not None else 0.0
         plant_popn = vp_plant_popn + sd_plant_popn
         vp_pluckers_block = block / vp_area_plucked_day
         sd_pluckers_block = block / sd_area_plucked_day
@@ -1482,16 +1515,29 @@ def DivisionZonesViewUpdate(request):
 
         context = {
             "zones": zones,
-            "vp_zone_fields": vp_zone_fields,
-            "sd_zone_fields": sd_zone_fields,
-            "vp_field_ha": vp_field_ha,
-            "sd_field_ha": sd_field_ha,
+            "zone_fields": zone_fields,
+            "field_ha": field_ha,
             "division_area": division_area,
+            "zone_E_area": zone_E_area,
+            "zone_F_area": zone_F_area,
+            "zone_G_area": zone_G_area,
             "zone_area": zone_area,
             "num_schemes": num_schemes,
+            "result": result,
             "plant_popn": plant_popn,
             "num_pluckers": num_pluckers,
             "made_tea_yield": made_tea_yield,
+            "greenleaf_bag_kg": greenleaf_bag_kg,
+            "plucking_basket_kg": plucking_basket_kg,
+            "vp_area_supervised_ha": vp_area_supervised_ha,
+            "sd_area_supervised_ha": sd_area_supervised_ha,
+            "pluckers_supervised": pluckers_supervised,
+            "vp_schemes": vp_schemes,
+            "sd_schemes": sd_schemes,
+            "num_zones": num_zones,
+            "ha": ha,
+            "vp_zone_area_plucked_day": vp_zone_area_plucked_day,
+            "sd_zone_area_plucked_day": sd_zone_area_plucked_day,
         }
         # Redirect to a success page or render a template
         # return redirect('/division-zones', context)
@@ -1502,11 +1548,11 @@ def DivisionZonesViewUpdate(request):
 
 def DivisionZonesViewCreate(request):
     if request.method == "POST":
-        zones = int(request.POST.get('zones'))
-        vp_zone_fields = float(request.POST.get('vp_zone_fields'))
-        sd_zone_fields = float(request.POST.get('sd_zone_fields'))
-        vp_field_ha = float(request.POST.get('vp_field_ha'))
-        sd_field_ha = float(request.POST.get('sd_field_ha'))
+        zones = request.POST.get('zones')
+        zone_fields = float(request.POST.get('zone_fields'))
+
+        field_ha = float(request.POST.get('field_ha'))
+
         division_area = float(request.POST.get('division_area'))
         zone_area = float(request.POST.get('zone_area'))
         num_schemes = float(request.POST.get('num_schemes'))
@@ -1518,10 +1564,10 @@ def DivisionZonesViewCreate(request):
 
         insert = DivisionDetails.objects.create(
             zones=zones,
-            vp_zone_fields=vp_zone_fields,
-            sd_zone_fields=sd_zone_fields,
-            vp_field_ha=vp_field_ha,
-            sd_field_ha=sd_field_ha,
+            zone_fields=zone_fields,
+
+            field_ha=field_ha,
+
             division_area=division_area,
             zone_area=zone_area,
             num_schemes=num_schemes,
@@ -1531,8 +1577,6 @@ def DivisionZonesViewCreate(request):
         )
 
         return redirect('/division-zones')
-
-    return render(request, 'Plucking/division_zones_create.html')
 
 
 def DivisionZonesViewInspect(request):

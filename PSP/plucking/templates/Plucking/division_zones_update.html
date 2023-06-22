@@ -33,24 +33,16 @@
 
 
                             <div class="form-group">
-                                <label for="vp_zone_fields"><h2>vp_zone_fields:</h2></label>
-                                <input type="number" name="vp_zone_fields" value="{{ vp_zone_fields }}" required>
+                                <label for="zone_fields"><h2>zone_fields:</h2></label>
+                                <input type="number" name="zone_fields" value="{{ zone_fields }}" required>
                             </div>
 
-                            <div class="form-group">
-                                <label for="sd_zone_fields"><h2>sd_zone_fields:</h2></label>
-                                <input type="number" name="sd_zone_fields" value="{{ sd_zone_fields }}" required>
-                            </div>
 
                             <div class="form-group">
-                                <label for="vp_field_ha"><h2>vp_field_ha:</h2></label>
-                                <input type="number" name="vp_field_ha" value="{{ vp_field_ha }}" required>
+                                <label for="field_ha"><h2>field_ha:</h2></label>
+                                <input type="number" name="field_ha" value="{{ field_ha }}" required>
                             </div>
 
-                            <div class="form-group">
-                                <label for="sd_field_ha"><h2>sd_field_ha:</h2></label>
-                                <input type="number" name="sd_field_ha" value="{{ sd_field_ha }}" required>
-                            </div>
 
                             <div class="form-group">
                                 <label for="division_area"><h2>division_area:</h2></label>
@@ -81,7 +73,8 @@
                                 <input type="number" name="made_tea_yield" value="{{ made_tea_yield }}" required>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary btn btn-info sm-block btn h2 btn-info text-light"
+                                   style="background-color: #fff00;">Add</button>
                         </form>
                         <form method="post">
                                 {% csrf_token %}
@@ -101,7 +94,7 @@
                                                     <input type="text" name="zones[]" value="{{ division.zones }}" required>
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="vp_zone_fields[{{ division.id }}]" value="{{ division.vp_zone_field }}" required>
+                                                    <input type="number" name="zone_fields[{{ division.id }}]" value="{{ division.vp_zone_field }}" required>
                                                 </td>
                                                 <td>
                                                     <input type="number" name="sd_zone_fields[{{ division.id }}]" value="{{ division.sd_zone_field }}" required>
@@ -111,7 +104,8 @@
                                     </tbody>
                                 </table>
 
-                                <button type="submit">Update</button>
+                                <button type="submit" class="text-light h2 btn btn-info"
+                                   style="background-color: #0000ff;">Update</button>
                             </form>
                     </div>
                 </div>

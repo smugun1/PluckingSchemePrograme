@@ -22,7 +22,8 @@
                         <form method="POST">
                             {% csrf_token %}
                             <!-- Include your form fields here -->
-                            <input type="submit" value="Submit">
+                            <input type="submit" class="text-light h2 btn btn-info"
+                                       style="background-color: #0000ff;" value="Submit">
 
                             {% if zones %}
                             <h2>Zones:</h2>
@@ -52,11 +53,32 @@
                             {% endif %}
 
                             <h2>Division Area: {{ division_area|floatformat:2 }}</h2>
-                            <h2>Zone Area: {{ zone_area|floatformat:2 }}</h2>
+                            <h2>Ideal Zone Area: {{ zone_area|floatformat:2 }}</h2>
                             <h2>Number of Schemes: {{ num_schemes|floatformat:2 }}</h2>
                             <h2>Plant Population: {{ plant_popn|floatformat:0 }}</h2>
                             <h2>Number of Pluckers: {{ num_pluckers|floatformat:0 }}</h2>
                             <h2>Made Tea Yield: {{ made_tea_yield|floatformat:2 }}</h2>
+                            <h2>Zones:{{ zones }}</h2>
+                            <h2>Zone_fields:{{ zone_fields|floatformat:2 }}</h2>
+                            <h2>field_ha:{{ field_ha|floatformat:2|floatformat:2 }}</h2>
+                            <h2>Division_area:{{ division_area|floatformat:2 }}</h2>
+                            <h2>Zone_E_area:{{ zone_E_area|floatformat:2 }}</h2>
+                            <h2>Zone_F_area:{{ zone_F_area|floatformat:2 }}</h2>
+                            <h2>Zone_G_area:{{ zone_G_area|floatformat:2 }}</h2>
+                            <h2>Number of schemes:{{ num_schemes|floatformat:2 }}</h2>
+                            <h2>Result:{{ result }}</h2>
+                            <h2>Plant_popn:{{ plant_popn|floatformat:2 }}</h2>
+                            <h2>Number of pluckers:{{ num_pluckers|floatformat:0 }}</h2>
+                            <h2>Made_tea_yield:{{ made_tea_yield|floatformat:2}}</h2>
+                            <h2>Greenleaf_bag_kg:{{ greenleaf_bag_kg|floatformat:2 }}</h2>
+                            <h2>plucking_basket_kg:{{ plucking_basket_kg|floatformat:2 }}</h2>
+                            <h2>vp_area_supervised_ha:{{ vp_area_supervised_ha|floatformat:2 }}</h2>
+                            <h2>sd_area_supervised_ha:{{ sd_area_supervised_ha|floatformat:2 }}</h2>
+                            <h2>Pluckers_supervised:{{ pluckers_supervised }}</h2>
+                            <h2>VP_schemes:{{ vp_schemes|floatformat:2 }}</h2>
+                            <h2>SP_schemes:{{ sd_schemes|floatformat:2 }}</h2>
+                            <h2>Number of zones:{{ num_zones|floatformat:2 }}</h2>
+                            <h2>Hectares:{{ ha|floatformat:2 }}</h2>
                         </form>
 
                     </div>
